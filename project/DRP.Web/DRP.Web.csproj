@@ -97,6 +97,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\DrpServManage\Views\Customer\Details.cshtml" />
+    <Content Include="Areas\DrpServManage\Views\Customer\Form.cshtml" />
+    <Content Include="Areas\DrpServManage\Views\Customer\Index.cshtml" />
+    <Content Include="Areas\DrpServManage\Views\Web.config" />
     <Content Include="Content\css\framework-about.css" />
     <Content Include="Content\css\framework-font.css" />
     <Content Include="Content\css\framework-theme.css" />
@@ -336,6 +340,8 @@
     <Compile Include="App_Start\01 Handler\HandlerLoginAttribute.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\DrpServManage\Controllers\CustomerController.cs" />
+    <Compile Include="Areas\DrpServManage\DrpServManageAreaRegistration.cs" />
     <Compile Include="Areas\ExampleManage\Controllers\BarCodeController.cs" />
     <Compile Include="Areas\ExampleManage\Controllers\PrintController.cs" />
     <Compile Include="Areas\ExampleManage\Controllers\SendMailController.cs" />

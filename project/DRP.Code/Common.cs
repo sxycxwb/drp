@@ -74,11 +74,11 @@ namespace DRP.Code
         /// 自动生成编号  201008251145409865
         /// </summary>
         /// <returns></returns>
-        public static string CreateNo()
+        public static string CreateNo(string timeFormat= "yyyyMMddHHmmss")
         {
             Random random = new Random();
             string strRandom = random.Next(1000, 10000).ToString(); //生成编号 
-            string code = DateTime.Now.ToString("yyyyMMddHHmmss") + strRandom;//形如
+            string code = DateTime.Now.ToString(timeFormat) + strRandom;//形如
             return code;
         }
         #endregion
