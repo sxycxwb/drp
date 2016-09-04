@@ -1,8 +1,8 @@
 ﻿/*******************************************************************************
  * Copyright © 2016 DRP.Framework 版权所有
- * Author: DRP
- * Description: DRP快速开发平台
- * Website：http://www.DRP.cn
+ * Author: XuWangbin
+ * Description: 计费运营系统
+ * Website：
 *********************************************************************************/
 using DRP.Application.SystemSecurity;
 using DRP.Code;

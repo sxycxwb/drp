@@ -62,40 +62,13 @@
         <div style="padding-top: 20px; margin-right: 30px;">
             <table class="form">
                 <tr>
-                    <th class="formTitle">账户</th>
+                    <th class="formTitle">登录名</th>
                     <td class="formValue">
                         <input id="F_Account" name="F_Account" type="text" class="form-control required" placeholder="请输入账户" />
                     </td>
                     <th class="formTitle">密码</th>
                     <td class="formValue">
                         <input id="F_UserPassword" name="F_UserPassword" type="password" class="form-control required" placeholder="请输入密码" />
-                    </td>
-                </tr>
-                <tr>
-                    <th class="formTitle">公司</th>
-                    <td class="formValue">
-                        <select id="F_OrganizeId" name="F_OrganizeId" class="form-control required">
-                        </select>
-                    </td>
-                    <th class="formTitle">部门</th>
-                    <td class="formValue">
-                        <select id="F_DepartmentId" name="F_DepartmentId" class="form-control required">
-                            <option value="">==请选择==</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <th class="formTitle">角色</th>
-                    <td class="formValue">
-                        <select id="F_RoleId" name="F_RoleId" class="form-control required">
-                            <option value="">==请选择==</option>
-                        </select>
-                    </td>
-                    <th class="formTitle">岗位</th>
-                    <td class="formValue">
-                        <select id="F_DutyId" name="F_DutyId" class="form-control required">
-                            <option value="">==请选择==</option>
-                        </select>
                     </td>
                 </tr>
                 <tr>
@@ -112,9 +85,11 @@
                     </td>
                 </tr>
                 <tr>
-                    <th class="formTitle">手机</th>
+                    <th class="formTitle">角色</th>
                     <td class="formValue">
-                        <input id="F_MobilePhone" name="F_MobilePhone" type="text" class="form-control" />
+                        <select id="F_RoleId" name="F_RoleId" class="form-control required">
+                            <option value="">==请选择==</option>
+                        </select>
                     </td>
                     <th class="formTitle">生日</th>
                     <td class="formValue">
@@ -122,22 +97,19 @@
                     </td>
                 </tr>
                 <tr>
-                    <th class="formTitle">微信</th>
+                    <th class="formTitle">联系人姓名</th>
                     <td class="formValue">
-                        <input id="F_WeChat" name="F_WeChat" type="text" class="form-control" />
+                        <input id="F_LinkPerson" name="F_LinkPerson" type="text" class="form-control" />
                     </td>
-                    <th class="formTitle">邮箱</th>
+                    <th class="formTitle">联系人电话</th>
                     <td class="formValue">
-                        <input id="F_Email" name="F_Email" type="text" class="form-control" />
+                        <input id="F_MobilePhone" name="F_MobilePhone" type="text" class="form-control" />
                     </td>
                 </tr>
                 <tr>
-                    <th class="formTitle">类型</th>
+                    <th class="formTitle">联系人邮箱</th>
                     <td class="formValue">
-                        <select id="F_IsAdministrator" name="F_IsAdministrator" class="form-control">
-                            <option value="false">普通用户</option>
-                            <option value="true">系统管理员</option>
-                        </select>
+                        <input id="F_Email" name="F_Email" type="text" class="form-control email" />
                     </td>
                     <th class="formTitle">允许登录</th>
                     <td class="formValue">

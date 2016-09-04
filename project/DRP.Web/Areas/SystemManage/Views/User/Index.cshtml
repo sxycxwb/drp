@@ -13,8 +13,15 @@
             height: $(window).height() - 128,
             colModel: [
                 { label: '主键', name: 'F_Id', hidden: true },
-                { label: '账户', name: 'F_Account', width: 80, align: 'left' },
-                { label: '姓名', name: 'F_RealName', width: 80, align: 'left' },
+                { label: '用户名称', name: 'F_RealName', width: 120, align: 'left' },
+                { label: '登录名', name: 'F_Account', width: 100, align: 'left' },
+                {
+                    label: '角色', name: 'F_RoleId', width: 100, align: 'left',
+                    formatter: function (cellvalue, options, rowObject) {
+                        return top.clients.role[cellvalue] == null ? "" : top.clients.role[cellvalue].fullname;
+                }
+               
+                },
                 {
                     label: '性别', name: 'F_Gender', width: 60, align: 'center',
                     formatter: function (cellvalue, options, rowObject) {
@@ -25,31 +32,14 @@
                         }
                     }
                 },
-                { label: '手机', name: 'F_MobilePhone', width: 80, align: 'left' },
-                {
-                    label: '公司', name: 'F_OrganizeId', width: 150, align: 'left',
-                    formatter: function (cellvalue, options, rowObject) {
-                        return top.clients.organize[cellvalue] == null ? "" : top.clients.organize[cellvalue].fullname;
-                    }
-                },
-                {
-                    label: '部门', name: 'F_DepartmentId', width: 80, align: 'left',
-                    formatter: function (cellvalue, options, rowObject) {
-                        return top.clients.organize[cellvalue] == null ? "" : top.clients.organize[cellvalue].fullname;
-                    }
-                },
-                {
-                    label: '岗位', name: 'F_DutyId', width: 80, align: 'left',
-                    formatter: function (cellvalue, options, rowObject) {
-                        return top.clients.duty[cellvalue] == null ? "" : top.clients.duty[cellvalue].fullname;
-                    }
-                },
+                { label: '联系电话', name: 'F_MobilePhone', width: 90, align: 'left' },
+
                 {
                     label: '创建时间', name: 'F_CreatorTime', width: 80, align: 'left',
                     formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
                 },
                 {
-                    label: "允许登录", name: "F_EnabledMark", width: 60, align: "center",
+                    label: "允许登录", name: "F_EnabledMark", width: 80, align: "center",
                     formatter: function (cellvalue, options, rowObject) {
                         if (cellvalue == 1) {
                             return '<span class=\"label label-success\">正常</span>';
@@ -58,7 +48,8 @@
                         }
                     }
                 },
-                { label: '备注', name: 'F_Description', width: 200, align: 'left' }
+                { label: '余额', name: '', width: 100, align: 'left' },
+                { label: '透支额度', name: '', width: 100, align: 'left' }
             ],
             pager: "#gridPager",
             sortname: 'F_DepartmentId asc,F_CreatorTime desc',
@@ -159,7 +150,6 @@
         });
     }
 </script>
-
 <div class="topPanel">
     <div class="toolbar">
         <div class="btn-group">
