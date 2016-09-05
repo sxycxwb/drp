@@ -23,22 +23,22 @@
         $("#F_Gender").bindSelect()
         $("#F_IsAdministrator").bindSelect()
         $("#F_EnabledMark").bindSelect()
-        $("#F_OrganizeId").bindSelect({
-            url: "/SystemManage/Organize/GetTreeSelectJson"
-        });
-        $("#F_DepartmentId").bindSelect({
-            url: "/SystemManage/Organize/GetTreeSelectJson",
-        });
+        //$("#F_OrganizeId").bindSelect({
+        //    url: "/SystemManage/Organize/GetTreeSelectJson"
+        //});
+        //$("#F_DepartmentId").bindSelect({
+        //    url: "/SystemManage/Organize/GetTreeSelectJson",
+        //});
         $("#F_RoleId").bindSelect({
             url: "/SystemManage/Role/GetGridJson",
             id: "F_Id",
             text: "F_FullName"
         });
-        $("#F_DutyId").bindSelect({
-            url: "/SystemManage/Duty/GetGridJson",
-            id: "F_Id",
-            text: "F_FullName"
-        });
+        //$("#F_DutyId").bindSelect({
+        //    url: "/SystemManage/Duty/GetGridJson",
+        //    id: "F_Id",
+        //    text: "F_FullName"
+        //});
     }
     function submitForm() {
         if (!$('#form1').formValid()) {

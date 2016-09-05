@@ -56,60 +56,47 @@
 <form id="form1">
     <div style="margin-top: 10px; margin-left: 10px; margin-right: 10px;">
         <ul class="nav nav-tabs">
-            <li class="active"><a href="#">基本信息</a></li>
+            <li class="active"><a href="#">账户基本信息</a></li>
             @*<li ><a href="#">扩展信息</a></li>*@
         </ul>
         <div style="padding-top: 20px; margin-right: 30px;">
             <table class="form">
                 <tr>
-                    <th class="formTitle">登录名</th>
+                    <th class="formTitle"><span class="required-span">*</span>公司名称</th>
                     <td class="formValue">
-                        <input id="F_Account" name="F_Account" type="text" class="form-control required" placeholder="请输入账户" />
+                        <input id="F_CompanyName" name="F_CompanyName" type="text" class="form-control required" placeholder="请输入公司名称" />
                     </td>
-                    <th class="formTitle">密码</th>
+                    <th class="formTitle"><span class="required-span">*</span>所属人</th>
                     <td class="formValue">
-                        <input id="F_UserPassword" name="F_UserPassword" type="password" class="form-control required" placeholder="请输入密码" />
-                    </td>
-                </tr>
-                <tr>
-                    <th class="formTitle">姓名</th>
-                    <td class="formValue">
-                        <input id="F_RealName" name="F_RealName" type="text" class="form-control required" placeholder="请输入姓名" />
-                    </td>
-                    <th class="formTitle">性别</th>
-                    <td class="formValue">
-                        <select id="F_Gender" name="F_Gender" class="form-control required">
-                            <option value="true">男</option>
-                            <option value="false">女</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <th class="formTitle">角色</th>
-                    <td class="formValue">
-                        <select id="F_RoleId" name="F_RoleId" class="form-control required">
+                        <select id="F_BelongPersonId" name="F_BelongPersonId" class="form-control required">
                             <option value="">==请选择==</option>
                         </select>
                     </td>
-                    <th class="formTitle">生日</th>
+                </tr>
+                <tr>
+                    <th class="formTitle"><span class="required-span">*</span>账户名称</th>
                     <td class="formValue">
-                        <input id="F_Birthday" name="F_Birthday" type="text" class="form-control input-wdatepicker" onfocus="WdatePicker()" />
+                        <input id="F_Account" name="F_Account" type="text" class="form-control required" placeholder="请输入账户名称" />
+                    </td>
+                    <th class="formTitle"><span class="required-span">*</span>密码</th>
+                    <td class="formValue">
+                        <input id="F_Password" name="F_Password" type="password" class="form-control required" placeholder="请输入密码" />
                     </td>
                 </tr>
                 <tr>
-                    <th class="formTitle">联系人姓名</th>
+                    <th class="formTitle"><span class="required-span">*</span>联系人姓名</th>
                     <td class="formValue">
-                        <input id="F_LinkPerson" name="F_LinkPerson" type="text" class="form-control" />
+                        <input id="F_LinkPerson" name="F_LinkPerson" type="text" class="form-control required" placeholder="请输入联系人姓名"/>
                     </td>
-                    <th class="formTitle">联系人电话</th>
+                    <th class="formTitle"><span class="required-span">*</span>联系人电话</th>
                     <td class="formValue">
-                        <input id="F_MobilePhone" name="F_MobilePhone" type="text" class="form-control" />
+                        <input id="F_MobilePhone" name="F_MobilePhone" type="text" class="form-control required" placeholder="请输入联系人电话"/>
                     </td>
                 </tr>
                 <tr>
-                    <th class="formTitle">联系人邮箱</th>
+                    <th class="formTitle"><span class="required-span">*</span>联系人邮箱</th>
                     <td class="formValue">
-                        <input id="F_Email" name="F_Email" type="text" class="form-control email" />
+                        <input id="F_Email" name="F_Email" type="text" class="form-control required email" placeholder="请输入联系人邮箱" />
                     </td>
                     <th class="formTitle">允许登录</th>
                     <td class="formValue">
@@ -120,7 +107,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th class="formTitle" valign="top" style="padding-top: 5px;">备注
+                    <th class="formTitle" valign="top" style="padding-top: 5px;">公司简介
                     </th>
                     <td class="formValue" colspan="3">
                         <textarea id="F_Description" name="F_Description" class="form-control" style="height: 60px;"></textarea>

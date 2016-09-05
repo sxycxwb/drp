@@ -2,6 +2,7 @@
 <html style="overflow: hidden;">
 <head>
     <title>计费运营系统</title>
+    <link rel="shortcut icon" href="~/Content/img/favicon.ico">
     <link href="~/Content/css/framework-font.css" rel="stylesheet" />
     <script src="~/Content/js/jquery/jquery-2.1.1.min.js"></script>
     <script src="~/Content/js/bootstrap/bootstrap.js"></script>
@@ -43,7 +44,7 @@
                                     </form>
                                 </div>
                             </li>
-                            <li class="dropdown hidden-xs">
+                            @*<li class="dropdown hidden-xs">
                                 <a class="btn dropdown-toggle" data-toggle="dropdown">
                                     <i class="fa fa-tasks"></i>
                                     <span class="count">5</span>
@@ -61,7 +62,7 @@
                                     <i class="fa fa-envelope-o"></i>
                                     <span class="count">16</span>
                                 </a>
-                            </li>
+                            </li>*@
                             <li class="dropdown profile-dropdown">
                                 <a href="#" class="dropdown" data-toggle="dropdown">
                                     <img src="~/Content/img/samples/portrait.jpg" alt="" />
@@ -69,9 +70,9 @@
                                 </a>
                                 <ul class="dropdown-menu pull-right">
                                     <li><a class="menuItem" data-id="userInfo" href="/SystemManage/User/Info"><i class="fa fa-user"></i>个人信息</a></li>
-                                    <li><a href="javascript:void();"><i class="fa fa-inbox"></i>我的信箱</a></li>
+                                    @*<li><a href="javascript:void();"><i class="fa fa-inbox"></i>我的信箱</a></li>*@
                                     <li><a href="javascript:void();" onclick="layer.msg('浏览器缓存清除成功');"><i class="fa fa-trash-o"></i>清空缓存</a></li>
-                                    <li><a href="javascript:void();"><i class="fa fa-paint-brush"></i>皮肤设置</a></li>
+                                    @*<li><a href="javascript:void();"><i class="fa fa-paint-brush"></i>皮肤设置</a></li>*@
                                     <li class="divider"></li>
                                     <li><a href="~/Login/OutLogin"><i class="ace-icon fa fa-power-off"></i>安全退出</a></li>
                                 </ul>
@@ -96,7 +97,7 @@
                             </div>
                             <div class="collapse navbar-collapse navbar-ex1-collapse" id="sidebar-nav">
                                 <ul class="nav nav-pills nav-stacked">
-                                    <li class="nav-header hidden-sm hidden-xs">常用菜单
+                                    @*<li class="nav-header hidden-sm hidden-xs">常用菜单
                                         <i class="fa fa-gear" style="color: #868b98; font-size: 12px; margin-top: -6px; position: absolute; right: 23px; top: 50%; cursor: pointer;"></i>
                                     </li>
                                     <li class="common">
@@ -122,7 +123,7 @@
                                             <i class="fa fa-star-o"></i>
                                             <span>客户</span>
                                         </a>
-                                    </li>
+                                    </li>*@
                                 </ul>
                             </div>
                         </div>

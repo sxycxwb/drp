@@ -114,6 +114,7 @@
     <Content Include="Content\img\alipayimg.png" />
     <Content Include="Content\img\button_pm_close.png" />
     <Content Include="Content\img\cy-reward-title-bg.jpg" />
+    <Content Include="Content\img\favicon.ico" />
     <Content Include="Content\img\loading.gif" />
     <Content Include="Content\img\radio1.jpg" />
     <Content Include="Content\img\radio2.jpg" />
