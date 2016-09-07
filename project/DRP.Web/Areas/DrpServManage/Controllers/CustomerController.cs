@@ -6,6 +6,7 @@
 *********************************************************************************/
 using DRP.Application.DrpServManage;
 using DRP.Code;
+using DRP.Domain.Entity.DrpServManage;
 using DRP.Domain.Entity.SystemManage;
 using System.Web.Mvc;
 
@@ -39,9 +40,9 @@ namespace DRP.Web.Areas.DrpServManage.Controllers
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
-        public ActionResult SubmitForm(UserEntity userEntity, UserLogOnEntity userLogOnEntity, string keyValue)
+        public ActionResult SubmitForm(CustomerEntity customerEntity, string keyValue)
         {
-            //customerApp.SubmitForm(userEntity, userLogOnEntity, keyValue);
+            customerApp.SubmitForm(customerEntity, keyValue);
             return Success("操作成功。");
         }
         [HttpPost]

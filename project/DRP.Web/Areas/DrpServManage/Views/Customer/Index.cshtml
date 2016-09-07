@@ -84,7 +84,7 @@
         var keyValue = $("#gridList").jqGridRowValue().F_Id;
         $.modalOpen({
             id: "Details",
-            title: "查看用户",
+            title: "查看账户",
             url: "/DrpServManage/Customer/Details?keyValue=" + keyValue,
             width: "700px",
             height: "550px",
@@ -92,34 +92,34 @@
         });
     }
     
-    function btn_disabled() {
-        var keyValue = $("#gridList").jqGridRowValue().F_Id;
-        $.modalConfirm("注：您确定要【禁用】该项用户吗？", function (r) {
-            if (r) {
-                $.submitForm({
-                    url: "/DrpServManage/Customer/DisabledAccount",
-                    param: { keyValue: keyValue },
-                    success: function () {
-                        $.currentWindow().$("#gridList").trigger("reloadGrid");
-                    }
-                })
-            }
-        });
-    }
-    function btn_enabled() {
-        var keyValue = $("#gridList").jqGridRowValue().F_Id;
-        $.modalConfirm("注：您确定要【启用】该项用户吗？", function (r) {
-            if (r) {
-                $.submitForm({
-                    url: "/DrpServManage/Customer/EnabledAccount",
-                    param: { keyValue: keyValue },
-                    success: function () {
-                        $.currentWindow().$("#gridList").trigger("reloadGrid");
-                    }
-                })
-            }
-        });
-    }
+    //function btn_disabled() {
+    //    var keyValue = $("#gridList").jqGridRowValue().F_Id;
+    //    $.modalConfirm("注：您确定要【禁用】该项用户吗？", function (r) {
+    //        if (r) {
+    //            $.submitForm({
+    //                url: "/DrpServManage/Customer/DisabledAccount",
+    //                param: { keyValue: keyValue },
+    //                success: function () {
+    //                    $.currentWindow().$("#gridList").trigger("reloadGrid");
+    //                }
+    //            })
+    //        }
+    //    });
+    //}
+    //function btn_enabled() {
+    //    var keyValue = $("#gridList").jqGridRowValue().F_Id;
+    //    $.modalConfirm("注：您确定要【启用】该项用户吗？", function (r) {
+    //        if (r) {
+    //            $.submitForm({
+    //                url: "/DrpServManage/Customer/EnabledAccount",
+    //                param: { keyValue: keyValue },
+    //                success: function () {
+    //                    $.currentWindow().$("#gridList").trigger("reloadGrid");
+    //                }
+    //            })
+    //        }
+    //    });
+    //}
 </script>
 <div class="topPanel">
     <div class="toolbar">

@@ -10,6 +10,7 @@ using DRP.Domain.IRepository.SystemManage;
 using DRP.Repository.SystemManage;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DRP.Application.SystemManage
 {
@@ -17,6 +18,13 @@ namespace DRP.Application.SystemManage
     {
         private IUserRepository service = new UserRepository();
         private UserLogOnApp userLogOnApp = new UserLogOnApp();
+
+        public List<UserEntity> GetList()
+        {
+            var expression = ExtLinq.True<UserEntity>();
+            expression = expression.And(t => t.F_DeleteMark != false);
+            return service.IQueryable(expression).ToList();
+        }
 
         public List<UserEntity> GetList(Pagination pagination, string keyword)
         {

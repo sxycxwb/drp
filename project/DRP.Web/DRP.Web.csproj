@@ -131,6 +131,7 @@
     <Content Include="Content\img\samples\messages-photo-2.png" />
     <Content Include="Content\img\samples\messages-photo-3.png" />
     <Content Include="Content\img\samples\miranda-560-300.png" />
+    <Content Include="Content\img\samples\portrait.jpg" />
     <Content Include="Content\img\samples\robert-300.jpg" />
     <Content Include="Content\img\samples\robert.png" />
     <Content Include="Content\img\samples\ryan-300.jpg" />

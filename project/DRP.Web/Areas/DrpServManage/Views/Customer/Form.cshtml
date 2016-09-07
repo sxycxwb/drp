@@ -8,7 +8,7 @@
         initControl();
         if (!!keyValue) {
             $.ajax({
-                url: "/SystemManage/User/GetFormJson",
+                url: "/DrpServManage/Customer/GetFormJson",
                 data: { keyValue: keyValue },
                 dataType: "json",
                 async: false,
@@ -20,24 +20,22 @@
         }
     });
     function initControl() {
-        $("#F_Gender").bindSelect()
-        $("#F_IsAdministrator").bindSelect()
         $("#F_EnabledMark").bindSelect()
-        $("#F_OrganizeId").bindSelect({
-            url: "/SystemManage/Organize/GetTreeSelectJson"
-        });
-        $("#F_DepartmentId").bindSelect({
-            url: "/SystemManage/Organize/GetTreeSelectJson",
-        });
-        $("#F_RoleId").bindSelect({
-            url: "/SystemManage/Role/GetGridJson",
+        //$("#F_OrganizeId").bindSelect({
+        //    url: "/SystemManage/Organize/GetTreeSelectJson"
+        //});
+        //$("#F_DepartmentId").bindSelect({
+        //    url: "/SystemManage/Organize/GetTreeSelectJson",
+        //});
+        //$("#F_RoleId").bindSelect({
+        //    url: "/SystemManage/Role/GetGridJson",
+        //    id: "F_Id",
+        //    text: "F_FullName"
+        //});
+        $("#F_BelongPersonId").bindSelect({
+            url: "/SystemManage/User/GetListJson",
             id: "F_Id",
-            text: "F_FullName"
-        });
-        $("#F_DutyId").bindSelect({
-            url: "/SystemManage/Duty/GetGridJson",
-            id: "F_Id",
-            text: "F_FullName"
+            text: "F_RealName"
         });
     }
     function submitForm() {
@@ -45,7 +43,7 @@
             return false;
         }
         $.submitForm({
-            url: "/SystemManage/User/SubmitForm?keyValue=" + keyValue,
+            url: "/DrpServManage/Customer/SubmitForm?keyValue=" + keyValue,
             param: $("#form1").formSerialize(),
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");

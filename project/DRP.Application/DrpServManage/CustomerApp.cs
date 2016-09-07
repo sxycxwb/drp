@@ -35,9 +35,23 @@ namespace DRP.Application.DrpServManage
         {
             return service.FindEntity(keyValue);
         }
+
+        public void SubmitForm(CustomerEntity customerEntity, string keyValue)
+        {
+            if (!string.IsNullOrEmpty(keyValue))
+            {
+                customerEntity.Modify(keyValue);
+            }
+            else
+            {
+                customerEntity.Create();
+            }
+            service.SubmitForm(customerEntity, keyValue);
+        }
+
         public void DeleteForm(string keyValue)
         {
-            //service.Delete(keyValue);
+            service.Delete(keyValue);
         }
         
         public void UpdateForm(CustomerEntity customerEntity)

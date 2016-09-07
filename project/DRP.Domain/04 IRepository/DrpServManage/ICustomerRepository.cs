@@ -11,6 +11,7 @@ namespace DRP.Domain.IRepository.DrpServManage
 {
     public interface ICustomerRepository : IRepositoryBase<CustomerEntity>
     {
-      
+        void DeleteForm(string keyValue);
+        void SubmitForm(CustomerEntity customerEntity, string keyValue);
     }
 }
