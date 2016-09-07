@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="01 Infrastructure\ConstantUtility.cs" />
     <Compile Include="01 Infrastructure\ICreationAudited.cs" />
     <Compile Include="01 Infrastructure\IDeleteAudited.cs" />
     <Compile Include="01 Infrastructure\IEntity.cs" />

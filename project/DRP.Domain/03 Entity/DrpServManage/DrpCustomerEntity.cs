@@ -23,9 +23,14 @@ namespace DRP.Domain.Entity.DrpServManage
         /// </summary>
         public string F_Account { get; set; }
         /// <summary>
+        /// 密码
+        /// </summary>
+        public string F_Password { get; set; }
+        /// <summary>
         /// 公司姓名
         /// </summary>
         public string F_CompanyName { get; set; }
+
         /// <summary>
         /// 联系人电话
         /// </summary>

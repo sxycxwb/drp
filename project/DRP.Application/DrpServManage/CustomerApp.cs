@@ -29,6 +29,7 @@ namespace DRP.Application.DrpServManage
                 expression = expression.Or(t => t.F_AccountCode.Contains(keyword));
                 expression = expression.Or(t => t.F_MobilePhone.Contains(keyword));
             }
+            expression = expression.And(t=>t.F_DeleteMark == false);
             return service.FindList(expression, pagination);
         }
         public CustomerEntity GetForm(string keyValue)
@@ -44,14 +45,14 @@ namespace DRP.Application.DrpServManage
             }
             else
             {
-                customerEntity.Create();
+                customerEntity.Create();             
             }
             service.SubmitForm(customerEntity, keyValue);
         }
 
         public void DeleteForm(string keyValue)
         {
-            service.Delete(keyValue);
+            service.DeleteForm(keyValue);
         }
         
         public void UpdateForm(CustomerEntity customerEntity)

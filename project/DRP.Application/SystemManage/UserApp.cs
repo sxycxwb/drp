@@ -5,6 +5,7 @@
  * Website：
 *********************************************************************************/
 using DRP.Code;
+using DRP.Domain;
 using DRP.Domain.Entity.SystemManage;
 using DRP.Domain.IRepository.SystemManage;
 using DRP.Repository.SystemManage;
@@ -22,7 +23,8 @@ namespace DRP.Application.SystemManage
         public List<UserEntity> GetList()
         {
             var expression = ExtLinq.True<UserEntity>();
-            expression = expression.And(t => t.F_DeleteMark != false);
+            expression = expression.And(t => t.F_DeleteMark == false);
+            expression = expression.And(t => t.F_Account != ConstantUtility.ADMIN_CODE);
             return service.IQueryable(expression).ToList();
         }
 

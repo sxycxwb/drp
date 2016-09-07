@@ -14,7 +14,8 @@
                 async: false,
                 success: function (data) {
                     $("#form1").formSerialize(data);
-                    $("#F_UserPassword").val("******").attr('disabled', 'disabled');
+                    $("#F_Password").attr('name', '');
+                    $("#F_Password").val("******").attr('disabled', 'disabled');
                 }
             });
         }
@@ -36,6 +37,11 @@
             url: "/SystemManage/User/GetListJson",
             id: "F_Id",
             text: "F_RealName"
+        });
+        $("#F_BelongPersonName").val($("#F_BelongPersonId option:selected").text());
+
+        $("#F_BelongPersonId").change(function () {
+            $("#F_BelongPersonName").val($("#F_BelongPersonId option:selected").text());
         });
     }
     function submitForm() {
@@ -69,6 +75,7 @@
                         <select id="F_BelongPersonId" name="F_BelongPersonId" class="form-control required">
                             <option value="">==请选择==</option>
                         </select>
+                        <input id="F_BelongPersonName" name="F_BelongPersonName" type="hidden"/>
                     </td>
                 </tr>
                 <tr>
