@@ -26,3 +26,17 @@
 /project/DRP.Web/Resource/DbBackup/201607181640402083.bak
 /project/DRP.Web/DRP.Web.csproj.user
 /project/packages
+/project/DRP.Application/bin/Release
+/project/DRP.Application/obj/Release
+/project/DRP.Code/bin/Release
+/project/DRP.Code/obj/Release
+/project/DRP.Data/obj/Release
+/project/DRP.Web/obj/Release
+/project/DRP.Web/Properties/PublishProfiles
+/project/DRP.Repository/obj/Release
+/project/DRP.Repository/bin/Release
+/project/DRP.Mapping/obj/Release
+/project/DRP.Mapping/bin/Release
+/project/DRP.Domain/obj/Release
+/project/DRP.Domain/bin/Release
+/project/DRP.Data/bin/Release
