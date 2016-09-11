@@ -26,3 +26,6 @@
 /project/DRP.Web/Resource/DbBackup/201607181640402083.bak
 /project/DRP.Web/DRP.Web.csproj.user
 /project/packages
+/project/DRP.Code/bin
+/project/DRP.Web/App_Data
+/project/DRP.Web/Content/img/samples/portrait.jpg
