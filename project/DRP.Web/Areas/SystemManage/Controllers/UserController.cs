@@ -21,6 +21,14 @@ namespace DRP.Web.Areas.SystemManage.Controllers
 
         [HttpGet]
         [HandlerAjaxOnly]
+        public ActionResult GetListJson()
+        {
+            var data = userApp.GetList();
+            return Content(data.ToJson());
+        }
+
+        [HttpGet]
+        [HandlerAjaxOnly]
         public ActionResult GetGridJson(Pagination pagination, string keyword)
         {
             var data = new

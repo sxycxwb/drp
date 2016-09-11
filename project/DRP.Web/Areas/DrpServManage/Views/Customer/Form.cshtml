@@ -8,36 +8,40 @@
         initControl();
         if (!!keyValue) {
             $.ajax({
-                url: "/SystemManage/User/GetFormJson",
+                url: "/DrpServManage/Customer/GetFormJson",
                 data: { keyValue: keyValue },
                 dataType: "json",
                 async: false,
                 success: function (data) {
                     $("#form1").formSerialize(data);
-                    $("#F_UserPassword").val("******").attr('disabled', 'disabled');
+                    $("#F_Password").attr('name', '');
+                    $("#F_Password").val("******").attr('disabled', 'disabled');
                 }
             });
         }
     });
     function initControl() {
-        $("#F_Gender").bindSelect()
-        $("#F_IsAdministrator").bindSelect()
         $("#F_EnabledMark").bindSelect()
-        $("#F_OrganizeId").bindSelect({
-            url: "/SystemManage/Organize/GetTreeSelectJson"
-        });
-        $("#F_DepartmentId").bindSelect({
-            url: "/SystemManage/Organize/GetTreeSelectJson",
-        });
-        $("#F_RoleId").bindSelect({
-            url: "/SystemManage/Role/GetGridJson",
+        //$("#F_OrganizeId").bindSelect({
+        //    url: "/SystemManage/Organize/GetTreeSelectJson"
+        //});
+        //$("#F_DepartmentId").bindSelect({
+        //    url: "/SystemManage/Organize/GetTreeSelectJson",
+        //});
+        //$("#F_RoleId").bindSelect({
+        //    url: "/SystemManage/Role/GetGridJson",
+        //    id: "F_Id",
+        //    text: "F_FullName"
+        //});
+        $("#F_BelongPersonId").bindSelect({
+            url: "/SystemManage/User/GetListJson",
             id: "F_Id",
-            text: "F_FullName"
+            text: "F_RealName"
         });
-        $("#F_DutyId").bindSelect({
-            url: "/SystemManage/Duty/GetGridJson",
-            id: "F_Id",
-            text: "F_FullName"
+        $("#F_BelongPersonName").val($("#F_BelongPersonId option:selected").text());
+
+        $("#F_BelongPersonId").change(function () {
+            $("#F_BelongPersonName").val($("#F_BelongPersonId option:selected").text());
         });
     }
     function submitForm() {
@@ -45,7 +49,7 @@
             return false;
         }
         $.submitForm({
-            url: "/SystemManage/User/SubmitForm?keyValue=" + keyValue,
+            url: "/DrpServManage/Customer/SubmitForm?keyValue=" + keyValue,
             param: $("#form1").formSerialize(),
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
@@ -71,6 +75,7 @@
                         <select id="F_BelongPersonId" name="F_BelongPersonId" class="form-control required">
                             <option value="">==请选择==</option>
                         </select>
+                        <input id="F_BelongPersonName" name="F_BelongPersonName" type="hidden"/>
                     </td>
                 </tr>
                 <tr>

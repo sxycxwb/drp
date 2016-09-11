@@ -33,6 +33,7 @@ namespace DRP.Repository.SystemManage
                 }
                 else
                 {
+                    userEntity.F_DeleteMark = false;
                     userLogOnEntity.F_Id = userEntity.F_Id;
                     userLogOnEntity.F_UserId = userEntity.F_Id;
                     userLogOnEntity.F_UserSecretkey = Md5.md5(Common.CreateNo(), 16).ToLower();
