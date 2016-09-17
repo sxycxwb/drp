@@ -89,19 +89,58 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\animate.min.css" />
+    <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\font-awesome.min.css" />
+    <Content Include="Content\css\login.min.css" />
+    <Content Include="Content\css\style.min.css" />
+    <Content Include="Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\img\bg.png" />
+    <Content Include="Content\img\iconfont-logo.png" />
+    <Content Include="Content\img\icons.png" />
+    <Content Include="Content\img\loading-upload.gif" />
+    <Content Include="Content\img\locked.png" />
+    <Content Include="Content\img\login-background.jpg" />
+    <Content Include="Content\img\progress.png" />
+    <Content Include="Content\img\success.png" />
+    <Content Include="Content\img\user.png" />
+    <Content Include="Content\js\bootstrap.min.js" />
+    <Content Include="Content\js\jquery.min.js" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\01 Handler\ControllerBase.cs" />
+    <Compile Include="App_Start\01 Handler\HandlerAjaxOnlyAttribute.cs" />
+    <Compile Include="App_Start\01 Handler\HandlerAuthorizeAttribute.cs" />
+    <Compile Include="App_Start\01 Handler\HandlerErrorAttribute.cs" />
+    <Compile Include="App_Start\01 Handler\HandlerLoginAttribute.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Operator\ClientOperatorModel.cs" />
+    <Compile Include="Models\Operator\ClientOperatorProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
+    <Content Include="Configs\database.config" />
+    <Content Include="Configs\log4net.config" />
+    <Content Include="Configs\system.config" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -111,8 +150,20 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
-    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DRP.Application\DRP.Application.csproj">
+      <Project>{7029847c-c059-4491-97c6-45330681ddc3}</Project>
+      <Name>DRP.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DRP.Code\DRP.Code.csproj">
+      <Project>{3bd3b99e-d95a-4431-85c5-e7d1a0d079a0}</Project>
+      <Name>DRP.Code</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DRP.Domain\DRP.Domain.csproj">
+      <Project>{4c70c92c-a228-4bd7-831c-7fcd4da8a0ae}</Project>
+      <Name>DRP.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

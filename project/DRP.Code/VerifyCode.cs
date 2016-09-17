@@ -19,8 +19,10 @@ namespace DRP.Code
     {
         public byte[] GetVerifyCode()
         {
+            string LoginProvider = Configs.GetValue("LoginProvider");
             int codeW = 80;
             int codeH = 30;
+
             int fontSize = 16;
             string chkCode = string.Empty;
             //颜色列表，用于验证码、噪线、噪点 
