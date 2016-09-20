@@ -1,0 +1,320 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link id="domain_favicon" rel="shortcut icon" href="http://www.soxcc.com/img/favicon_oem.png">
+    <title>用户中心</title>
+    <script type="text/javascript" src="~/Content/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="~/Content/js/jquery.json.min.js"></script>
+    <script type="text/javascript" src="~/Content/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="~/Content/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/jquery-ui.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/app.css">
+
+    @*<script type="text/javascript" src="./用户中心_files/dishui.js"></script>
+    <script type="text/javascript" src="./用户中心_files/jquery.ui.core.min.js"></script>
+    <script type="text/javascript" src="./用户中心_files/jquery.ui.widget.min.js"></script>
+    <script type="text/javascript" src="./用户中心_files/jquery.ui.mouse.min.js"></script>
+    <script type="text/javascript" src="./用户中心_files/jquery.ui.slider.min.js"></script>
+    <script type="text/javascript" src="./用户中心_files/jquery.ui.effect.min.js"></script>
+    <script type="text/javascript" src="./用户中心_files/jquery.ui.effect-slide.min.js"></script>
+    <script type="text/javascript" src="./用户中心_files/jquery.ui.button.min.js"></script>
+    <script type="text/javascript" src="./用户中心_files/jquery.ui.spinner.min.js"></script>
+    <script type="text/javascript" src="./用户中心_files/jquery.ui.datepicker-zh-CN.min.js"></script>
+    <script type="text/javascript" src="./用户中心_files/jquery.ui.datepicker.min.js"></script>
+    <script type="text/javascript" src="./用户中心_files/jquery-ui-timepicker-addon.min.js"></script>
+    <script type="text/javascript" src="./用户中心_files/jquery-ui-timepicker-zh-CN.js"></script>
+    <script type="text/javascript" src="./用户中心_files/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="./用户中心_files/additional-methods.js"></script>
+    <script type="text/javascript" src="./用户中心_files/messages_zh.js"></script>
+    <script type="text/javascript" src="./用户中心_files/jquery.alertmessage.js"></script>
+    <script type="text/javascript" src="./用户中心_files/template.js"></script>
+    <link rel="stylesheet" type="text/css" href="./用户中心_files/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="./用户中心_files/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="./用户中心_files/jquery-ui-timepicker-addon.min.css">*@
+    <!--[if lt IE 9]><script src="./javascripts/ie8-responsive-file-warning.js"></script><![endif]-->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.min.js"></script>
+        <script src="http://cdn.bootcss.com/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    @*<script type="text/javascript" src="./用户中心_files/app.js"></script>
+    <script type="text/javascript" src="./用户中心_files/handler.js"></script>
+    <script type="text/javascript" src="./用户中心_files/account.js"></script>
+    <script type="text/javascript" src="./用户中心_files/uuid.js"></script>
+    <script type="text/javascript" src="./用户中心_files/plupload.full.min.js"></script>
+    <script type="text/javascript" src="./用户中心_files/zh_CN.js"></script>
+    <script type="text/javascript" src="./用户中心_files/ui.js"></script>
+    <script type="text/javascript" src="./用户中心_files/qiniu.js"></script>
+    <script type="text/javascript" src="./用户中心_files/highlight.js"></script>
+    <link rel="stylesheet" type="text/css" href="./用户中心_files/highlight.css">
+    <link rel="stylesheet" type="text/css" href="./用户中心_files/app.css">*@
+    <script type="text/javascript">
+        $(function () {
+            var param=[];
+            try{
+                var _url=window.location.href;
+//                var domain = _url.match(/http[s]?:\/\/(.*?)([:\/]|$)/);
+                domain =location.hostname||location.host;
+//                console.info(domain);
+                param=parseHref(_url)||[];
+            }catch(e){}
+            init(param,domain);
+        });
+    </script>
+</head>
+<body>
+    <div>
+        <div class="loading_indicator" style="visibility: hidden;">
+        </div>
+        <span class="loading_indicator_span" style="visibility: hidden;">正在获取数据...</span>
+        <div class="login_panel" id="login-panel" style="display: none;">
+        </div>
+        <div id="main-panel" class="container" style="display: block;">
+            <div class="user-header clearfix">
+                <div class="pull-left navbar_path" id="pane_tmpl_main_head">
+                    <a href="http://www.soxcc.com/" target="_blank"><img src="./用户中心_files/soxcc.jpg" alt="" style="width: 130px;"></a>
+                </div>
+                <div class="pull-left user-title">
+                    <p class="">
+                        欢迎您：<strong class="uc_company">泓靓财富</strong>
+                        <!--<span class="uc_accountname"></span>-->
+                        <!--<span class="uc_email"></span>-->
+                        &nbsp;&nbsp;
+                        余额:<span class="uc_balance" style="color:#f0ad4e;">88.85</span>元
+                        &nbsp;
+                        透支额度:<span class="uc_overdraw" style="color:#f0ad4e;">0.00</span>元
+                        &nbsp;
+                        <button type="button" class="btn btn-success btn-xs ds_do_action btn_bank_pay" ds_action="account.showOnlinePay">立即充值</button>
+                        <a href="http://www.soxcc.com/?sid=71dc4a50-7f37-11e6-a7bd-7761be28bfd9#" id="popover_account_pay" style="padding: 0;" class="btn" data-toggle="popover" data-placement="auto" data-trigger="hover focus" data-content="选择对应产品，可购买号码、续费、充值话费、购买坐席licence。" data-original-title="账户余额有什么用途?">
+                            <span style="font-size: 18px;" class="glyphicon glyphicon-question-sign"></span>
+                        </a>
+                    </p>
+                </div>
+                <ul class="nav navbar-nav navbar-right" style="margin-top: 9px;">
+                    <li class="">
+                        <a href="http://www.soxcc.com/?sid=71dc4a50-7f37-11e6-a7bd-7761be28bfd9#" class="ds_do_action" ds_action="loadMainView" ds_data="index/idx_main">主页</a>
+                    </li>
+                    <li class="dropdown menu_dropList">
+                        <a href="http://www.soxcc.com/?sid=71dc4a50-7f37-11e6-a7bd-7761be28bfd9#" class="dropdown-toggle" data-toggle="dropdown">个人设置 <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://www.soxcc.com/?sid=71dc4a50-7f37-11e6-a7bd-7761be28bfd9#" class="ds_do_action" ds_action="account.showPwd">修改密码</a></li>
+                            <li></li>
+                            <li class="divider"></li>
+                            <li></li>
+                            <li><a href="http://www.soxcc.com/?sid=71dc4a50-7f37-11e6-a7bd-7761be28bfd9#" class="ds_do_action text-danger" ds_action="account.logout">退出</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="row" id="ucenter_main">
+                <div class="col-md-2" id="left_pane">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">主页</div>
+                        <div class="list-group">
+                            <a href="http://www.soxcc.com/?sid=71dc4a50-7f37-11e6-a7bd-7761be28bfd9#" class="list-group-item ds_do_action active" ds_action="showPage" ds_data="index/accinfo" action="account.initAccountInfo">账户信息</a>
+                            <a href="http://www.soxcc.com/?sid=71dc4a50-7f37-11e6-a7bd-7761be28bfd9#" class="list-group-item ds_do_action payRecord" ds_action="showPage" ds_data="index/pay_list" action="fee.getPayList">充值记录</a>
+                            <a href="http://www.soxcc.com/?sid=71dc4a50-7f37-11e6-a7bd-7761be28bfd9#" class="list-group-item ds_do_action costRecord" ds_action="showPage" ds_data="index/cost_list" action="fee.getCostList">消费记录</a>
+                            <a href="http://www.soxcc.com/?sid=71dc4a50-7f37-11e6-a7bd-7761be28bfd9#" class="list-group-item ds_do_action feeRecord" ds_action="showPage" ds_data="index/fee/account_fee" action="accFee.showMain">账单查询</a>
+                            <a href="http://www.soxcc.com/?sid=71dc4a50-7f37-11e6-a7bd-7761be28bfd9#" class="list-group-item ds_do_action invoiceRecord" ds_action="showPage" ds_data="index/invoice/invoice_main" action="invoice.showMain">发票管理</a>
+                            <!--<a href="#" class="list-group-item ds_do_action" ds_action="showPage" ds_data="index/help" >使用帮助</a>-->
+                        </div>
+                    </div>
+                    <div class="pane_tmpl_download_main">
+                        <a class="btn text-info" href="http://7xjsdj.dl1.z0.glb.clouddn.com/im_win_nologo.rar" target="_top"><span class="glyphicon glyphicon-circle-arrow-down"></span> 下载客户端</a>
+                    </div>
+                </div>
+                <div class="col-md-10" id="right_pane">
+                    <div class="row">
+                        <div class="col-md-8" style="border-right: 1px solid #ccc;">
+                            <div>
+                                <h4>已购买产品<small>（点击产品进入管理页面）</small></h4>
+                                <p class="buy_product"><button type="button" class="btn btn-lg btn-success ds_do_action" ds_action="loadMainView" ds_product="zj" ds_data="zj/zj_main">企业总机</button>&nbsp;&nbsp;&nbsp;</p>
+                            </div>
+                            <div style="margin-top: 30px;">
+                                <h4>未购买产品</h4>
+                                <p class="nobuy_product"><button type="button" class="btn btn-lg ds_do_action" ds_action="loadMainView" ds_product="custFee" ds_data="NA">自定义扣费</button>&nbsp;&nbsp;&nbsp;</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div>
+                                <h4 id="acc_companyName" style="display: inline-block;">泓靓财富<small>&nbsp;<span class="label label-success">未认证</span></small></h4>
+                                &nbsp;&nbsp;<button type="button" class="btn btn-xs btn-primary ds_do_action submit_identity" ds_action="account.showIdentify" ds_data="" style="">认证</button>
+                                &nbsp;&nbsp;<button type="button" class="btn btn-xs btn-primary ds_do_action view_identity" ds_action="account.showIdentifyInfo" ds_data="" style="display: none;">查看认证</button>
+                                &nbsp;&nbsp;<button type="button" class="btn btn-xs btn-primary ds_do_action bill_hide audit_identity" ds_action="account.showAuditIdentify" ds_data="" style="display: inline-block;">审核认证</button>
+                            </div>
+                            <div>
+                                <label>账户登录名:</label><span style="margin-left: 10px;" id="acc_name">hlcf</span>
+                            </div>
+                            <div>
+                                <label>联系人邮箱:</label><span style="margin-left: 10px;" id="acc_mail">123</span><!--<a class="btn btn-link" style="color: #aaaaaa;">修改</a>-->
+                            </div>
+                            <div>
+                                <label>联系人电话:</label><span style="margin-left: 10px;" id="acc_tel">18910477006</span>
+                                <!--<a class="btn btn-link ds_do_action" ds_action="" ds_data="" style="color: #aaaaaa;">修改</a>-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="identity_modal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h4 class="modal-title"></h4>
+                                </div>
+                                <div class="modal-body">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                    <button type="button" class="btn btn-primary ds_form_action" ds_action="" ds_form="" ds_attr="1" style="display: none;">审核通过</button>
+                                    <button type="button" class="btn btn-danger ds_form_action" ds_action="" ds_form="" ds_attr="0" style="display: none;">审核失败</button>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+                    <div class="modal fade" id="identity_modal_view">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h4 class="modal-title"></h4>
+                                </div>
+                                <div class="modal-body">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+                </div>
+            </div>
+            <footer class="bs-footer" style="" id="pane_tmpl_main_foot">
+                <div class="text-center"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; © 2016 soxcc</div>
+            </footer>
+        </div>
+        <div class="modal fade " id="service_modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" style="width: 800px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close " data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">选购服务号</h4>
+                    </div>
+                    <div class="modal-body" style="padding: 10px 20px 20px;">
+                    </div>
+                    <!--<div class="modal-footer">-->
+                    <!--<button type="button" class="btn btn-primary ds_form_action" ds_action="account.addServiceNo"  ds_form="#frm_serviceno_data">保存</button>-->
+                    <!--<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>-->
+                    <!--</div>-->
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <div class="modal fade " id="fax_modal">
+            <div class="modal-dialog" style="width: 800px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close " data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">导入号码</h4>
+                    </div>
+                    <div class="modal-body" style="padding: 10px 20px 20px;">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary ds_do_action" ds_action="fax.importNum" ds_data="frm_fax_num_import">提交</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <div class="modal fade" id="common_modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title"></h4>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary ds_form_action" ds_action="" ds_form="">保存</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    </div>
+    <iframe style="border:0;width:0;height:0;position:absolute;visibility:hidden;bottom:0;right:0;" name="ds_iframe" id="ds_iframe" src="./用户中心_files/saved_resource.html"></iframe>
+    <style type="text/css">
+        .list-group-item {
+            border: 0;
+        }
+        /*.list-group-item:first-child{border-top-right-radius:0;border-top-left-radius:0}*/
+        /*.list-group-item:last-child{border-bottom-right-radius:0;border-bottom-left-radius:0}*/
+        /*a.list-group-item.active, a.list-group-item.active:hover, a.list-group-item.active:focus{*/
+        /*background-color:#c9e2b3;*/
+        /*background-color:#46b8da;*/
+        /*}*/
+        .menu_dropList {
+            background-color: #ffffff;
+        }
+
+            .menu_dropList > a:hover,
+            .menu_dropList > a:focus {
+                color: #262626;
+                text-decoration: none;
+                background-color: #ffffff;
+            }
+    </style>
+    <div id="browser" class="layerDiv" style="display:none;">
+        <h2>您使用的浏览器版本过低</h2>
+        <h3>很抱歉，您正在使用的浏览器无法完全支持我们的页面，请使用ie8及以上版本或其他浏览器进行访问。</h3>
+        <div>
+            <span></span>建议您使用以下浏览器的最新版本：
+        </div>
+        <ul>
+            <li><a target="_blank" href="http://www.google.cn/chrome/intl/zh-CN/landing_chrome.html" class="ico icoChrome" title="谷歌Chrome浏览器"></a></li>
+            <li><a target="_blank" href="http://www.opera.com/" class="ico icoOpera" title="Opera浏览器"></a></li>
+            <li><a target="_blank" href="http://www.firefox.com.cn/download/" class="ico icoFirefox" title="火狐浏览器"></a></li>
+            <li>
+                <a target="_blank" href="http://support.apple.com/downloads/#safari" class="ico icoSafar" title="Safar浏览器"></a>
+            </li>
+        </ul>
+        <p>
+            <a href="javascript:hideBrowser();" class="icoGt">知道了，但请还是打开页面</a>
+        </p>
+    </div>
+
+    <script id="tmpl_main_head" type="text/html">
+        {{if domain=='7moor'}}
+        <a href="http://www.soxcc.com/" target="_blank"><img src="img/soxcc.jpg" alt="" style="width: 130px;"></a>
+        {{else}}
+        <a href="javascript:void(0)"><img alt="" src="thirdImg/{{fileName}}" style="width: 130px;max-height: 60px;"></a>
+        {{/if}}
+    </script>
+    <script id="tmpl_login_foot" type="text/html">
+        {{if domain=='7moor'}}
+        <div class="text-center"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &copy; 2016 soxcc</div>
+        {{else}}
+        <div class="text-center">{{#footer}}</div>
+        {{/if}}
+    </script>
+    <script id="tmpl_login_download" type="text/html">
+        {{if domain=='7moor'}}
+        <a class="btn pull-right text-info" href="http://7xjsdj.dl1.z0.glb.clouddn.com/im_win_nologo.rar" target="_top"><span class="glyphicon glyphicon-circle-arrow-down"></span> 下载客户端</a>
+        {{else}}
+        <a class="btn pull-right text-info" href="http://7xjsdj.dl1.z0.glb.clouddn.com/im_win_nologo.rar" target="_top"><span class="glyphicon glyphicon-circle-arrow-down"></span> 下载客户端</a>
+        {{/if}}
+    </script>
+    <script id="tmpl_login_download_main" type="text/html">
+        {{if domain=='7moor'}}
+        <a class="btn text-info" href="http://7xjsdj.dl1.z0.glb.clouddn.com/im_win_nologo.rar" target="_top"><span class="glyphicon glyphicon-circle-arrow-down"></span> 下载客户端</a>
+        {{else}}
+        <a class="btn text-info" href="http://7xjsdj.dl1.z0.glb.clouddn.com/im_win_nologo.rar" target="_top"><span class="glyphicon glyphicon-circle-arrow-down"></span> 下载客户端</a>
+        {{/if}}
+    </script>
+</body>
+</html>

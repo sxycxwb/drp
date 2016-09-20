@@ -1,0 +1,383 @@
+.content_bg{
+    background: url(/img/content_bg.png) repeat;
+}
+
+.loading_indicator {
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    z-index: 9999;
+    text-transform: capitalize;
+    position: absolute;
+    opacity: 0.5;
+    visibility: hidden;
+}
+
+.loading_indicator_span {
+    background: #FFF1A8;
+    padding: 5px 15px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    position: absolute;
+    top: 20px;
+    left: 40%;
+    width: auto;
+    z-index: 9999;
+    text-transform: capitalize;
+    visibility: hidden;
+}
+
+.header_patch{
+    opacity: 0.9;
+    /*border-color:#d8d8d8;*/
+}
+
+.thumbnail_patch{
+    padding: 0;
+    width: 360px;
+    height: 386px;
+}
+.line_dot{
+    border: 1px dashed #ccc;
+    width: 100px;
+}
+.bs-footer {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-top: 50px;
+    color: #777;
+    text-align: center;
+    border-top: 1px solid #e5e5e5;
+}
+.user-header {
+    /*padding-bottom: 10px;*/
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 20px;
+}
+.navbar_path{
+    height: 65px;
+    line-height: 65px;
+}
+.user-title{
+    line-height: 35px;
+    margin: 15px 0 0 30px;
+}
+
+.clear10 {
+    height: 10px;
+    overflow: hidden;
+    clear: both;
+}
+
+.clear5 {
+    height: 5px;
+    overflow: hidden;
+    clear: both;
+}
+
+.clear1 {
+    height: 1px;
+    overflow: hidden;
+    clear: both;
+}
+.col1{
+    border:1px dotted #e7e7e7;
+    /*margin: 0 -1px 0,0;*/
+}
+
+.pay_form{padding:10px;}
+.pay_form .left_label{display: inline-block;float: left;margin: 5px 10px;text-align: right;width: 65px;height:24px;line-height:24px;}
+.pay_form .pay_section{
+    padding:5px 0;
+}
+.pay_form div{
+    overflow:hidden;zoom:1;
+}
+.pay_form ul,.pay_form li{
+    list-style: none;margin: 0;padding: 0;
+}
+.btn1 {
+    display: inline-block;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.428571429;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: default;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+.bank{
+    z-index:2;
+}
+.bank li a{text-align:center; text-decoration:none;border-top:1px solid #ccc;border-left:1px solid #ccc;
+    padding: 5px 0px;font-size:14px;font-weight: bold; background:#F1F1F1;width: 108px;line-height:30px; float: left;}
+.bank li a:hover,
+.bank li a.current {
+    color: #000;
+    background: #fff;
+}
+.pay_platform, .pay_bank, .pay_bank_enterprise{
+    border:1px solid #ccc; padding:15px 10px;margin-top:-2px;
+}
+.payamount{
+    color:#f60;
+    font-size: 22px; line-height: 22px;
+}
+
+.list-bank {
+    overflow: hidden;
+    *zoom: 1;
+    *margin-bottom: 10px
+}
+
+.list-bank li {
+    border: 1px solid #DDDDDD;
+    background-color: #ffffff;
+    float: left;
+    padding: 6px;
+    width: 202px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    cursor: pointer
+}
+
+.list-bank img {
+    cursor: pointer
+}
+
+.list-bank label {
+    margin-right: 5px;
+}
+
+.list-bank .jdradio {
+    margin-left: 6px;
+    margin-right: 11px;
+    position: relative;
+    top: 8px;
+    padding: 0;
+}
+
+.font-num {
+    float: right;
+    font-weight: normal;
+    line-height: 28px
+}
+
+.list-bank .hover, .list-bank .select {
+    -webkit-box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, .15);
+    -moz-box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, .15);
+    box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, .15);
+}
+
+.list-bank .select {
+    border: 2px solid #e4393c;
+    padding: 5px
+}
+
+.jdradio {
+    float: left;
+    margin: 0
+}
+
+.link-more{border:1px dotted #cccccc;color:#005EA7;display:inline-block;text-align:center;padding:1px}
+.link-more:hover{border:solid 2px #cccccc;background-color:#ffffff;text-decoration:none;padding:0}
+.link-more:link,.link-more:visited{color:#005EA7}
+.pay-more{clear:both;width:212px}.pay-more .link-more{height:39px;line-height:39px;width:100%;}
+.icon-down01,.icon-up01{background:url(../img/bank/bg.png);width:11px;height:6px;font-size:0;line-height:0;overflow:hidden;display:inline-block;margin-left:10px;}
+.icon-up01{background-position:-20px 0}
+
+.ds_spinner,.ds_spinner2,.ds_spinner_licence{
+    margin: 0;padding: 10px;width: 100px;
+}
+.service_month{
+    width: 100px;
+}
+.table_search{
+    width: 100%;
+}
+.table_search > tbody > tr > td{
+    padding: 6px;
+    line-height: 1.428571429;
+    vertical-align: middle;
+}
+.table_search .spanleft{
+    text-align: left;
+}
+.table_search .spanright{
+    text-align: right;
+}
+.table_row_search > tbody > tr > td{
+    padding: 6px;
+    line-height: 1.428571429;
+}
+.proxy_hide,.pay_hide,.bill_hide,.user_hide,.service_hide,.bill_service_hide{display: none;}
+/*****validate css start******/
+label.error {
+    /* remove the next line when you have trouble in IE6 with labels in list */
+    color: red;
+    font-style: italic
+}
+div.error { display: none; }
+input.error { border: 1px dotted red; }
+/*****validate css end******/
+
+/*****browser css start******/
+.layerDiv{
+    position: absolute;
+    position: fixed;
+    _position: absolute;
+    z-index: 9999999999999;
+    width: 730px;
+    height: 360px;
+    left: 50%;
+    top: 50%;
+    margin: -170px 0 0 -365px;
+    padding: 0;
+    background: #fff;
+    border: 2px #808080 solid;
+    -moz-border-radius: 8px;
+    -khtml-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+}
+.layerDiv h2 {
+    color: #000;
+    font-size: 24px;
+    margin: 30px 25px 10px 25px;
+    line-height: 1.2em;
+    clear: both;
+}
+.layerDiv h3 {
+    color: #333;
+    font-size: 16px;
+    margin: 20px 25px;
+    clear: both;
+}
+.layerDiv ul, .layerDiv ol, .layerDiv li {
+    list-style: none;
+    padding: 0;margin: 0;
+}
+.layerDiv ul {
+    height: 100px;
+    width: 540px;
+    _width: 580px;
+    margin: 20px auto 0 auto;
+    clear: both;
+}
+.layerDiv ul li {
+    float: left;
+    width: 105px;
+    height: 80px;
+    margin: 0 15px;
+    text-align: center;
+}
+.layerDiv ul li a {
+    height: 80px;
+    display: block;
+    clear: both;
+}
+.layerDiv div {
+    color: #333;
+    font-size: 14px;
+    margin: 0 25px;
+    padding-top: 20px;
+    border-top: 1px #ccc dotted;
+    clear: both;
+}
+.ico {
+    background: url(../img/browser.png) no-repeat 0 0;
+}
+.icoChrome {
+    background-position: 0 -8px;
+    height: 80px;
+    width: 105px;
+    display: inline-block;
+    margin-right: 20px;
+}
+.icoOpera {
+    background-position: -115px  -8px;
+    height: 80px;
+    width: 73px;
+    display: inline-block;
+    margin-right: 20px;
+}
+.icoFirefox {
+    background-position: -197px  -6px;
+    height: 80px;
+    width: 61px;
+    display: inline-block;
+    margin-right: 20px;
+}
+.icoSafar {
+    background-position: -267px  -8px;
+    height: 80px;
+    width: 69px;
+    display: inline-block;
+}
+.icoGt {
+    background: url(../img/icon_go.png) no-repeat 0 0;
+    height: 32px;
+    display: inline-block;
+    text-indent: 40px;
+}
+.layerDiv p {
+    border-top: 1px #ccc dotted;
+    padding-top: 15px;
+    position: relative;
+    margin: 0 25px;
+}
+.layerDiv p a {
+    color: #666;
+    font-size: 16px;
+    height: 32px;
+    line-height: 32px;
+}
+/*****browser css end******/
+
+.alert-container {
+    width: 300px;
+    z-index: 9999;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    margin-left: -150px;
+}
+
+.total_fee{
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.sipStatusInfo{
+    margin:5px 0 -19px 0;float:none;width:auto;line-height: 14px; font-size: 60%; color: #979798; font-weight:normal
+}
+
+.clearBoder{
+    border: 0;
+    box-shadow: none;
+    outline: none;
+}
+
+
+.status_stop{
+    color: red;
+    font-weight: bold;
+}
+.status_use{
+    color: #47a447;
+    font-weight: bold;
+}
+.status_try{
+    color: coral;
+    font-weight: bold;
+}
