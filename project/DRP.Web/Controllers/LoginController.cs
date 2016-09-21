@@ -73,7 +73,8 @@ namespace DRP.Web.Controllers
                     operatorModel.DepartmentId = userEntity.F_DepartmentId;
                     operatorModel.RoleId = userEntity.F_RoleId;
                     operatorModel.LoginIPAddress = Net.Ip;
-                    operatorModel.LoginIPAddressName = Net.GetLocation(operatorModel.LoginIPAddress);
+                    //影响速度 注释了
+                    //operatorModel.LoginIPAddressName = Net.GetLocation(operatorModel.LoginIPAddress);
                     operatorModel.LoginTime = DateTime.Now;
                     operatorModel.LoginToken = DESEncrypt.Encrypt(Guid.NewGuid().ToString());
                     if (userEntity.F_Account == "admin")
