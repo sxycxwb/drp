@@ -40,3 +40,6 @@
 /project/DRP.Domain/obj/Release
 /project/DRP.Domain/bin/Release
 /project/DRP.Data/bin/Release
+/project/DRP.Client.Web/bin
+/project/DRP.Client.Web/obj/Debug
+/project/EmailTool/obj/Debug
