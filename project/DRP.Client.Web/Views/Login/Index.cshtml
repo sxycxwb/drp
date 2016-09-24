@@ -8,70 +8,149 @@
     <meta name="description" content="">
     <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
     <link href="~/Content/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
-    <link href="~/Content/css/animate.min.css" rel="stylesheet">
+    @*<link href="~/Content/css/animate.min.css" rel="stylesheet">*@
     <link href="~/Content/css/style.min.css" rel="stylesheet">
     <link href="~/Content/css/login.min.css" rel="stylesheet">
-    <script src="~/Content/js/jquery.min.js"></script>
+    <script src="~/Content/js/jquery/jquery-2.1.1.min.js"></script>
+    <script src="~/Content/js/cookie/jquery.cookie.js"></script>
+    <script src="~/Content/js/md5/jquery.md5.js"></script>
 
     <!--[if lt IE 8]>
     <meta http-equiv="refresh" content="0;ie.html" />
     <![endif]-->
     <script>
-        if(window.top!==window.self){window.top.location=window.location};
+        if (window.top !== window.self) { window.top.location = window.location };
     </script>
 </head>
 <body class="signin">
-    <div class="signinpanel">
-        <div class="row">
-            <div class="col-sm-7">
-                <div class="signin-info">
-                    <div class="logopanel m-b">
-                        <h1>[ H+ ]</h1>
-                    </div>
-                    <div class="m-b"></div>
-                    <h4>欢迎使用 <strong>H+ 后台主题UI框架</strong></h4>
-                    <ul class="m-b">
-                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优势一</li>
-                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优势二</li>
-                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优势三</li>
-                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优势四</li>
-                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优势五</li>
-                    </ul>
-                    <strong>还没有账号？ <a href="#">立即注册&raquo;</a></strong>
+<div class="signinpanel">
+    <div class="row">
+        <div class="col-sm-7">
+            <div class="signin-info">
+                <div class="logopanel m-b">
+                    <h1>[ 用户中心 ]</h1>
                 </div>
-            </div>
-            <div class="col-sm-5">
-                <form method="post" action="index.html">
-                    <h4 class="no-margins">用户中心</h4>
-                    <p class="m-t-md">登录到H+后台主题UI框架</p>
-                    <input type="text" class="form-control uname" placeholder="用户名" />
-                    <input type="password" class="form-control pword m-b" placeholder="密码" />
-                    <input type="text" class="form-control vcode" placeholder="验证码" />
-                    <img id="imgcode" class="authcode" src="~/Login/GetAuthCode" width="60" height="34" />
-                    <div class="reset_vcode" style="display:inline-block;float:left;">
-                        <p>看不清？</p>
-                        <p><a id="switchCode" href="javascript:void();" style="text-decoration: none;">换一张</a></p>
-                    </div>
-                    <button class="btn btn-success btn-block">登录</button>
-
-                </form>
+                <div class="m-b"></div>
+                @*<h4>欢迎登录用户中心...</h4>*@
+                @*<ul class="m-b">
+                            <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优势一</li>
+                            <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优势二</li>
+                            <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优势三</li>
+                            <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优势四</li>
+                            <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优势五</li>
+                        </ul>*@
+                @*<strong>还没有账号？ <a href="#">立即注册&raquo;</a></strong>*@
             </div>
         </div>
-        <div class="signup-footer">
-            <div class="pull-left">
-                &copy; 2015 All Rights Reserved. H+
-            </div>
+        <div class="col-sm-5">
+            <form>
+                <h4 class="no-margins">用户中心</h4>
+                <p class="m-t-md">欢迎登录到用户中心...</p>
+                <input id="txt_account" type="text" class="form-control uname" placeholder="用户名"/>
+                <input id="txt_password" type="password" class="form-control pword m-b" placeholder="密码"/>
+                <input id="txt_code" type="text" class="form-control vcode" placeholder="验证码"/>
+                <img id="imgcode" class="authcode" src="~/Login/GetAuthCode" width="60" height="34"/>
+                <div class="reset_vcode" style="display: inline-block; float: left;">
+                    <p>看不清？</p>
+                    <p><a id="switchCode" href="javascript:void();" style="text-decoration: none;">换一张</a>
+                    </p>
+                </div>
+                <button id="login_button" class="btn btn-success btn-block">登录</button>
+                <div class="login_tips"></div>
+            </form>
+
         </div>
     </div>
+    <div class="signup-footer">
+        <div class="pull-left">
+            &copy; 2016 All Rights Reserved. H+
+        </div>
+    </div>
+</div>
+
+    <script type="text/javascript">
+    (function ($) {
+        $.login = {
+            formMessage: function (msg) {
+                $('.login_tips').find('.tips_msg').remove();
+                $('.login_tips').append('<div class="tips_msg"><i class="fa fa-question-circle"></i>' + msg + '</div>');
+            },
+            loginClick: function () {
+                var $username = $("#txt_account");
+                var $password = $("#txt_password");
+                var $code = $("#txt_code");
+                if ($username.val() == "") {
+                    $username.focus();
+                    $.login.formMessage('请输入用户名。');
+                    return false;
+                } else if ($password.val() == "") {
+                    $password.focus();
+                    $.login.formMessage('请输入登录密码。');
+                    return false;
+                } else if ($code.val() == "") {
+                    $code.focus();
+                    $.login.formMessage('请输入验证码。');
+                    return false;
+                } else {
+                    $("#login_button").attr('disabled', 'disabled').find('span').html("登录中...");
+                    $.ajax({
+                        url: "/Login/CheckLogin",
+                        data: { username: $.trim($username.val()), password: $.md5($.trim($password.val())), code: $.trim($code.val()) },
+                        type: "post",
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.state == "success") {
+                                $("#login_button").find('span').html("登录成功，正在跳转...");
+                                window.setTimeout(function () {
+                                    window.location.href = "/Home/Index";
+                                }, 500);
+                            } else {
+                                $("#login_button").removeAttr('disabled').find('span').html("登录");
+                                $("#switchCode").trigger("click");
+                                $code.val('');
+                                $.login.formMessage(data.message);
+                            }
+                        }
+                    });
+                }
+            },
+            init: function () {
+                $("#switchCode").click(function () {
+                    $("#imgcode").attr("src", "/Login/GetAuthCode?time=" + Math.random());
+                });
+                var login_error = top.$.cookie('DRP_login_error');
+                if (login_error != null) {
+                    switch (login_error) {
+                        case "overdue":
+                            $.login.formMessage("系统登录已超时,请重新登录");
+                            break;
+                        case "OnLine":
+                            $.login.formMessage("您的帐号已在其它地方登录,请重新登录");
+                            break;
+                        case "-1":
+                            $.login.formMessage("系统未知错误,请重新登录");
+                            break;
+                    }
+                    top.$.cookie('DRP_login_error', '', { path: "/", expires: -1 });
+                }
+                $("#login_button").click(function () {
+                    $.login.loginClick();
+                });
+                document.onkeydown = function (e) {
+                    if (!e) e = window.event;
+                    if ((e.keyCode || e.which) == 13) {
+                        document.getElementById("login_button").focus();
+                        document.getElementById("login_button").click();
+                    }
+                }
+            }
+        };
+        $(function () {
+            $.login.init();
+        });
+    })(jQuery);
+
+    </script>
 </body>
 </html>
 
-
-<script type="text/javascript">
-    $(function () {
-        $("#switchCode").click(function () {
-            $("#imgcode").attr("src", "/Login/GetAuthCode?time=" + Math.random());
-        });
-    });
-
-</script>

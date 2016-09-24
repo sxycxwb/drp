@@ -98,6 +98,7 @@
     <Content Include="Content\css\style.min.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\fonts\weathericons-regular-webfont.svg" />
     <Content Include="Content\img\bg.png" />
     <Content Include="Content\img\iconfont-logo.png" />
     <Content Include="Content\img\icons.png" />
@@ -108,8 +109,11 @@
     <Content Include="Content\img\success.png" />
     <Content Include="Content\img\user.png" />
     <Content Include="Content\js\bootstrap.min.js" />
+    <Content Include="Content\js\cookie\jquery.cookie.js" />
     <Content Include="Content\js\jquery-1.10.2.min.js" />
     <Content Include="Content\js\jquery.json.min.js" />
+    <Content Include="Content\js\jquery\jquery-2.1.1.min.js" />
+    <Content Include="Content\js\md5\jquery.md5.js" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -146,6 +150,13 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\FontAwesome.otf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regulard41d.eot" />
+    <Content Include="Content\fonts\weathericons-regular-webfont.eot" />
+    <Content Include="Content\fonts\weathericons-regular-webfont.ttf" />
+    <Content Include="Content\fonts\weathericons-regular-webfont.woff" />
+    <Content Include="Content\fonts\weathericons-regular-webfontd41d.eot" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -12,11 +12,17 @@ namespace DRP.Client.Web
     {
         public string UserId { get; set; }
         public string UserCode { get; set; }
+        /// <summary>
+        /// 用户名
+        /// </summary>
         public string UserName { get; set; }
+
+        /// <summary>
+        /// 联系电话
+        /// </summary>
+        public string MobilePhone { get; set; }
+
         public string UserPwd { get; set; }
-        public string CompanyId { get; set; }
-        public string DepartmentId { get; set; }
-        public string RoleId { get; set; }
         public string LoginIPAddress { get; set; }
         public string LoginIPAddressName { get; set; }
         public string LoginToken { get; set; }

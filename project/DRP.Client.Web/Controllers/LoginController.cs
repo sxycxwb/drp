@@ -7,14 +7,11 @@
 using DRP.Domain.Entity.SystemSecurity;
 using DRP.Application.SystemSecurity;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using DRP.Domain.Entity.SystemManage;
-using DRP.Application.SystemManage;
 using DRP.Code;
 using DRP.Application;
+using DRP.Application.DrpServManage;
+using DRP.Domain.Entity.DrpServManage;
 
 namespace DRP.Client.Web.Controllers
 {
@@ -62,21 +59,19 @@ namespace DRP.Client.Web.Controllers
                     throw new Exception("验证码错误，请重新输入");
                 }
 
-                UserEntity userEntity = new UserApp().CheckLogin(username, password);
-                if (userEntity != null)
+                CustomerEntity customerEntity = new CustomerApp().CheckLogin(username, password);
+                if (customerEntity != null)
                 {
                     ClientOperatorModel operatorModel = new ClientOperatorModel();
-                    operatorModel.UserId = userEntity.F_Id;
-                    operatorModel.UserCode = userEntity.F_Account;
-                    operatorModel.UserName = userEntity.F_RealName;
-                    operatorModel.CompanyId = userEntity.F_OrganizeId;
-                    operatorModel.DepartmentId = userEntity.F_DepartmentId;
-                    operatorModel.RoleId = userEntity.F_RoleId;
+                    operatorModel.UserId = customerEntity.F_Id;
+                    operatorModel.UserCode = customerEntity.F_Account;
+                    operatorModel.UserName = customerEntity.F_CompanyName;
+                    operatorModel.MobilePhone = customerEntity.F_MobilePhone;
                     operatorModel.LoginIPAddress = Net.Ip;
                     operatorModel.LoginIPAddressName = Net.GetLocation(operatorModel.LoginIPAddress);
                     operatorModel.LoginTime = DateTime.Now;
                     operatorModel.LoginToken = DESEncrypt.Encrypt(Guid.NewGuid().ToString());
-                    if (userEntity.F_Account == "admin")
+                    if (customerEntity.F_Account == "admin")
                     {
                         operatorModel.IsSystem = true;
                     }
@@ -85,8 +80,8 @@ namespace DRP.Client.Web.Controllers
                         operatorModel.IsSystem = false;
                     }
                     ClientOperatorProvider.Provider.AddCurrent(operatorModel);
-                    logEntity.F_Account = userEntity.F_Account;
-                    logEntity.F_NickName = userEntity.F_RealName;
+                    logEntity.F_Account = customerEntity.F_Account;
+                    logEntity.F_NickName = customerEntity.F_CompanyName;
                     logEntity.F_Result = true;
                     logEntity.F_Description = "登录成功";
                     new LogApp().WriteDbLog(logEntity);

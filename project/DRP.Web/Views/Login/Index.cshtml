@@ -92,7 +92,7 @@
                         $.login.formMessage('请输入验证码。');
                         return false;
                     } else {
-                        $("#login_button").attr('disabled', 'disabled').find('span').html("loading...");
+                        $("#login_button").attr('disabled', 'disabled').find('span').html("登录中...");
                         $.ajax({
                             url: "/Login/CheckLogin",
                             data: { username: $.trim($username.val()), password: $.md5($.trim($password.val())), code: $.trim($code.val()) },

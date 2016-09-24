@@ -41,7 +41,7 @@ namespace DRP.Repository.DrpServManage
                     #region 处理顾客新增时的属性
                     customerEntity.F_DeleteMark = false;
                     //F_Password
-                    customerEntity.F_Password = Md5.md5(DESEncrypt.Encrypt(customerEntity.F_Password, ConstantUtility.CUSTOMER_MD5_SECRETKEY).ToLower(), 32).ToLower();
+                    customerEntity.F_Password = Md5.md5(DESEncrypt.Encrypt(Md5.md5(customerEntity.F_Password,32), ConstantUtility.CUSTOMER_MD5_SECRETKEY).ToLower(), 32).ToLower();
                     //F_AccountCode 00100825114540129865
                     customerEntity.F_AccountCode = string.Format("N{0}{1}","00",Common.CreateNo("yyMMddHHmmssff"));
                     #endregion

@@ -4,13 +4,15 @@
  * Description: 分销系统
  * Website：
 *********************************************************************************/
+using DRP.Domain.Entities;
 using System;
+using DRP.Domain.Entities.Auditing;
 
 namespace DRP.Domain.Entity.SystemManage
 {
-    public class UserEntity : IEntity<UserEntity>, ICreationAudited, IDeleteAudited, IModificationAudited
+    public class UserEntity : FullAuditedEntity<string>
     {
-        public string F_Id { get; set; }
+        //public string F_Id { get; set; }
         /// <summary>
         /// 登录账户名
         /// </summary>
@@ -48,20 +50,20 @@ namespace DRP.Domain.Entity.SystemManage
         /// </summary>
         public bool? F_IsAdministrator { get; set; }
         public int? F_SortCode { get; set; }
-        public bool? F_DeleteMark { get; set; }
+        //public bool? F_DeleteMark { get; set; }
         public bool? F_EnabledMark { get; set; }
         public string F_Description { get; set; }
-        public DateTime? F_CreatorTime { get; set; }
-        public string F_CreatorUserId { get; set; }
-        public DateTime? F_LastModifyTime { get; set; }
-        public string F_LastModifyUserId { get; set; }
-        /// <summary>
-        /// 删除时间
-        /// </summary>
-        public DateTime? F_DeleteTime { get; set; }
-        /// <summary>
-        /// 删除用户
-        /// </summary>
-        public string F_DeleteUserId { get; set; }
+        //public DateTime? F_CreatorTime { get; set; }
+        //public string F_CreatorUserId { get; set; }
+        //public DateTime? F_LastModifyTime { get; set; }
+        //public string F_LastModifyUserId { get; set; }
+        ///// <summary>
+        ///// 删除时间
+        ///// </summary>
+        //public DateTime? F_DeleteTime { get; set; }
+        ///// <summary>
+        ///// 删除用户
+        ///// </summary>
+        //public string F_DeleteUserId { get; set; }
     }
 }

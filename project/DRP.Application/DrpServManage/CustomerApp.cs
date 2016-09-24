@@ -13,6 +13,7 @@ using DRP.Repository.DrpServManage;
 using DRP.Repository.SystemManage;
 using System;
 using System.Collections.Generic;
+using DRP.Domain;
 
 namespace DRP.Application.DrpServManage
 {
@@ -58,6 +59,35 @@ namespace DRP.Application.DrpServManage
         public void UpdateForm(CustomerEntity customerEntity)
         {
             service.Update(customerEntity);
+        }
+
+        public CustomerEntity CheckLogin(string username, string password)
+        {
+            CustomerEntity customerEntity = service.FindEntity(t => t.F_Account == username);
+            if (customerEntity != null)
+            {
+                if (customerEntity.F_EnabledMark == true)
+                {
+                    //UserLogOnEntity userLogOnEntity = userLogOnApp.GetForm(userEntity.F_Id);
+                    string dbPassword = Md5.md5(DESEncrypt.Encrypt(password.ToLower(), ConstantUtility.CUSTOMER_MD5_SECRETKEY).ToLower(), 32).ToLower();
+                    if (dbPassword == customerEntity.F_Password)
+                    {
+                        return customerEntity;
+                    }
+                    else
+                    {
+                        throw new Exception("密码不正确，请重新输入");
+                    }
+                }
+                else
+                {
+                    throw new Exception("账户被系统锁定,请联系管理员");
+                }
+            }
+            else
+            {
+                throw new Exception("账户不存在，请重新输入");
+            }
         }
     }
 }
