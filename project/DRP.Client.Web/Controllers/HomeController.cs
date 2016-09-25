@@ -14,7 +14,7 @@ using System.Web.Mvc;
 
 namespace DRP.Web.Controllers
 {
-    //[HandlerLogin]
+    [HandlerLogin]
     public class HomeController : Controller
     {
         [HttpGet]
