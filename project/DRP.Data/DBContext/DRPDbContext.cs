@@ -5,22 +5,38 @@
  * Website：
 *********************************************************************************/
 using System;
+using System.Configuration;
+using System.Data.Common;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Reflection;
+using DRP.Code;
 
 namespace DRP.Data
 {
     public class DRPDbContext : DbContext
     {
         public DRPDbContext()
-            : base("DRPDbContext")
+            : base(GetDRPDbConnection(),true)
         {
             this.Configuration.AutoDetectChangesEnabled = false;
             this.Configuration.ValidateOnSaveEnabled = false;
             this.Configuration.LazyLoadingEnabled = false;
             this.Configuration.ProxyCreationEnabled = false;
+        }
+
+        /// <summary>
+        /// 解密链接字符串
+        /// </summary>
+        /// <returns></returns>
+        public static DbConnection GetDRPDbConnection()
+        {
+            var providerName = ConfigurationManager.ConnectionStrings["DRPDbContext"].ProviderName;
+            var conn = DbProviderFactories.GetFactory(providerName).CreateConnection();
+            var connectString = ConfigurationManager.ConnectionStrings["DRPDbContext"].ConnectionString;
+            conn.ConnectionString = DESEncrypt.Decrypt(connectString);
+            return conn;
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
