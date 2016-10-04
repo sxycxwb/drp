@@ -5,12 +5,12 @@
  * Website：
 *********************************************************************************/
 using DRP.Data;
+using DRP.Data.Extensions;
 using DRP.Domain.Entity.SystemManage;
 using DRP.Domain.IRepository.SystemManage;
 using DRP.Repository.SystemManage;
 using System.Collections.Generic;
 using System.Data.Common;
-using System.Data.SqlClient;
 using System.Text;
 
 namespace DRP.Repository.SystemManage
@@ -28,9 +28,9 @@ namespace DRP.Repository.SystemManage
                                     AND d.F_EnabledMark = 1
                                     AND d.F_DeleteMark = 0
                             ORDER BY d.F_SortCode ASC");
-            DbParameter[] parameter = 
+            DbParameter[] parameter =
             {
-                 new SqlParameter("@enCode",enCode)
+                DbHelper.GetDbParameter("@enCode",enCode)
             };
             return this.FindList(strSql.ToString(), parameter);
         }

@@ -46,6 +46,8 @@
   <ItemGroup>
     <Compile Include="00 Infrastructure\DbLogType.cs" />
     <Compile Include="DrpServManage\CustomerApp.cs" />
+    <Compile Include="DrpServManage\ProductApp.cs" />
+    <Compile Include="DrpServManage\ProductModuleApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemManage\AreaApp.cs" />
     <Compile Include="SystemManage\DutyApp.cs" />

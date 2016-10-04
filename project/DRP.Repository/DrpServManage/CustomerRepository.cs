@@ -8,7 +8,6 @@ using System;
 using DRP.Code;
 using DRP.Data;
 using DRP.Domain.Entity.DrpServManage;
-using DRP.Domain.Entity.SystemManage;
 using DRP.Domain.IRepository.DrpServManage;
 using DRP.Domain;
 

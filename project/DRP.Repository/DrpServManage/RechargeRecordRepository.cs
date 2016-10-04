@@ -4,17 +4,13 @@
  * Description: 分销系统
  * Website：
 *********************************************************************************/
+using DRP.Data;
 using DRP.Domain.Entity.DrpServManage;
-using System.Data.Entity.ModelConfiguration;
+using DRP.Domain.IRepository.DrpServManage;
 
-namespace DRP.Mapping.DrpServManage
+namespace DRP.Repository.SystemManage
 {
-    public class CustomerMap : EntityTypeConfiguration<CustomerEntity>
+    public class RechargeRecordRepository : RepositoryBase<RechargeRecordEntity>, IRechargeRecordRepository
     {
-        public CustomerMap()
-        {
-            this.ToTable("Drp_Customer");
-            this.HasKey(t => t.F_Id);
-        }
     }
 }
