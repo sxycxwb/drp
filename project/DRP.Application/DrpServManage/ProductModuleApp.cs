@@ -14,7 +14,7 @@ using System.Linq;
 
 namespace DRP.Application.SystemManage
 {
-    public class ModuleButtonApp
+    public class ProductModuleApp
     {
         private IModuleButtonRepository service = new ModuleButtonRepository();
 

@@ -18,6 +18,11 @@ namespace DRP.Domain.Entity.DrpServManage
         public string F_ProductName { get; set; }
 
         /// <summary>
+        /// 计费模式 (0为产品 1为模块)
+        /// </summary>
+        public string F_ChargePattern { get; set; }
+
+        /// <summary>
         /// 计费金额
         /// </summary>
         public decimal F_ChargeAmount { get; set; }
@@ -26,11 +31,6 @@ namespace DRP.Domain.Entity.DrpServManage
         /// 计费方式 -年、季、月、周、日
         /// </summary>
         public string F_ChargeStyle { get; set; }
-
-        /// <summary>
-        /// 计费模式 (0为产品 1为模块)
-        /// </summary>
-        public string F_ChargePattern { get; set; }
 
         /// <summary>
         /// 产品描述
