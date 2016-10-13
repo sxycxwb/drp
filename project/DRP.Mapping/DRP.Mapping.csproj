@@ -49,6 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DrpServManage\ProductMap.cs" />
+    <Compile Include="DrpServManage\ProductModuleMap.cs" />
     <Compile Include="DrpServManage\CustomerMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemManage\AreaMap.cs" />

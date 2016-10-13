@@ -11,43 +11,58 @@ using DRP.Repository.SystemManage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DRP.Domain.Entity.DrpServManage;
+using DRP.Domain.IRepository.DrpServManage;
 
-namespace DRP.Application.SystemManage
+namespace DRP.Application.DrpServManage
 {
     public class ProductApp
     {
-        private IModuleRepository service = new ModuleRepository();
+        private IProductRepository service = new ProductRepository();
+        private IProductModuleRepository moduleService = new ProductModuleRepository();
 
-        public List<ModuleEntity> GetList()
+        public List<ProductEntity> GetList(Pagination pagination, string keyword)
         {
-            return service.IQueryable().OrderBy(t => t.F_SortCode).ToList();
+            var expression = ExtLinq.True<ProductEntity>();
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                //expression = expression.And(t => t.F_Account.Contains(keyword));
+                //expression = expression.Or(t => t.F_AccountCode.Contains(keyword));
+                //expression = expression.Or(t => t.F_MobilePhone.Contains(keyword));
+            }
+            expression = expression.And(t => t.F_DeleteMark == false);
+            return service.FindList(expression, pagination);
         }
-        public ModuleEntity GetForm(string keyValue)
+        public ProductEntity GetForm(string keyValue)
         {
             return service.FindEntity(keyValue);
         }
         public void DeleteForm(string keyValue)
         {
-            if (service.IQueryable().Count(t => t.F_ParentId.Equals(keyValue)) > 0)
+            if (moduleService.IQueryable().Count(t => t.F_ProductId.Equals(keyValue) && (t.F_DeleteMark == false)) > 0)
             {
-                throw new Exception("删除失败！操作的对象包含了下级数据。");
+                throw new Exception("删除失败！该产品包含了下级模块数据！");
             }
             else
             {
-                service.Delete(t => t.F_Id == keyValue);
+                var productEntity = new ProductEntity();
+                productEntity.Modify(keyValue);
+                productEntity.F_DeleteMark = true;
+                productEntity.F_Id = keyValue;
+                service.Update(productEntity);
             }
         }
-        public void SubmitForm(ModuleEntity moduleEntity, string keyValue)
+        public void SubmitForm(ProductEntity productEntity, string keyValue)
         {
             if (!string.IsNullOrEmpty(keyValue))
             {
-                moduleEntity.Modify(keyValue);
-                service.Update(moduleEntity);
+                productEntity.Modify(keyValue);
+                service.Update(productEntity);
             }
             else
             {
-                moduleEntity.Create();
-                service.Insert(moduleEntity);
+                productEntity.Create();
+                service.Insert(productEntity);
             }
         }
     }

@@ -22,17 +22,6 @@
     });
     function initControl() {
         $("#F_EnabledMark").bindSelect()
-        //$("#F_OrganizeId").bindSelect({
-        //    url: "/SystemManage/Organize/GetTreeSelectJson"
-        //});
-        //$("#F_DepartmentId").bindSelect({
-        //    url: "/SystemManage/Organize/GetTreeSelectJson",
-        //});
-        //$("#F_RoleId").bindSelect({
-        //    url: "/SystemManage/Role/GetGridJson",
-        //    id: "F_Id",
-        //    text: "F_FullName"
-        //});
         $("#F_BelongPersonId").bindSelect({
             url: "/SystemManage/User/GetListJson",
             id: "F_Id",

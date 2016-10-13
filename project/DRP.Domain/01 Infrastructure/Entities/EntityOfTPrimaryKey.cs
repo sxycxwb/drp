@@ -90,8 +90,8 @@ namespace DRP.Domain.Entities
         #region MyRegion
         public void Create()
         {
-            var entityBase = this as IEntity<string>;
-            entityBase.F_Id = Common.GuId();
+            var createEntity = this as IEntity<string>;
+            createEntity.F_Id = Common.GuId();
 
             var entity = this as Auditing.ICreationAudited;
             //entity.F_Id = Common.GuId();
@@ -101,28 +101,60 @@ namespace DRP.Domain.Entities
                 entity.F_CreatorUserId = LoginInfo.UserId;
             }
             entity.F_CreatorTime = DateTime.Now;
+
+            var deleteMarkEntity = this as Auditing.FullAuditedEntity<string>;
+            if (deleteMarkEntity != null)
+            {
+                deleteMarkEntity.F_DeleteMark = false;
+            }
         }
         public void Modify(string keyValue)
         {
             var entity = this as IModificationAudited;
-            entity.F_Id = keyValue;
             var LoginInfo = OperatorProvider.Provider.GetCurrent();
-            if (LoginInfo != null)
+            if (entity != null)
             {
-                entity.F_LastModifyUserId = LoginInfo.UserId;
+                entity.F_Id = keyValue;
+                if (LoginInfo != null)
+                {
+                    entity.F_LastModifyUserId = LoginInfo.UserId;
+                }
+                entity.F_LastModifyTime = DateTime.Now;
             }
-            entity.F_LastModifyTime = DateTime.Now;
+            else
+            {
+                var modifyEntity = this as Auditing.FullAuditedEntity<string>;
+                modifyEntity.F_Id = keyValue;
+                if (LoginInfo != null)
+                {
+                    modifyEntity.F_LastModifyUserId = LoginInfo.UserId;
+                }
+                modifyEntity.F_LastModifyTime = DateTime.Now;
+            }
         }
         public void Remove()
         {
             var entity = this as IDeleteAudited;
             var LoginInfo = OperatorProvider.Provider.GetCurrent();
-            if (LoginInfo != null)
+            if (entity != null)
             {
-                entity.F_DeleteUserId = LoginInfo.UserId;
+                if (LoginInfo != null)
+                {
+                    entity.F_DeleteUserId = LoginInfo.UserId;
+                }
+                entity.F_DeleteTime = DateTime.Now;
+                entity.F_DeleteMark = true;
             }
-            entity.F_DeleteTime = DateTime.Now;
-            entity.F_DeleteMark = true;
+            else
+            {
+                var deleteEntity = this as Auditing.IDeletionAudited;
+                if (LoginInfo != null)
+                {
+                    deleteEntity.F_DeleteUserId = LoginInfo.UserId;
+                }
+                deleteEntity.F_DeleteTime = DateTime.Now;
+                deleteEntity.F_DeleteMark = true;
+            }
         }
         #endregion
     }
