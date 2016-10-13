@@ -3,9 +3,9 @@
     Layout = "~/Views/Shared/_Index.cshtml";
 }
 <script>
-    $(function () {
+    $(function() {
         gridList();
-    })
+    });
     function gridList() {
         var $gridList = $("#gridList");
         $gridList.dataGrid({
@@ -24,7 +24,13 @@
                         }
                     }
                 },
-                { label: '计费金额(元)', name: 'F_ChargeAmount', width: 100, align: 'left' },
+                {
+                    label: '计费金额(元)', name: 'F_ChargeAmount', width: 100, align: 'left',
+                    formatter: function (cellvalue) {
+                        return cellvalue.toFixed(2);
+                    }
+                },
+
                 { label: '计费方式', name: 'F_ChargeStyle', width: 100, align: 'left' },
                 { label: '产品描述', name: 'F_Description', width: 250, align: 'left' },
                 {

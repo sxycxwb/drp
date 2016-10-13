@@ -46,3 +46,10 @@
 /project/DRP.Data/bin
 /project/CommonTools/bin/Debug
 /project/CommonTools/obj/Debug
+/project/DRP.Code/bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+/project/DRP.Code/bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+/project/DRP.Web/App_Data/DRPDbContext.mdf
+/project/DRP.Web/App_Data/DRPDbContext_log.ldf
+/project/EmailTool/bin/Debug/EmailTool.vshost.exe.manifest
+/project/EmailTool/bin/Debug/EmailTool.vshost.exe.config
+/project/EmailTool/bin/Debug/EmailTool.vshost.exe

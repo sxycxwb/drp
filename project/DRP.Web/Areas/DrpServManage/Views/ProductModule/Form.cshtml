@@ -18,6 +18,10 @@
                 }
             });
         }
+
+        $('.layui-layer-setwin').click(function() {
+            alert('1234567');
+        });
     });
     function initControl() {
         //$("#F_Location").select2({ minimumResultsForSearch: -1 });
@@ -36,8 +40,8 @@
             url: "/DrpServManage/ProductModule/SubmitForm?keyValue=" + keyValue,
             param: postData,
             success: function() {
-                top.modulebutton.$("#gridList").resetSelection();
-                top.modulebutton.$("#gridList").trigger("reloadGrid");
+                top.productmodule.$("#gridList").resetSelection();
+                top.productmodule.$("#gridList").trigger("reloadGrid");
             }
         });
     }

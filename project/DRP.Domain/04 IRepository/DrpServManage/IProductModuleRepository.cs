@@ -11,5 +11,7 @@ namespace DRP.Domain.IRepository.DrpServManage
 {
     public interface IProductModuleRepository : IRepositoryBase<ProductModuleEntity>
     {
+        void DeleteForm(string keyValue);
+        void SubmitForm(ProductModuleEntity productModuleEntity, string keyValue);
     }
 }

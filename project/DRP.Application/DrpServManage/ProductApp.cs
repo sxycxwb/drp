@@ -56,6 +56,13 @@ namespace DRP.Application.DrpServManage
         {
             if (!string.IsNullOrEmpty(keyValue))
             {
+                if (productEntity.F_ChargePattern == "0")
+                {
+                    if (moduleService.IQueryable().Count(t => t.F_ProductId.Equals(keyValue) && (t.F_DeleteMark == false)) > 0)
+                    {
+                        throw new Exception("修改失败！该产品包含了下级模块数据！");
+                    }
+                }
                 productEntity.Modify(keyValue);
                 service.Update(productEntity);
             }

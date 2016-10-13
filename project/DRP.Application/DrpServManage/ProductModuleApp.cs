@@ -41,19 +41,10 @@ namespace DRP.Application.DrpServManage
             productModuleEntity.F_Id = keyValue;
             service.Update(productModuleEntity);
         }
+
         public void SubmitForm(ProductModuleEntity productModuleEntity, string keyValue)
         {
-            if (!string.IsNullOrEmpty(keyValue))
-            {
-                productModuleEntity.Modify(keyValue);
-                service.Update(productModuleEntity);
-            }
-            else
-            {
-                productModuleEntity.F_ParentId = "0";
-                productModuleEntity.Create();
-                service.Insert(productModuleEntity);
-            }
+            service.SubmitForm(productModuleEntity,keyValue);
         }
     }
 }
