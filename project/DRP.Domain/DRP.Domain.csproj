@@ -80,6 +80,8 @@
     <Compile Include="01 Infrastructure\IModificationAudited.cs" />
     <Compile Include="02 ViewModel\AuthorizeActionModel.cs" />
     <Compile Include="03 Entity\DrpServManage\DrpCustomerEntity.cs" />
+    <Compile Include="03 Entity\DrpServManage\DrpProductModuleEntity.cs" />
+    <Compile Include="03 Entity\DrpServManage\DrpProductEntity.cs" />
     <Compile Include="03 Entity\DrpServManage\DrpRechargeRecordEntity.cs" />
     <Compile Include="03 Entity\SystemManage\AreaEntity.cs" />
     <Compile Include="03 Entity\SystemManage\ItemsDetailEntity.cs" />
