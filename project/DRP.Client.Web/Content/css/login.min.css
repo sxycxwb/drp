@@ -12,7 +12,7 @@ body.signin{height:auto;background:url(../img/login-background.jpg) no-repeat ce
 .signinpanel .reset_vcode p{margin:0px;}
 .signinpanel .btn{margin-top:15px}
 .signinpanel .login_tips{width:100%;}
-.signinpanel .tips_msg{height:30px;line-height:30px;color: red;margin: 0 auto;border-radius:5px;font-size:14px;font-weight: bold;}
+.signinpanel .tips_msg{height:30px;line-height:30px;color: red;margin: 0 auto;border-radius:5px;font-size:14px;}
 .signinpanel .tips_msg i{position: relative;top: 0.5px;font-size: 15px;padding-right: 5px;}
 .signinpanel form{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);-moz-box-shadow:0 3px 0 rgba(12,12,12,.03);-webkit-box-shadow:0 3px 0 rgba(12,12,12,.03);box-shadow:0 3px 0 rgba(12,12,12,.03);-moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;padding:30px}
 .signup-footer{border-top:solid 1px rgba(255,255,255,.3);margin:20px 0;padding-top:15px}

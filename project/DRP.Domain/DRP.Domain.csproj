@@ -80,7 +80,7 @@
     <Compile Include="01 Infrastructure\IModificationAudited.cs" />
     <Compile Include="02 ViewModel\AuthorizeActionModel.cs" />
     <Compile Include="03 Entity\DrpServManage\DrpCustomerEntity.cs" />
-    <Compile Include="03 Entity\DrpServManage\DrpProductModuelEntity.cs" />
+    <Compile Include="03 Entity\DrpServManage\DrpProductModuleEntity.cs" />
     <Compile Include="03 Entity\DrpServManage\DrpProductEntity.cs" />
     <Compile Include="03 Entity\DrpServManage\DrpRechargeRecordEntity.cs" />
     <Compile Include="03 Entity\SystemManage\AreaEntity.cs" />
@@ -97,6 +97,9 @@
     <Compile Include="03 Entity\SystemSecurity\FilterIPEntity.cs" />
     <Compile Include="03 Entity\SystemSecurity\LogEntity.cs" />
     <Compile Include="04 IRepository\DrpServManage\ICustomerRepository.cs" />
+    <Compile Include="04 IRepository\DrpServManage\IRechargeRecordRepository.cs" />
+    <Compile Include="04 IRepository\DrpServManage\IProductRepository.cs" />
+    <Compile Include="04 IRepository\DrpServManage\IProductModuleRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IAreaRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IItemsDetailRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IItemsRepository.cs" />

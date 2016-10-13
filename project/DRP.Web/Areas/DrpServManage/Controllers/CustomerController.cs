@@ -7,7 +7,6 @@
 using DRP.Application.DrpServManage;
 using DRP.Code;
 using DRP.Domain.Entity.DrpServManage;
-using DRP.Domain.Entity.SystemManage;
 using System.Web.Mvc;
 
 
@@ -55,10 +54,5 @@ namespace DRP.Web.Areas.DrpServManage.Controllers
             return Success("删除成功。");
         }          
 
-        [HttpGet]
-        public ActionResult Info()
-        {
-            return View();
-        }
     }
 }

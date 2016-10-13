@@ -7,7 +7,7 @@
 using DRP.Domain.Entity.DrpServManage;
 using System.Data.Entity.ModelConfiguration;
 
-namespace DRP.Mapping.SystemManage
+namespace DRP.Mapping.DrpServManage
 {
     public class CustomerMap : EntityTypeConfiguration<CustomerEntity>
     {

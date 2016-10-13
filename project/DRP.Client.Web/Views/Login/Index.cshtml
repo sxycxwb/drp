@@ -3,24 +3,23 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>会员 - 登录</title>
+    <title>会员中心 - 登录</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
+    <link rel="shortcut icon" href="~/Content/img/favicon.ico">
     <link href="~/Content/css/bootstrap.min.css" rel="stylesheet">
-    <link href="~/Content/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="~/Content/css/font-awesome.min.css" rel="stylesheet">
     @*<link href="~/Content/css/animate.min.css" rel="stylesheet">*@
     <link href="~/Content/css/style.min.css" rel="stylesheet">
     <link href="~/Content/css/login.min.css" rel="stylesheet">
-    <script src="~/Content/js/jquery/jquery-2.1.1.min.js"></script>
+    <script src="~/Content/js/jquery/jquery-1.10.2.min.js"></script>
     <script src="~/Content/js/cookie/jquery.cookie.js"></script>
     <script src="~/Content/js/md5/jquery.md5.js"></script>
 
-    <!--[if lt IE 8]>
-    <meta http-equiv="refresh" content="0;ie.html" />
+    <!--[if lte IE 8]>
+        <div id="errorie"><div>您还在使用老掉牙的IE，正常使用系统前请升级您的浏览器到 IE8以上版本 <a target="_blank" href="http://windows.microsoft.com/zh-cn/internet-explorer/ie-8-worldwide-languages">点击升级</a>&nbsp;&nbsp;强烈建议您更改换浏览器：<a href="http://down.tech.sina.com.cn/content/40975.html" target="_blank">谷歌 Chrome</a></div></div>
     <![endif]-->
-    <script>
-        if (window.top !== window.self) { window.top.location = window.location };
-    </script>
+
 </head>
 <body class="signin">
 <div class="signinpanel">
@@ -68,51 +67,13 @@
     </div>
 </div>
 
-    <script type="text/javascript">
+<script type="text/javascript">
+    
     (function ($) {
         $.login = {
             formMessage: function (msg) {
                 $('.login_tips').find('.tips_msg').remove();
                 $('.login_tips').append('<div class="tips_msg"><i class="fa fa-question-circle"></i>' + msg + '</div>');
-            },
-            loginClick: function () {
-                var $username = $("#txt_account");
-                var $password = $("#txt_password");
-                var $code = $("#txt_code");
-                if ($username.val() == "") {
-                    $username.focus();
-                    $.login.formMessage('请输入用户名。');
-                    return false;
-                } else if ($password.val() == "") {
-                    $password.focus();
-                    $.login.formMessage('请输入登录密码。');
-                    return false;
-                } else if ($code.val() == "") {
-                    $code.focus();
-                    $.login.formMessage('请输入验证码。');
-                    return false;
-                } else {
-                    $("#login_button").attr('disabled', 'disabled').find('span').html("登录中...");
-                    $.ajax({
-                        url: "/Login/CheckLogin",
-                        data: { username: $.trim($username.val()), password: $.md5($.trim($password.val())), code: $.trim($code.val()) },
-                        type: "post",
-                        dataType: "json",
-                        success: function (data) {
-                            if (data.state == "success") {
-                                $("#login_button").find('span').html("登录成功，正在跳转...");
-                                window.setTimeout(function () {
-                                    window.location.href = "/Home/Index";
-                                }, 500);
-                            } else {
-                                $("#login_button").removeAttr('disabled').find('span').html("登录");
-                                $("#switchCode").trigger("click");
-                                $code.val('');
-                                $.login.formMessage(data.message);
-                            }
-                        }
-                    });
-                }
             },
             init: function () {
                 $("#switchCode").click(function () {
@@ -133,9 +94,6 @@
                     }
                     top.$.cookie('DRP_login_error', '', { path: "/", expires: -1 });
                 }
-                $("#login_button").click(function () {
-                    $.login.loginClick();
-                });
                 document.onkeydown = function (e) {
                     if (!e) e = window.event;
                     if ((e.keyCode || e.which) == 13) {
@@ -143,14 +101,52 @@
                         document.getElementById("login_button").click();
                     }
                 }
+                $("#login_button").click(function () {
+                    var $username = $("#txt_account");
+                    var $password = $("#txt_password");
+                    var $code = $("#txt_code");
+                    if ($username.val() == "") {
+                        $username.focus();
+                        $.login.formMessage('请输入用户名');
+                        return false;
+                    } else if ($password.val() == "") {
+                        $password.focus();
+                        $.login.formMessage('请输入登录密码');
+                        return false;
+                    } else if ($code.val() == "") {
+                        $code.focus();
+                        $.login.formMessage('请输入验证码');
+                        return false;
+                    } else {
+                        $("#login_button").attr('disabled', 'disabled').html("登录中...");
+                        $.ajax({
+                            url: "/Login/CheckLogin",
+                            data: { username: $.trim($username.val()), password: $.md5($.trim($password.val())), code: $.trim($code.val()) },
+                            type: "post",
+                            dataType: "json",
+                            success: function (data) {
+                                if (data.state == "success") {
+                                    $("#login_button").html("登录成功，正在跳转...");
+                                    window.setTimeout(function () {
+                                        window.location.href = "/Home/Index";
+                                    }, 500);
+                                } else {
+                                    $("#login_button").removeAttr('disabled').html("登录");
+                                    $("#switchCode").trigger("click");
+                                    $code.val('');
+                                    $.login.formMessage(data.message);
+                                }
+                            }
+                        });
+                    }
+                });
             }
         };
         $(function () {
             $.login.init();
         });
     })(jQuery);
-
-    </script>
+</script>
 </body>
 </html>
 
