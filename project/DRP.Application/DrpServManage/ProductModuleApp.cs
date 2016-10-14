@@ -35,11 +35,7 @@ namespace DRP.Application.DrpServManage
         }
         public void DeleteForm(string keyValue)
         {
-            var productModuleEntity = new ProductModuleEntity();
-            productModuleEntity.Modify(keyValue);
-            productModuleEntity.F_DeleteMark = true;
-            productModuleEntity.F_Id = keyValue;
-            service.Update(productModuleEntity);
+            service.DeleteForm(keyValue);
         }
 
         public void SubmitForm(ProductModuleEntity productModuleEntity, string keyValue)

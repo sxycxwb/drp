@@ -13,6 +13,7 @@ using DRP.Repository.DrpServManage;
 using DRP.Repository.SystemManage;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using DRP.Domain;
 
 namespace DRP.Application.DrpServManage
@@ -20,6 +21,8 @@ namespace DRP.Application.DrpServManage
     public class CustomerApp
     {
         private ICustomerRepository service = new CustomerRepository();
+        private IProductRepository productService = new ProductRepository();
+        private ICustomerProductRepository customerProductService = new CustomerProductRepository();
 
         public List<CustomerEntity> GetList(Pagination pagination, string keyword)
         {
@@ -38,6 +41,37 @@ namespace DRP.Application.DrpServManage
             return service.FindEntity(keyValue);
         }
 
+        public object GetProductJson(string keyValue)
+        {
+            //查询所有有效产品
+            var expression = ExtLinq.True<ProductEntity>();
+            expression = expression.And(t => t.F_DeleteMark == false);
+            var productList = productService.IQueryable(expression).OrderByDescending(t => t.F_CreatorTime);
+
+            //查询客户下已设定的产品
+            var expressionCusPro = ExtLinq.True<CustomerProductEntity>();
+            expressionCusPro = expressionCusPro.And(t => t.F_CustomerId == keyValue);
+            var customerProductList = customerProductService.IQueryable(expressionCusPro).ToList();
+
+            List<object> productCheckList = new List<object>();
+            foreach (var product in productList)
+            {
+                var productId = product.F_Id;
+                var isChecked = false;
+                var checkProduct = customerProductList.Find(t => t.F_ProductId == productId && t.F_CustomerId == keyValue);
+                if (checkProduct != null)
+                    isChecked = true;
+                productCheckList.Add(new
+                {
+                    productId = productId,
+                    productName = product.F_ProductName,
+                    productDes = product.F_Description,
+                    isChecked= isChecked
+                });
+            }
+            return productCheckList;
+        }
+
         public void SubmitForm(CustomerEntity customerEntity, string keyValue)
         {
             if (!string.IsNullOrEmpty(keyValue))
@@ -49,6 +83,20 @@ namespace DRP.Application.DrpServManage
                 customerEntity.Create();             
             }
             service.SubmitForm(customerEntity, keyValue);
+        }
+
+        public void SubmitProduct(string[] productIds, string keyValue)
+        {
+            var customerProductList = new List<CustomerProductEntity>();
+            foreach (var itemId in productIds)
+            {
+                var customerProductEntity = new CustomerProductEntity();
+                customerProductEntity.Create();
+                customerProductEntity.F_CustomerId = keyValue;
+                customerProductEntity.F_ProductId = itemId;
+                customerProductList.Add(customerProductEntity);
+            }
+            service.SubmitProduct(customerProductList, keyValue);
         }
 
         public void DeleteForm(string keyValue)

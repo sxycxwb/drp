@@ -5,6 +5,7 @@
  * Website：
 *********************************************************************************/
 using System;
+using System.Collections.Generic;
 using DRP.Code;
 using DRP.Data;
 using DRP.Domain.Entity.DrpServManage;
@@ -46,6 +47,16 @@ namespace DRP.Repository.DrpServManage
                     #endregion
                     db.Insert(customerEntity);
                 }
+                db.Commit();
+            }
+        }
+
+        public void SubmitProduct(List<CustomerProductEntity> customerProductList, string keyValue)
+        {
+            using (var db = new RepositoryBase().BeginTrans())
+            {
+                db.Delete<CustomerProductEntity>(t => t.F_CustomerId == keyValue);
+                db.Insert(customerProductList);
                 db.Commit();
             }
         }

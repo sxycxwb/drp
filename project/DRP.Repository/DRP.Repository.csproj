@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DrpServManage\CustomerProductRepository.cs" />
     <Compile Include="DrpServManage\CustomerRepository.cs" />
     <Compile Include="DrpServManage\ProductModuleRepository.cs" />
     <Compile Include="DrpServManage\RechargeRecordRepository.cs" />

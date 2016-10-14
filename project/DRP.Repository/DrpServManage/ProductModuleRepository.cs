@@ -16,7 +16,20 @@ namespace DRP.Repository.SystemManage
     {
         public void DeleteForm(string keyValue)
         {
-            throw new System.NotImplementedException();
+            using (var db = new RepositoryBase().BeginTrans())
+            {
+                var productModuleEntity = db.FindEntity<ProductModuleEntity>(t => t.F_Id == keyValue);
+                var productEntity = db.FindEntity<ProductEntity>(t => t.F_Id == productModuleEntity.F_ProductId);
+                productEntity.F_ChargeAmount -= productModuleEntity.F_ChargeAmount;
+
+                productModuleEntity.Remove();
+                db.Update(productModuleEntity);
+
+                productEntity.Modify(productModuleEntity.F_ProductId);
+                db.Update(productEntity);
+
+                db.Commit();
+            }
         }
 
         public void SubmitForm(ProductModuleEntity productModuleEntity, string keyValue)

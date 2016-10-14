@@ -7,14 +7,15 @@
 using DRP.Application.DrpServManage;
 using DRP.Code;
 using DRP.Domain.Entity.DrpServManage;
+using DRP.Domain.Entity.SystemManage;
 using System.Web.Mvc;
 
 
 namespace DRP.Web.Areas.DrpServManage.Controllers
 {
-    public class CustomerController : ControllerBase
+    public class RechargeController : ControllerBase
     {
-        private CustomerApp customerApp = new CustomerApp();
+        private ProductApp productApp = new ProductApp();
 
         [HttpGet]
         [HandlerAjaxOnly]
@@ -22,7 +23,7 @@ namespace DRP.Web.Areas.DrpServManage.Controllers
         {
             var data = new
             {
-                rows = customerApp.GetList(pagination, keyword),
+                rows = productApp.GetList(pagination, keyword),
                 total = pagination.total,
                 page = pagination.page,
                 records = pagination.records
@@ -33,56 +34,26 @@ namespace DRP.Web.Areas.DrpServManage.Controllers
         [HandlerAjaxOnly]
         public ActionResult GetFormJson(string keyValue)
         {
-            var data = customerApp.GetForm(keyValue);
+            var data = productApp.GetForm(keyValue);
             return Content(data.ToJson());
         }
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
-        public ActionResult SubmitForm(CustomerEntity customerEntity, string keyValue)
+        public ActionResult SubmitForm(ProductEntity productEntity, string keyValue)
         {
-            customerApp.SubmitForm(customerEntity, keyValue);
+            productApp.SubmitForm(productEntity, keyValue);
             return Success("操作成功。");
         }
-        [HttpPost]
-        [HandlerAjaxOnly]
-        [ValidateAntiForgeryToken]
-        public ActionResult SubmitProduct(string productIds, string keyValue)
-        {
-            customerApp.SubmitProduct(productIds.Split(','), keyValue);
-            return Success("操作成功。");
-        }
-
         [HttpPost]
         [HandlerAuthorize]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteForm(string keyValue)
         {
-            customerApp.DeleteForm(keyValue);
+            productApp.DeleteForm(keyValue);
             return Success("删除成功。");
-        }
-        [HttpGet]
-        [HandlerAuthorize]
-        public virtual ActionResult Product()
-        {
-            return View();
-        }
-        [HttpGet]
-        [HandlerAjaxOnly]
-        public ActionResult GetProductJson(string keyValue)
-        {
-            var data = customerApp.GetProductJson(keyValue);
-            return Content(data.ToJson());
-        }
-        [HttpPost]
-        [HandlerAjaxOnly]
-        [ValidateAntiForgeryToken]
-        public ActionResult SetProduct()
-        {
-            return Success("操作成功。");
-        }
-
+        }          
 
     }
 }

@@ -75,10 +75,10 @@
         $.deleteForm({
             url: "/DrpServManage/Customer/DeleteForm",
             param: { keyValue: $("#gridList").jqGridRowValue().F_Id },
-            success: function () {
+            success: function() {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
             }
-        })
+        });
     }
     function btn_details() {
         var keyValue = $("#gridList").jqGridRowValue().F_Id;
@@ -88,7 +88,21 @@
             url: "/DrpServManage/Customer/Details?keyValue=" + keyValue,
             width: "700px",
             height: "550px",
-            btn: null,
+            btn: null
+        });
+    }
+    function btn_setproduct(){
+        var keyValue = $("#gridList").jqGridRowValue().F_Id;
+        var companyName = $("#gridList").jqGridRowValue().F_CompanyName;
+        $.modalOpen({
+            id: "Details",
+            title: "设置产品 ->" + companyName,
+            url: "/DrpServManage/Customer/Product?keyValue=" + keyValue,
+            width: "700px",
+            height: "550px",
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
         });
     }
     
@@ -136,6 +150,7 @@
                 <li><a id="DRP-delete" authorize="yes" onclick="btn_delete()"><i class="fa fa-trash-o"></i>删除账户</a></li>
                 @*<li><a id="NF-Details" authorize="yes" onclick="btn_details()"><i class="fa fa-search-plus"></i>查看账户</a></li>*@
                 <li class="split"></li>
+                <li><a id="DRP-set" authorize="yes" onclick="btn_setproduct()"><i class="fa fa-pencil-square-o"></i>设置产品</a></li>
                 @*<li><a id="NF-revisepassword" authorize="yes" onclick="btn_revisepassword()"><i class="fa fa-key"></i>密码重置</a></li>*@
                 <li class="split"></li>
                 <li><a id="NF-disabled" authorize="yes" onclick="btn_disabled()"><i class="fa fa-stop-circle"></i>禁用</a></li>

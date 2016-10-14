@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_Index.cshtml";
 }
 <script>
-    $(function() {
+    $(function () {
         gridList();
     });
     function gridList() {
@@ -34,7 +34,7 @@
                 { label: '计费方式', name: 'F_ChargeStyle', width: 100, align: 'left' },
                 { label: '产品描述', name: 'F_Description', width: 250, align: 'left' },
                 {
-                    label: '创建日期', name: 'F_CreatorTime', width: 80, align: 'left',
+                    label: '创建时间', name: 'F_CreatorTime', width: 80, align: 'left',
                     formatter: "date", formatoptions: { srcformat: 'Y-m-d H:d:s', newformat: 'Y-m-d H:d:s' }
                 }
             ],
@@ -73,7 +73,12 @@
             url: "/DrpServManage/ProductModule/Index?productId=" + productId,
             width: "900px",
             height: "600px",
-            btn: null
+            btn: null,
+            cancel: function () {
+                $("#gridList").resetSelection();
+                $("#gridList").trigger("reloadGrid");
+                return true;
+            }
         });
     }
     function btn_edit() {
