@@ -15,7 +15,7 @@ namespace DRP.Web.Areas.DrpServManage.Controllers
 {
     public class RechargeController : ControllerBase
     {
-        private ProductApp productApp = new ProductApp();
+        private RechargeApp rechargeApp = new RechargeApp();
 
         [HttpGet]
         [HandlerAjaxOnly]
@@ -23,7 +23,7 @@ namespace DRP.Web.Areas.DrpServManage.Controllers
         {
             var data = new
             {
-                rows = productApp.GetList(pagination, keyword),
+                rows = rechargeApp.GetList(pagination, keyword),
                 total = pagination.total,
                 page = pagination.page,
                 records = pagination.records
@@ -34,26 +34,17 @@ namespace DRP.Web.Areas.DrpServManage.Controllers
         [HandlerAjaxOnly]
         public ActionResult GetFormJson(string keyValue)
         {
-            var data = productApp.GetForm(keyValue);
+            var data = rechargeApp.GetForm(keyValue);
             return Content(data.ToJson());
         }
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
-        public ActionResult SubmitForm(ProductEntity productEntity, string keyValue)
+        public ActionResult SubmitForm(RechargeRecordEntity rechargeRecordEntity, string keyValue)
         {
-            productApp.SubmitForm(productEntity, keyValue);
+            rechargeApp.SubmitForm(rechargeRecordEntity, keyValue);
             return Success("操作成功。");
         }
-        [HttpPost]
-        [HandlerAuthorize]
-        [HandlerAjaxOnly]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteForm(string keyValue)
-        {
-            productApp.DeleteForm(keyValue);
-            return Success("删除成功。");
-        }          
 
     }
 }

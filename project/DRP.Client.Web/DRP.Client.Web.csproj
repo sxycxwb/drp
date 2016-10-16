@@ -109,6 +109,8 @@
     <Content Include="Content\css\app.css" />
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\font-awesome.min.css" />
+    <Content Include="Content\css\framework-font.css" />
+    <Content Include="Content\css\framework-theme-client.css" />
     <Content Include="Content\css\jquery-ui.min.css" />
     <Content Include="Content\css\login.min.css" />
     <Content Include="Content\css\style.min.css" />
@@ -120,13 +122,28 @@
     <Content Include="Content\img\iconfont-logo.png" />
     <Content Include="Content\img\icons.png" />
     <Content Include="Content\img\loading-upload.gif" />
+    <Content Include="Content\img\loading.gif" />
     <Content Include="Content\img\locked.png" />
     <Content Include="Content\img\login-background.jpg" />
     <Content Include="Content\img\progress.png" />
     <Content Include="Content\img\success.png" />
     <Content Include="Content\img\user.png" />
     <Content Include="Content\js\bootstrap.min.js" />
+    <Content Include="Content\js\bootstrap\bootstrap.js" />
+    <Content Include="Content\js\bootstrap\bootstrap.min.css" />
     <Content Include="Content\js\cookie\jquery.cookie.js" />
+    <Content Include="Content\js\dialog\dialog.css" />
+    <Content Include="Content\js\dialog\dialog.js" />
+    <Content Include="Content\js\dialog\img\icon-ext.png" />
+    <Content Include="Content\js\dialog\img\icon.png" />
+    <Content Include="Content\js\dialog\img\loading-0.gif" />
+    <Content Include="Content\js\dialog\img\loading-1.gif" />
+    <Content Include="Content\js\dialog\img\loading-2.gif" />
+    <Content Include="Content\js\dialog\img\loading-3.gif" />
+    <Content Include="Content\js\framework-ui.js" />
+    <Content Include="Content\js\jqgrid\grid.locale-cn.js" />
+    <Content Include="Content\js\jqgrid\jqgrid.css" />
+    <Content Include="Content\js\jqgrid\jqgrid.min.js" />
     <Content Include="Content\js\jquery\jquery-1.10.2.min.js" />
     <Content Include="Content\js\jquery.json.min.js" />
     <Content Include="Content\js\md5\jquery.md5.js" />
@@ -140,6 +157,8 @@
     <Compile Include="App_Start\01 Handler\HandlerErrorAttribute.cs" />
     <Compile Include="App_Start\01 Handler\HandlerLoginAttribute.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\UserCenter\Controllers\AccountInfoController.cs" />
+    <Compile Include="Areas\UserCenter\UserCenterAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
@@ -173,6 +192,11 @@
     <Content Include="Content\fonts\weathericons-regular-webfont.ttf" />
     <Content Include="Content\fonts\weathericons-regular-webfont.woff" />
     <Content Include="Content\fonts\weathericons-regular-webfontd41d.eot" />
+    <Content Include="Areas\UserCenter\Views\web.config" />
+    <Content Include="Areas\UserCenter\Views\AccountInfo\Index.cshtml" />
+    <Content Include="Views\Shared\_Form.cshtml" />
+    <Content Include="Views\Shared\_Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

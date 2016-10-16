@@ -22,6 +22,11 @@ namespace DRP.Client.Web
         /// </summary>
         public string MobilePhone { get; set; }
 
+        /// <summary>
+        /// 联系邮箱
+        /// </summary>
+        public string Email { get; set; }
+
         public string UserPwd { get; set; }
         public string LoginIPAddress { get; set; }
         public string LoginIPAddressName { get; set; }

@@ -66,6 +66,7 @@ namespace DRP.Client.Web.Controllers
                     operatorModel.UserId = customerEntity.F_Id;
                     operatorModel.UserCode = customerEntity.F_Account;
                     operatorModel.UserName = customerEntity.F_CompanyName;
+                    operatorModel.Email = customerEntity.F_Email;
                     operatorModel.MobilePhone = customerEntity.F_MobilePhone;
                     operatorModel.LoginIPAddress = Net.Ip;
                     operatorModel.LoginIPAddressName = Net.GetLocation(operatorModel.LoginIPAddress);

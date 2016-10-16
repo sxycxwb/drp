@@ -11,7 +11,6 @@ namespace DRP.Client.Web
             get { return LogFactory.GetLogger(this.GetType().ToString()); }
         }
         [HttpGet]
-        [HandlerAuthorize]
         public virtual ActionResult Index()
         {
             return View();
