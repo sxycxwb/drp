@@ -21,22 +21,30 @@
         initEvent();
     });
     function initControl() {
-        if($("#F_ChargePattern").val()=="0")
+        if ($("#F_ChargePattern").val() == "0")
             $('#F_ChargeAmount').attr('disabled', false);
     }
 
     function initEvent() {
-        $("#F_ChargePattern").change(function() {
+        $("#F_ChargePattern").change(function () {
             var sel = $("#F_ChargePattern").val();
             if (sel == "0") {
                 $('#F_ChargeAmount').addClass('required');
                 $('#F_ChargeAmount').attr('disabled', false);
-                $('#F_ChargeAmount').attr('placeholder', '请输入金额');
+                $('#F_ChargeAmount').attr('placeholder', '请输入销售价');
+
+                $('#F_CostPrice').addClass('required');
+                $('#F_CostPrice').attr('disabled', false);
+                $('#F_CostPrice').attr('placeholder', '请输入成本价');
             }
             else if (sel == "1") {
                 $('#F_ChargeAmount').val('');
                 $('#F_ChargeAmount').attr('disabled', true);
-                $('#F_ChargeAmount').attr('placeholder', '计费模式为模块时无需填写金额');
+                $('#F_ChargeAmount').attr('placeholder', '计费模式为模块时无需填写销售价');
+
+                $('#F_CostPrice').val('');
+                $('#F_CostPrice').attr('disabled', true);
+                $('#F_CostPrice').attr('placeholder', '计费模式为模块时无需填写成本价');
             }
         });
     }
@@ -48,7 +56,7 @@
         $.submitForm({
             url: "/DrpServManage/Product/SubmitForm?keyValue=" + keyValue,
             param: $("#form1").formSerialize(),
-            success: function() {
+            success: function () {
                 $.currentWindow().$("#gridList").resetSelection();
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
             }
@@ -65,7 +73,7 @@
                 <tr>
                     <th class="formTitle"><span class="required-span">*</span>产品名称</th>
                     <td class="formValue">
-                        <input id="F_ProductName" name="F_FullName" type="text" class="form-control required" placeholder="请输入名称"/>
+                        <input id="F_ProductName" name="F_FullName" type="text" class="form-control required" placeholder="请输入名称" />
                     </td>
                     <th class="formTitle"><span class="required-span">*</span>计费模式</th>
                     <td class="formValue">
@@ -77,24 +85,35 @@
                     </td>
                 </tr>
                 <tr>
-                    <th class="formTitle">计费金额</th>
+                    <th class="formTitle">成本价</th>
                     <td class="formValue">
-                        <input id="F_ChargeAmount" name="F_ChargeAmount" type="number" class="form-control" style="display: inline-block; width: 200px;"  placeholder="请输入金额"/> <span style="display: inline-block;margin-left: 4px;font-weight: bold;"> 元</span>
+                        <input id="F_CostPrice" name="F_CostPrice" type="number" class="form-control " style="display: inline-block; width: 200px;" placeholder="请输入成本价" /> <span style="display: inline-block; margin-left: 4px; font-weight: bold;"> 元</span>
+                    </td>
+                    <th class="formTitle">销售价</th>
+                    <td class="formValue">
+                        <input id="F_ChargeAmount" name="F_ChargeAmount" type="number" class="form-control " style="display: inline-block; width: 200px;" placeholder="请输入销售价" /> <span style="display: inline-block; margin-left: 4px; font-weight: bold;"> 元</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle"><span class="required-span">*</span>代理商提成率</th>
+                    <td class="formValue">
+                        <input id="F_RoyaltyRate" name="F_RoyaltyRate" type="number" class="form-control required" style="display: inline-block; width: 200px;" placeholder="请输入提成率" /> <span style="display: inline-block; margin-left: 4px; font-weight: bold;"> %</span>
                     </td>
                     <th class="formTitle"><span class="required-span">*</span>计费方式</th>
                     <td class="formValue">
                         <select id="F_ChargeStyle" name="F_ChargeStyle" class="form-control required">
                             <option value="">==请选择==</option>
-                            <option value="year">年</option>
-                            <option value="quarter">季度</option>
+                            @*<option value="year">年</option>
+                                <option value="quarter">季度</option>*@
                             <option value="month">月</option>
-                            <option value="week">周</option>
-                            <option value="day">日</option>
+                            @*<option value="week">周</option>
+                                <option value="day">日</option>*@
                         </select>
                     </td>
                 </tr>
                 <tr>
-                    <th class="formTitle" valign="top" style="padding-top: 5px;">产品描述
+                    <th class="formTitle" valign="top" style="padding-top: 5px;">
+                        产品描述
                     </th>
                     <td class="formValue" colspan="3">
                         <textarea id="F_Description" name="F_Descriptions" class="form-control" style="height: 100px;"></textarea>

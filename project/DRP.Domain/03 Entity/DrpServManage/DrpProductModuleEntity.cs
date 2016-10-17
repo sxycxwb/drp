@@ -28,7 +28,12 @@ namespace DRP.Domain.Entity.DrpServManage
         public string F_ModuleName { get; set; }
 
         /// <summary>
-        /// 模块计费金额
+        /// 成本价
+        /// </summary>
+        public decimal F_CostPrice { get; set; }
+
+        /// <summary>
+        /// 销售价
         /// </summary>
         public decimal F_ChargeAmount { get; set; }
 

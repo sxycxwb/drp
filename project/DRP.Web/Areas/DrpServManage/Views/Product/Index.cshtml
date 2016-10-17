@@ -15,7 +15,7 @@
                 { label: '主键', name: 'F_Id', hidden: true },
                 { label: '产品名称', name: 'F_ProductName', width: 200, align: 'left' },
                 {
-                    label: '计费模式', name: 'F_ChargePattern', width: 100, align: 'left',
+                    label: '计费模式', name: 'F_ChargePattern', width: 70, align: 'left',
                     formatter: function (cellvalue) {
                         if (cellvalue == "0") {
                             return "产品";
@@ -25,13 +25,19 @@
                     }
                 },
                 {
-                    label: '计费金额(元)', name: 'F_ChargeAmount', width: 100, align: 'left',
+                    label: '成本价(元)', name: 'F_CostPrice', width: 100, align: 'left',
+                    formatter: function (cellvalue) {
+                        return cellvalue.toFixed(2);
+                    }
+                },
+                {
+                    label: '销售价(元)', name: 'F_ChargeAmount', width: 100, align: 'left',
                     formatter: function (cellvalue) {
                         return cellvalue.toFixed(2);
                     }
                 },
 
-                { label: '计费方式', name: 'F_ChargeStyle', width: 100, align: 'left' },
+                { label: '计费方式', name: 'F_ChargeStyle', width: 70, align: 'left' },
                 { label: '产品描述', name: 'F_Description', width: 250, align: 'left' },
                 {
                     label: '创建时间', name: 'F_CreatorTime', width: 80, align: 'left',

@@ -23,9 +23,19 @@ namespace DRP.Domain.Entity.DrpServManage
         public string F_ChargePattern { get; set; }
 
         /// <summary>
+        /// 成本价
+        /// </summary>
+        public decimal F_CostPrice { get; set; }
+
+        /// <summary>
         /// 计费金额
         /// </summary>
         public decimal F_ChargeAmount { get; set; }
+
+        /// <summary>
+        /// 代理商提成率
+        /// </summary>
+        public decimal F_RoyaltyRate { get; set; }
 
         /// <summary>
         /// 计费方式 -年、季、月、周、日

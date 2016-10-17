@@ -5,9 +5,7 @@
 <script>
     var productId = $.request("productId");
     $(function () {
-        gridList();
-        
-        
+        gridList();      
     });
     function gridList() {
         $("#gridList").dataGrid({
@@ -20,7 +18,13 @@
                 { label: "主键", name: "F_Id", hidden: true, key: true },
                 { label: '模块名称', name: 'F_ModuleName', width: 150, align: 'left' },
                 {
-                    label: '计费金额(元)', name: 'F_ChargeAmount', width: 100, align: 'left',
+                    label: '成本价(元)', name: 'F_CostPrice', width: 100, align: 'left',
+                    formatter: function (cellvalue) {
+                        return cellvalue.toFixed(2);
+                    }
+                },
+                {
+                    label: '销售价(元)', name: 'F_ChargeAmount', width: 100, align: 'left',
                     formatter: function (cellvalue) {
                         return cellvalue.toFixed(2);
                     }

@@ -19,5 +19,9 @@ namespace DRP.Domain.Entity.DrpServManage
         /// 产品ID
         /// </summary>
         public string F_ProductId { get; set; }
+        /// <summary>
+        /// 提成比
+        /// </summary>
+        public decimal F_RoyaltyRate { get; set; }
     }
 }

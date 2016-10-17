@@ -21,6 +21,7 @@ namespace DRP.Repository.SystemManage
                 var productModuleEntity = db.FindEntity<ProductModuleEntity>(t => t.F_Id == keyValue);
                 var productEntity = db.FindEntity<ProductEntity>(t => t.F_Id == productModuleEntity.F_ProductId);
                 productEntity.F_ChargeAmount -= productModuleEntity.F_ChargeAmount;
+                productEntity.F_CostPrice -= productModuleEntity.F_CostPrice;
 
                 productModuleEntity.Remove();
                 db.Update(productModuleEntity);
@@ -42,13 +43,16 @@ namespace DRP.Repository.SystemManage
 
                     #region 计算产品更新后的计费金额
                     var productMouleList = db.IQueryable<ProductModuleEntity>(t => t.F_ProductId == productModuleEntity.F_ProductId && t.F_DeleteMark == false && t.F_Id != keyValue).ToList();
-                    decimal totalAmount = 0;
+                    decimal chargeAmount = 0, costPrice = 0;
                     foreach (var module in productMouleList)
                     {
-                        totalAmount += module.F_ChargeAmount;
+                        chargeAmount += module.F_ChargeAmount;
+                        costPrice += module.F_CostPrice;
                     }
-                    totalAmount += productModuleEntity.F_ChargeAmount;
-                    productEntity.F_ChargeAmount = totalAmount;
+                    chargeAmount += productModuleEntity.F_ChargeAmount;
+                    costPrice += productModuleEntity.F_CostPrice;
+                    productEntity.F_ChargeAmount = chargeAmount;
+                    productEntity.F_CostPrice = costPrice;
                     #endregion
 
                     productModuleEntity.Modify(keyValue);
@@ -65,6 +69,7 @@ namespace DRP.Repository.SystemManage
                     //插入模块信息，并更新产品计费金额数据
                     var productEntity = db.FindEntity<ProductEntity>(t => t.F_Id == productModuleEntity.F_ProductId);
                     productEntity.F_ChargeAmount += productModuleEntity.F_ChargeAmount;
+                    productEntity.F_CostPrice += productModuleEntity.F_CostPrice;
 
                     productModuleEntity.Create();
                     productEntity.Modify(productModuleEntity.F_ProductId);

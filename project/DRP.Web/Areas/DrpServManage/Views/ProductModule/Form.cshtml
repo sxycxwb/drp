@@ -51,17 +51,22 @@
         <table class="form">
             <tr>
                 <th class="formTitle"><span class="required-span">*</span>模块名称</th>
-                <td class="formValue">
-                    <input id="F_ModuleName" name="F_FullName" type="text" class="form-control required" placeholder="请输入名称" />
-                </td>
-                <th class="formTitle"><span class="required-span">*</span>模块金额</th>
-                <td class="formValue">
-                    <input id="F_ChargeAmount" name="F_ChargeAmount" type="number" class="form-control required" placeholder="请输入金额" />
+                <td class="formValue" colspan="3">
+                    <input id="F_ModuleName" name="F_FullName" type="text" class="form-control required" placeholder="请输入名称"/>
                 </td>
             </tr>
             <tr>
-                <th class="formTitle" valign="top" style="padding-top: 5px;">模块描述
-                </th>
+                <th class="formTitle"><span class="required-span">*</span>成本价</th>
+                <td class="formValue">
+                    <input id="F_CostPrice" name="F_CostPrice" type="number" class="form-control required" placeholder="请输入成本价" />
+                </td>
+                <th class="formTitle"><span class="required-span">*</span>销售价</th>
+                <td class="formValue">
+                    <input id="F_ChargeAmount" name="F_ChargeAmount" type="number" class="form-control required" placeholder="请输入销售价"/>
+                </td>
+            </tr>
+            <tr>
+                <th class="formTitle" valign="top" style="padding-top: 5px;">模块描述</th>
                 <td class="formValue" colspan="3">
                     <textarea id="F_Description" name="F_Description" class="form-control" style="height: 100px;"></textarea>
                 </td>
