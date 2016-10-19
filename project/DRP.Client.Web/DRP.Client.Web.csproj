@@ -193,10 +193,10 @@
     <Content Include="Content\fonts\weathericons-regular-webfont.woff" />
     <Content Include="Content\fonts\weathericons-regular-webfontd41d.eot" />
     <Content Include="Areas\UserCenter\Views\web.config" />
-    <Content Include="Areas\UserCenter\Views\AccountInfo\Index.cshtml" />
     <Content Include="Views\Shared\_Form.cshtml" />
     <Content Include="Views\Shared\_Index.cshtml" />
     <Content Include="Views\Shared\_LayoutIndex.cshtml" />
+    <Content Include="Areas\UserCenter\Views\AccountInfo\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

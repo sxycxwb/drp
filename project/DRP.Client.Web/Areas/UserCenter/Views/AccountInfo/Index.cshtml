@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Index.cshtml";
+}
+<div id="right_pane" class="container-fluid">
+    <div class="row">
+        <div class="col-md-8" style="border-right: 1px solid #ccc; float: left; width: 65%;">
+            <div>
+                <h4>已购买产品<small>（点击产品进入管理页面）</small></h4>
+                <p class="buy_product"><button type="button" class="btn btn-lg btn-success ds_do_action" ds_action="loadMainView" ds_product="zj" ds_data="zj/zj_main">企业总机</button>&nbsp;&nbsp;&nbsp;</p>
+            </div>
+            <div style="margin-top: 30px;">
+                <h4>未购买产品</h4>
+                <p class="nobuy_product"><button type="button" class="btn btn-lg ds_do_action" ds_action="loadMainView" ds_product="custFee" ds_data="NA">自定义扣费</button>&nbsp;&nbsp;&nbsp;</p>
+            </div>
+        </div>
+        <div class="col-md-4" style="float: left; width: 33.3%;">
+            <div>
+                <h4 id="acc_companyName" style="display: inline-block;">@ClientOperatorProvider.Provider.GetCurrent().UserName<small>&nbsp;<span class="label label-success">未认证</span></small></h4>
+                @*&nbsp;&nbsp;<button type="button" class="btn btn-xs btn-primary ds_do_action submit_identity" ds_action="account.showIdentify" ds_data="" style="">认证</button>
+    &nbsp;&nbsp;<button type="button" class="btn btn-xs btn-primary ds_do_action view_identity" ds_action="account.showIdentifyInfo" ds_data="" style="display: none;">查看认证</button>
+    &nbsp;&nbsp;<button type="button" class="btn btn-xs btn-primary ds_do_action bill_hide audit_identity" ds_action="account.showAuditIdentify" ds_data="" style="display: inline-block;">审核认证</button>*@
+            </div>
+            <div>
+                <label>账户登录名:</label><span style="margin-left: 10px;" id="acc_name">@ClientOperatorProvider.Provider.GetCurrent().UserCode</span>
+            </div>
+            <div>
+                <label>联系人邮箱:</label><span style="margin-left: 10px;" id="acc_mail">@ClientOperatorProvider.Provider.GetCurrent().Email</span><!--<a class="btn btn-link" style="color: #aaaaaa;">修改</a>-->
+            </div>
+            <div>
+                <label>联系人电话:</label><span style="margin-left: 10px;" id="acc_tel">@ClientOperatorProvider.Provider.GetCurrent().MobilePhone</span>
+                <!--<a class="btn btn-link ds_do_action" ds_action="" ds_data="" style="color: #aaaaaa;">修改</a>-->
+            </div>
+        </div>
+    </div>
+</div>
