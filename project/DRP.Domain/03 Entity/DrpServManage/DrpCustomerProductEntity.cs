@@ -23,5 +23,13 @@ namespace DRP.Domain.Entity.DrpServManage
         /// 提成比
         /// </summary>
         public decimal F_RoyaltyRate { get; set; }
+        /// <summary>
+        /// 状态 1开通，0欠费
+        /// </summary>
+        public int F_Status { get; set; }
+        /// <summary>
+        /// 计费日期标识
+        /// </summary>
+        public string F_ChargingDateFlag { get; set; }
     }
 }

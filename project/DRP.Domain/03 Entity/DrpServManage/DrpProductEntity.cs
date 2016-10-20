@@ -28,7 +28,7 @@ namespace DRP.Domain.Entity.DrpServManage
         public decimal F_CostPrice { get; set; }
 
         /// <summary>
-        /// 计费金额
+        /// 销售价
         /// </summary>
         public decimal F_ChargeAmount { get; set; }
 
