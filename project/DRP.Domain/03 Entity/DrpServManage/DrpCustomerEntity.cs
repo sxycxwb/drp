@@ -51,7 +51,7 @@ namespace DRP.Domain.Entity.DrpServManage
         /// <summary>
         /// 账户余额
         /// </summary>
-        public decimal F_AccountBalance { get; set; }
+        public decimal? F_AccountBalance { get; set; }
         /// <summary>
         /// 排序码
         /// </summary>

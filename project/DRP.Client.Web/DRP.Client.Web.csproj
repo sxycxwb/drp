@@ -64,6 +64,10 @@
       <HintPath>..\packages\MySql.Data.Entity.6.9.9\lib\net45\MySql.Data.Entity.EF6.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Bin\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -109,15 +113,24 @@
     <Content Include="Content\css\app.css" />
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\font-awesome.min.css" />
+    <Content Include="Content\css\framework-about.css" />
     <Content Include="Content\css\framework-font.css" />
+    <Content Include="Content\css\framework-login.css" />
     <Content Include="Content\css\framework-theme-client.css" />
+    <Content Include="Content\css\framework-theme.css" />
+    <Content Include="Content\css\framework-ui.css" />
     <Content Include="Content\css\jquery-ui.min.css" />
     <Content Include="Content\css\login.min.css" />
     <Content Include="Content\css\style.min.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\fonts\weathericons-regular-webfont.svg" />
+    <Content Include="Content\img\ajax-loader.gif" />
+    <Content Include="Content\img\alipay.jpg" />
+    <Content Include="Content\img\alipayimg.png" />
     <Content Include="Content\img\bg.png" />
+    <Content Include="Content\img\button_pm_close.png" />
+    <Content Include="Content\img\cy-reward-title-bg.jpg" />
     <Content Include="Content\img\favicon.ico" />
     <Content Include="Content\img\iconfont-logo.png" />
     <Content Include="Content\img\icons.png" />
@@ -126,8 +139,14 @@
     <Content Include="Content\img\locked.png" />
     <Content Include="Content\img\login-background.jpg" />
     <Content Include="Content\img\progress.png" />
+    <Content Include="Content\img\radio1.jpg" />
+    <Content Include="Content\img\radio2.jpg" />
+    <Content Include="Content\img\signet.gif" />
     <Content Include="Content\img\success.png" />
     <Content Include="Content\img\user.png" />
+    <Content Include="Content\img\wechat.jpg" />
+    <Content Include="Content\img\weipayimg.png" />
+    <Content Include="Content\img\weixin_nfine.png" />
     <Content Include="Content\js\bootstrap.min.js" />
     <Content Include="Content\js\bootstrap\bootstrap.js" />
     <Content Include="Content\js\bootstrap\bootstrap.min.css" />
@@ -140,12 +159,17 @@
     <Content Include="Content\js\dialog\img\loading-1.gif" />
     <Content Include="Content\js\dialog\img\loading-2.gif" />
     <Content Include="Content\js\dialog\img\loading-3.gif" />
+    <Content Include="Content\js\framework-clientdata.js" />
     <Content Include="Content\js\framework-ui.js" />
+    <Content Include="Content\js\index.js" />
+    <Content Include="Content\js\indextab.js" />
     <Content Include="Content\js\jqgrid\grid.locale-cn.js" />
     <Content Include="Content\js\jqgrid\jqgrid.css" />
     <Content Include="Content\js\jqgrid\jqgrid.min.js" />
     <Content Include="Content\js\jquery\jquery-1.10.2.min.js" />
     <Content Include="Content\js\jquery.json.min.js" />
+    <Content Include="Content\js\jquery\jquery-2.1.1.min.js" />
+    <Content Include="Content\js\jquery\jquery.js" />
     <Content Include="Content\js\md5\jquery.md5.js" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
@@ -158,6 +182,7 @@
     <Compile Include="App_Start\01 Handler\HandlerLoginAttribute.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\UserCenter\Controllers\AccountInfoController.cs" />
+    <Compile Include="Areas\UserCenter\Controllers\CardInfoController.cs" />
     <Compile Include="Areas\UserCenter\UserCenterAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -196,7 +221,12 @@
     <Content Include="Views\Shared\_Form.cshtml" />
     <Content Include="Views\Shared\_Index.cshtml" />
     <Content Include="Views\Shared\_LayoutIndex.cshtml" />
+    <Content Include="Areas\UserCenter\Views\CardInfo\Form.cshtml" />
+    <Content Include="Areas\UserCenter\Views\Shared\_Form.cshtml" />
+    <Content Include="Areas\UserCenter\Views\Shared\_Index.cshtml" />
+    <Content Include="Areas\UserCenter\Views\Shared\_LayoutIndex.cshtml" />
     <Content Include="Areas\UserCenter\Views\AccountInfo\Index.cshtml" />
+    <Content Include="Areas\UserCenter\Views\AccountInfo\ChangePwd.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -206,6 +236,24 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\img\samples\" />
+    <Folder Include="Content\js\charts\" />
+    <Folder Include="Content\js\datepicker\" />
+    <Folder Include="Content\js\echarts\" />
+    <Folder Include="Content\js\highcharts\" />
+    <Folder Include="Content\js\icheck\" />
+    <Folder Include="Content\js\jqprint\" />
+    <Folder Include="Content\js\jquery-ui\" />
+    <Folder Include="Content\js\jsrender\" />
+    <Folder Include="Content\js\layout\" />
+    <Folder Include="Content\js\loading\" />
+    <Folder Include="Content\js\qrcode\" />
+    <Folder Include="Content\js\select2\" />
+    <Folder Include="Content\js\simditor\" />
+    <Folder Include="Content\js\validate\" />
+    <Folder Include="Content\js\wdtree\" />
+    <Folder Include="Content\js\wizard\" />
+    <Folder Include="Content\js\zsign\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DRP.Application\DRP.Application.csproj">

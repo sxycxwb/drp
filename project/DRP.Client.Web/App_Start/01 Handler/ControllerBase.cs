@@ -39,5 +39,9 @@ namespace DRP.Client.Web
         {
             return Content(new AjaxResult { state = ResultType.error.ToString(), message = message }.ToJson());
         }
+        protected virtual ActionResult Warning(string message)
+        {
+            return Content(new AjaxResult { state = ResultType.warning.ToString(), message = message }.ToJson());
+        }
     }
 }

@@ -79,7 +79,32 @@
             // 扣费：每月月初扣费，如果使用不到一个月，当前月使用天数/本月天数 ， 超过一个月按一个月计算  使用系数 = 当前月使用天数/当前月天数
             // 代理商提成费用计算 = （销售价-成本价） * 使用系数 * 代理提成率 * 提成比率系数
             // 系统收益计算 = （销售价-成本价） * 使用系数 - 代理商提成费用
+          
         });
+        function tiedcard() {
+            $.modalOpen({
+                id: "Form",
+                title: "绑卡",
+                url: "/UserCenter/CardInfo/Form",
+                width: "500px",
+                height: "400px",
+                callBack: function (iframeId) {
+                    top.frames[iframeId].submitForm();
+                }
+            });
+        }
+        function changepwd() {
+            $.modalOpen({
+                id: "ChangePwd",
+                title: "修改密码",
+                url: "/UserCenter/AccountInfo/ChangePwd",
+                width: "500px",
+                height: "400px",
+                callBack: function (iframeId) {
+                    top.frames[iframeId].submitForm();
+                }
+            });
+        }
     </script>
 </head>
 <body>
@@ -104,7 +129,7 @@
                         &nbsp;
                         透支额度:<span class="uc_overdraw" style="color: #f0ad4e;">0.00</span>元
                         &nbsp;
-                        <button type="button" class="btn btn-success btn-xs ds_do_action btn_bank_pay" ds_action="account.showOnlinePay">立即充值</button>
+                        <button type="button" class="btn btn-success btn-xs ds_do_action btn_bank_pay" ds_action="account.showOnlinePay" onclick="tiedcard()">绑卡</button>
                         <a href="http://www.soxcc.com/?sid=71dc4a50-7f37-11e6-a7bd-7761be28bfd9#" id="popover_account_pay" style="padding: 0;" class="btn" data-toggle="popover" data-placement="auto" data-trigger="hover focus" data-content="选择对应产品，可购买号码、续费、充值话费、购买坐席licence。" data-original-title="账户余额有什么用途?">
                             <span style="font-size: 18px;" class="glyphicon glyphicon-question-sign"></span>
                         </a>
@@ -117,7 +142,7 @@
                     <li class="dropdown menu_dropList">
                         <a href="http://www.soxcc.com/?sid=71dc4a50-7f37-11e6-a7bd-7761be28bfd9#" class="dropdown-toggle" data-toggle="dropdown">个人设置 <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="http://www.soxcc.com/?sid=71dc4a50-7f37-11e6-a7bd-7761be28bfd9#" class="ds_do_action" ds_action="account.showPwd">修改密码</a></li>
+                            <li><a href="http://www.soxcc.com/?sid=71dc4a50-7f37-11e6-a7bd-7761be28bfd9#" class="ds_do_action" ds_action="account.showPwd" onclick="changepwd()">修改密码</a></li>
                             <li></li>
                             <li class="divider"></li>
                             <li></li>
@@ -136,7 +161,7 @@
                             <a href="#" class="list-group-item ds_do_action costRecord" ds_action="showPage" ds_data="index/cost_list" action="fee.getCostList">消费记录</a>
                             <a href="#" class="list-group-item ds_do_action feeRecord" ds_action="showPage" ds_data="index/fee/account_fee" action="accFee.showMain">账单查询</a>
                             <a href="#" class="list-group-item ds_do_action invoiceRecord" ds_action="showPage" ds_data="index/invoice/invoice_main" action="invoice.showMain">发票管理</a>
-                            <!--<a href="#" class="list-group-item ds_do_action" ds_action="showPage" ds_data="index/help">使用帮助</a>-->
+                            <a href="#" class="list-group-item ds_do_action" ds_action="showPage" ds_data="index/help">绑卡信息</a>
                         </div>
                     </div>
                     <div class="pane_tmpl_download_main">
@@ -144,7 +169,7 @@
                     </div>
                 </div>
                 <div class="col-md-10">
-                    <iframe class="DRP_iframe" id="DRP_iframe" width="100%" height="100%" src="/UserCenter/AccountInfo/Index" frameborder="0" data-id="/Home/Default"></iframe>
+                    <iframe class="DRP_iframe" id="DRP_iframe" width="100%" height="100%" src="~/UserCenter/AccountInfo/Index" frameborder="0" data-id="/Home/Default"></iframe>
                 </div>
             </div>
             <footer class="bs-footer" style="" id="pane_tmpl_main_foot">
