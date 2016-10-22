@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DRP.Data;
 using DRP.Domain.IRepository.DrpServManage;
+using DRP.Domain.IRepository.SystemManage;
 using DRP.Repository.DrpServManage;
 using DRP.Repository.SystemManage;
 
@@ -26,6 +27,7 @@ namespace DRP.Application.DrpServManage
         private ICustomerRepository customerService = new CustomerRepository();
         private IProductRepository productService = new ProductRepository();
         private ICustomerProductRepository customerProductService = new CustomerProductRepository();
+        private IUserRepository agentService = new UserRepository();
 
         public void ProfitCalculate(string customerId = "")
         {
@@ -40,10 +42,11 @@ namespace DRP.Application.DrpServManage
             {
                 //使用系数默认为1
                 decimal useCoefficient = 1;
-                //查询该客户绑定的产品
-                var cusProductList = customerProductList.Where(t => t.F_CustomerId == customer.F_Id);
-                //循环客户产品
+                string agentId = customer.F_BelongPersonId;//代理商ID
+                var cusProductList = customerProductList.Where(t => t.F_CustomerId == customer.F_Id);//查询该客户绑定的产品
+                var agent = agentService.FindEntity(t => t.F_Id == agentId);
 
+                //循环客户产品
                 decimal totalProductProfit = 0;
                 foreach (var cusProduct in cusProductList)
                 {
@@ -57,13 +60,27 @@ namespace DRP.Application.DrpServManage
                     var chargeAmount = product.F_ChargeAmount;
                     //成本价
                     var costPrice = product.F_CostPrice;
+                    //代理商单个产品提成 （销售价-成本价） * 使用系数 * 代理提成率 * 提成比率系数
+                    decimal agentCommission = (chargeAmount - costPrice) * useCoefficient * cusProRoyalRate * productRoyalRate;
+                    //系统单个产品收益
+                    decimal systemProfit = (chargeAmount - costPrice) * useCoefficient - agentCommission;
+
+                    using (var db = new RepositoryBase().BeginTrans())
+                    {
+                        //1.客户账户扣款 2.代理商提成加到余额 3.系统收益累加 4.日志记录
+                        //执行扣款，客户账户钱不够时如何处理，尤其是当客户拥有多个产品时
+                        customer.F_AccountBalance -= chargeAmount;
+                        agent.F_AccountBalance += agentCommission;
+
+                        customerService.Update(customer);
+                        agentService.Update(agent);
+
+                    }
                 }
 
             }
 
-            using (var db = new RepositoryBase().BeginTrans())
-            {
-            }
+            
         }
 
 

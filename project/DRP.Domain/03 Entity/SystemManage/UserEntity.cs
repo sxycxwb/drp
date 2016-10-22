@@ -42,6 +42,10 @@ namespace DRP.Domain.Entity.SystemManage
         /// 联系人姓名
         /// </summary>
         public string F_LinkPerson { get; set; }
+        /// <summary>
+        /// 账户余额
+        /// </summary>
+        public decimal F_AccountBalance { get; set; }
         public string F_OrganizeId { get; set; }
         public string F_DepartmentId { get; set; }
         public string F_RoleId { get; set; }
