@@ -15,6 +15,7 @@ namespace DRP.Client.Web
         }
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+            return;
             if (OperatorProvider.Provider.GetCurrent().IsSystem)
             {
                 return;
