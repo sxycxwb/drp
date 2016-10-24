@@ -227,6 +227,7 @@
     <Content Include="Areas\UserCenter\Views\Shared\_LayoutIndex.cshtml" />
     <Content Include="Areas\UserCenter\Views\AccountInfo\Index.cshtml" />
     <Content Include="Areas\UserCenter\Views\AccountInfo\ChangePwd.cshtml" />
+    <Content Include="Areas\UserCenter\Views\CardInfo\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

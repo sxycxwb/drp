@@ -6,12 +6,13 @@ using System.Web.Mvc;
 using DRP.Domain.Entity.DrpServManage;
 using DRP.Application.DrpServManage;
 using Newtonsoft.Json;
+using DRP.Code;
 
 namespace DRP.Client.Web.Areas.UserCenter.Controllers
 {
     public class CardInfoController : ControllerBase
     {
-        private CustomerBankApp cardApp = new CustomerBankApp();
+        private CustomerBankApp customerBanApp = new CustomerBankApp();
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
@@ -19,7 +20,7 @@ namespace DRP.Client.Web.Areas.UserCenter.Controllers
         {
             try
             {
-                var cardEntity = cardApp.SeleceForm(customerBankEntity.F_BankAccountName);
+                var cardEntity = customerBanApp.SeleceForm(customerBankEntity.F_BankAccountName);
                 if (cardEntity != null && !string.IsNullOrWhiteSpace(cardEntity.F_Id))
                 {
                     return Warning("该银行账户已经存在！");
@@ -27,7 +28,7 @@ namespace DRP.Client.Web.Areas.UserCenter.Controllers
                 else
                 {
                     customerBankEntity.F_CustomerId = ClientOperatorProvider.Provider.GetCurrent().UserId;
-                    cardApp.SubmitForm(customerBankEntity, keyValue);
+                    customerBanApp.SubmitForm(customerBankEntity, keyValue);
                     return Success("绑定银行卡成功！");
                 }
             }
@@ -39,6 +40,27 @@ namespace DRP.Client.Web.Areas.UserCenter.Controllers
             }
 
 
+        }
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetFormJson(string keyValue)
+        {
+            var data = customerBanApp.GetForm(keyValue);
+            return Content(data.ToJson());
+        }
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetGridJson(Pagination pagination, string keyword)
+        {
+           var customerId = ClientOperatorProvider.Provider.GetCurrent().UserId;
+            var data = new
+            {
+                rows = customerBanApp.GetList(pagination, keyword, customerId),
+                total = pagination.total,
+                page = pagination.page,
+                records = pagination.records
+            };
+            return Content(data.ToJson());
         }
     }
 }

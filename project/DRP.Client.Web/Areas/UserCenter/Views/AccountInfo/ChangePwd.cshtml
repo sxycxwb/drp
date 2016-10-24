@@ -1,11 +1,12 @@
 ﻿@{
     ViewBag.Title = "Form";
-    Layout = "~/Views/Shared/_Index.cshtml";
+    Layout = "~/Views/Shared/_Form.cshtml";
 }
 <script>
 
     function submitForm() {
         if (!$('#form1').formValid()) {
+            $.modalAlert('请将信息输入完整！', 'warning');
             return false;
         }
         var oldpwd = $("#OldPwd").val();
@@ -13,10 +14,15 @@
         var confirmpwd = $("#ConfirmPwd").val();
         if (newpwd != confirmpwd) {
             $.modalAlert('两次新密码输入不一致！请确认新密码！', 'warning');
+            return false;
         }
+        //if (oldpwd == newpwd) {
+        //    $.modalAlert('新密码不能与原密码相同！', 'warning');
+        //    return false;
+        //}
         $.submitForm({
-            url: "/UserCenter/CardInfo/SubmitPwd",
-            param: { oldpwd: oldpwd, newpwd: newpwd},
+            url: "/UserCenter/AccountInfo/SubmitPwd",
+            param: { oldpwd: oldpwd, newpwd: $.md5($.trim(newpwd)) },
             success: function (msg) {
                 switch (msg.state) {
                     case "success":
@@ -42,7 +48,7 @@
                 <tr>
                     <th class="formTitle"><span class="required-span">*</span>原密码</th>
                     <td class="formValue">
-                        <input id="OldPwd" name="OldPwd" type="password" class="form-control required" placeholder="请输入原密码" value="@ClientOperatorProvider.Provider.GetCurrent().UserId" />
+                        <input id="OldPwd" name="OldPwd" type="password" class="form-control required" placeholder="请输入原密码"  />
                     </td>
 
                 </tr>

@@ -197,6 +197,7 @@ $.submitForm = function (options) {
                     options.success(data);
                     $.modalMsg(data.message, data.state);
                     if (options.close == true) {
+                        $.loading(false);
                         $.modalClose();
                     }
                 } else {

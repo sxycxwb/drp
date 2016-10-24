@@ -30,7 +30,7 @@ namespace DRP.Client.Web.Areas.UserCenter.Controllers
                 CustomerEntity customerEntity = new CustomerApp().CheckLogin(UserCode, oldpwd);
                 if (customerEntity != null)
                 {
-                    customerEntity.F_Password = Md5.md5(DESEncrypt.Encrypt(Md5.md5(newpwd, 32).ToLower(), ConstantUtility.CUSTOMER_MD5_SECRETKEY).ToLower(), 32).ToLower();
+                    customerEntity.F_Password = Md5.md5(DESEncrypt.Encrypt(newpwd.ToLower(), ConstantUtility.CUSTOMER_MD5_SECRETKEY).ToLower(), 32).ToLower();
                     new CustomerApp().UpdateForm(customerEntity);
                     return Success("修改密码成功！");
                 }
@@ -43,7 +43,7 @@ namespace DRP.Client.Web.Areas.UserCenter.Controllers
             {
                 Logger.Error("AccountInfoController.SubmitPwd修改密码失败!oldpwd:" + oldpwd
                                    + "|||newpwd:" + newpwd + "|||usercode:" + UserCode + "||||异常：" + ex.Message + "||" + ex.StackTrace);
-                return Error("修改密码失败！请重试！");
+                return Error(ex.Message);
             }
         }
     }

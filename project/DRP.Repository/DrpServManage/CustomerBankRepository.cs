@@ -30,19 +30,7 @@ namespace DRP.Repository.DrpServManage
                 db.Commit();
             }
         }
-        /// <summary>
-        /// 查询
-        /// </summary>
-        /// <param name="keyValue"></param>
-        /// <returns></returns>
-        public CustomerBankEntity SeleceForm(string keyValue)
-        {
-            using (var db = new RepositoryBase().BeginTrans())
-            {
-                var customerEntity = db.FindEntity<CustomerBankEntity>(t => t.F_BankAccountName == keyValue);
-                return customerEntity;
-            }
-        }
+        
         /// <summary>
         /// 新增
         /// </summary>

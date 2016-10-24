@@ -5,7 +5,10 @@
  * Website：
 *********************************************************************************/
 
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
+using DRP.Code;
 using DRP.Data;
 using DRP.Domain.Entity.DrpServManage;
 
@@ -14,7 +17,6 @@ namespace DRP.Domain.IRepository.DrpServManage
     public interface ICustomerBankRepository : IRepositoryBase<CustomerBankEntity>
     {
         void DeleteForm(string keyValue);
-        CustomerBankEntity SeleceForm(string keyValue);
         void SubmitForm(CustomerBankEntity customerEntity, string keyValue);
         void UpdateForm(CustomerBankEntity customerBankEntity, string keyValue);
     }
