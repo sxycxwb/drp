@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Form";
+    ViewBag.Title = "ChangePwd";
     Layout = "~/Views/Shared/_Form.cshtml";
 }
 <script>
@@ -22,7 +22,7 @@
         //}
         $.submitForm({
             url: "/UserCenter/AccountInfo/SubmitPwd",
-            param: { oldpwd: oldpwd, newpwd: $.md5($.trim(newpwd)) },
+            param: { oldpwd: $.md5(oldpwd.trim()), newpwd: $.md5($.trim(newpwd)) },
             success: function (msg) {
                 switch (msg.state) {
                     case "success":

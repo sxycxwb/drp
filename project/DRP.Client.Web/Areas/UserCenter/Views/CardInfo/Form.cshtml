@@ -23,7 +23,7 @@
             return false;
         }
         $.submitForm({
-            url: "/UserCenter/CardInfo/SubmitForm",
+            url: "/UserCenter/CardInfo/SubmitForm?keyValue=" + keyValue,
             param: $("#form1").formSerialize(),
             success: function (msg) {
                 switch (msg.state) {

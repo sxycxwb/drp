@@ -26,10 +26,11 @@
         $.modalOpen({
             id: "Form",
             title: "新增账户",
-            url: "/UserCenter/Customer/Form",
+            url: "/UserCenter/CardInfo/Form",
             width: "700px",
-            height: "510px",
+            height: "310px",
             callBack: function (iframeId) {
+                $("#gridList").trigger("reloadGrid");
                 top.frames[iframeId].submitForm();
             }
         });
@@ -39,20 +40,21 @@
         $.modalOpen({
             id: "Form",
             title: "修改账户",
-            url: "/UserCenter/Customer/Form?keyValue=" + keyValue,
+            url: "/UserCenter/CardInfo/Form?keyValue=" + keyValue,
             width: "700px",
-            height: "510px",
+            height: "310px",
             callBack: function (iframeId) {
+                $("#gridList").trigger("reloadGrid");
                 top.frames[iframeId].submitForm();
             }
         });
     }
     function btn_delete() {
         $.deleteForm({
-            url: "/UserCenter/Customer/DeleteForm",
+            url: "/UserCenter/CardInfo/DeleteForm",
             param: { keyValue: $("#gridList").jqGridRowValue().F_Id },
             success: function() {
-                $.currentWindow().$("#gridList").trigger("reloadGrid");
+                $("#gridList").trigger("reloadGrid");
             }
         });
     }
@@ -60,16 +62,12 @@
 </script>
 <div class="topPanel">
     <div class="toolbar">
-        <div class="btn-group">
-            <a class="btn btn-primary" onclick="$.reload()"><span class="glyphicon glyphicon-refresh"></span></a>
-        </div>
-        <div class="btn-group">
-            <a id="NF-add" authorize="yes" class="btn btn-primary dropdown-text" onclick="btn_add()"><i class="fa fa-plus"></i>新建用户</a>
-        </div>
         <div class="operate">
             <ul class="nav nav-pills">
-                <li><a id="DRP-edit" authorize="yes" onclick="btn_edit()"><i class="fa fa-pencil-square-o"></i>修改账户</a></li>
-                <li><a id="DRP-delete" authorize="yes" onclick="btn_delete()"><i class="fa fa-trash-o"></i>删除账户</a></li>
+                @*<li><a class="btn btn-primary" onclick="$.reload()"><span class="glyphicon glyphicon-refresh"></span></a></li>
+                <li><a id="DRP-add" authorize="yes" onclick="btn_add()"><i class="fa fa-pencil-square-o"></i>绑定银行卡</a></li>*@
+                <li><a id="DRP-edit" authorize="yes" onclick="btn_edit()"><i class="fa fa-pencil-square-o"></i>修改银行卡</a></li>
+                <li><a id="DRP-delete" authorize="yes" onclick="btn_delete()"><i class="fa fa-trash-o"></i>删除银行卡</a></li>
             </ul>
         </div>
         <script>$('.toolbar').authorizeButton()</script>

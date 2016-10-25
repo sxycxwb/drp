@@ -30,13 +30,12 @@ namespace DRP.Repository.DrpServManage
                 db.Commit();
             }
         }
-        
+
         /// <summary>
         /// 新增
         /// </summary>
         /// <param name="customerBankEntity"></param>
-        /// <param name="keyValue"></param>
-        public void SubmitForm(CustomerBankEntity customerBankEntity, string keyValue)
+        public void SubmitForm(CustomerBankEntity customerBankEntity)
         {
             using (var db = new RepositoryBase().BeginTrans())
             {

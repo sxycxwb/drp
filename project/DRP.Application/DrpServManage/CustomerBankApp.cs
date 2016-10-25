@@ -14,17 +14,10 @@ namespace DRP.Application.DrpServManage
     {
         private ICustomerBankRepository service = new CustomerBankRepository();
 
-        public void SubmitForm(CustomerBankEntity customerBankEntity, string keyValue)
+        public void SubmitForm(CustomerBankEntity customerBankEntity)
         {
-            if (!string.IsNullOrEmpty(keyValue))
-            {
-                customerBankEntity.Modify(keyValue);
-            }
-            else
-            {
-                customerBankEntity.Create();
-            }
-            service.SubmitForm(customerBankEntity, keyValue);
+            customerBankEntity.Create();
+            service.SubmitForm(customerBankEntity);
         }
 
         public CustomerBankEntity SeleceForm(string keyValue)
@@ -48,6 +41,18 @@ namespace DRP.Application.DrpServManage
             expression = expression.And(t => t.F_DeleteMark == false);
             expression = expression.And(t => t.F_CustomerId == customerId);
             return service.FindList(expression, pagination);
+        }
+
+
+        public void DeleteForm(string keyValue)
+        {
+            service.DeleteForm(keyValue);
+        }
+
+        public void UpdateForm(CustomerBankEntity customerBankEntity, string keyValue)
+        {
+            customerBankEntity.Modify(keyValue);
+            service.UpdateForm(customerBankEntity, keyValue);
         }
     }
 }

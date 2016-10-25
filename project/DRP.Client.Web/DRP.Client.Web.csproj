@@ -222,9 +222,6 @@
     <Content Include="Views\Shared\_Index.cshtml" />
     <Content Include="Views\Shared\_LayoutIndex.cshtml" />
     <Content Include="Areas\UserCenter\Views\CardInfo\Form.cshtml" />
-    <Content Include="Areas\UserCenter\Views\Shared\_Form.cshtml" />
-    <Content Include="Areas\UserCenter\Views\Shared\_Index.cshtml" />
-    <Content Include="Areas\UserCenter\Views\Shared\_LayoutIndex.cshtml" />
     <Content Include="Areas\UserCenter\Views\AccountInfo\Index.cshtml" />
     <Content Include="Areas\UserCenter\Views\AccountInfo\ChangePwd.cshtml" />
     <Content Include="Areas\UserCenter\Views\CardInfo\Index.cshtml" />
