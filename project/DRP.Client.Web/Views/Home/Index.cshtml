@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="shortcut icon" href="~/Content/img/favicon.ico">
@@ -72,27 +72,71 @@
             } catch (e) {
             }
             document.body.className = 'theme-drp-client-blue';
-            startInit('DRP_iframe', 360);
+            //startInit('DRP_iframe', 360);
             // $.loading(true, '正在获取数据...');
-            // 产品：成本价 销售价 默认代理提成率 
+            // 产品：成本价 销售价 默认代理提成率
             // 客户产品关系 中添加 提成比率系数
             // 扣费：每月月初扣费，如果使用不到一个月，当前月使用天数/本月天数 ， 超过一个月按一个月计算  使用系数 = 当前月使用天数/当前月天数
             // 代理商提成费用计算 = （销售价-成本价） * 使用系数 * 代理提成率 * 提成比率系数
             // 系统收益计算 = （销售价-成本价） * 使用系数 - 代理商提成费用
+
         });
+        function tiedcard() {
+            $.modalOpen({
+                id: "Form",
+                title: "绑卡",
+                url: "/UserCenter/CardInfo/Form",
+                width: "500px",
+                height: "400px",
+                callBack: function (iframeId) {
+                    top.frames[iframeId].submitForm();
+                }
+            });
+        }
+        function changepwd() {
+            $.modalOpen({
+                id: "ChangePwd",
+                title: "修改密码",
+                url: "/UserCenter/AccountInfo/ChangePwd",
+                width: "500px",
+                height: "400px",
+                callBack: function (iframeId) {
+                    top.frames[iframeId].submitForm();
+                }
+            });
+        }
+        function cardinfo(obj) {
+            changeclass(obj);
+            $("#DRP_iframe").attr("src","/UserCenter/CardInfo/Index");
+        }
+        function signout() {
+            window.location.href = "/Login/Index";
+        }
+        function goindex(obj) {
+            changeclass(obj)
+            window.location.reload();//刷新当前页面.
+        }
+        function changeclass(obj) {
+            $(obj).addClass("active");
+            $(obj).siblings().each(function () {
+                if ($(this).hasClass('active')) {
+                    $(this).removeClass('active');
+                }
+            })
+        }
     </script>
 </head>
 <body>
-    <div>
+    <div style="height:100%;">
         <div class="loading_indicator" style="visibility: hidden;">
         </div>
         <span class="loading_indicator_span" style="visibility: hidden;">正在获取数据...</span>
         <div class="login_panel" id="login-panel" style="display: none;">
         </div>
-        <div id="main-panel" class="container" style="display: block;">
+        <div id="main-panel" class="container" style="display: block;height:100%;">
             <div class="user-header clearfix">
                 <div class="pull-left navbar_path" id="pane_tmpl_main_head">
-                    <a href="http://www.soxcc.com/" target="_blank"><img src="./用户中心_files/soxcc.jpg" alt="" style="width: 130px;"></a>
+                    <a href="#" target="_blank"><img src="./用户中心_files/soxcc.jpg" alt="" style="width: 130px;"></a>
                 </div>
                 <div class="pull-left user-title">
                     <p class="">
@@ -104,51 +148,45 @@
                         &nbsp;
                         透支额度:<span class="uc_overdraw" style="color: #f0ad4e;">0.00</span>元
                         &nbsp;
-                        <button type="button" class="btn btn-success btn-xs ds_do_action btn_bank_pay" ds_action="account.showOnlinePay">立即充值</button>
-                        <a href="http://www.soxcc.com/?sid=71dc4a50-7f37-11e6-a7bd-7761be28bfd9#" id="popover_account_pay" style="padding: 0;" class="btn" data-toggle="popover" data-placement="auto" data-trigger="hover focus" data-content="选择对应产品，可购买号码、续费、充值话费、购买坐席licence。" data-original-title="账户余额有什么用途?">
-                            <span style="font-size: 18px;" class="glyphicon glyphicon-question-sign"></span>
-                        </a>
+                        <button type="button" class="btn btn-success btn-xs ds_do_action btn_bank_pay" ds_action="account.showOnlinePay" onclick="tiedcard()">绑卡</button>
                     </p>
                 </div>
                 <ul class="nav navbar-nav navbar-right" style="margin-top: 9px;">
                     <li class="">
-                        <a href="http://www.soxcc.com/?sid=71dc4a50-7f37-11e6-a7bd-7761be28bfd9#" class="ds_do_action" ds_action="loadMainView" ds_data="index/idx_main">主页</a>
+                        <a href="#" class="ds_do_action" ds_action="loadMainView" ds_data="index/idx_main" onclick="goindex(this)">主页</a>
                     </li>
                     <li class="dropdown menu_dropList">
-                        <a href="http://www.soxcc.com/?sid=71dc4a50-7f37-11e6-a7bd-7761be28bfd9#" class="dropdown-toggle" data-toggle="dropdown">个人设置 <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">个人设置 <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="http://www.soxcc.com/?sid=71dc4a50-7f37-11e6-a7bd-7761be28bfd9#" class="ds_do_action" ds_action="account.showPwd">修改密码</a></li>
+                            <li><a href="#" class="ds_do_action" ds_action="account.showPwd" onclick="changepwd()">修改密码</a></li>
                             <li></li>
                             <li class="divider"></li>
                             <li></li>
-                            <li><a href="http://www.soxcc.com/?sid=71dc4a50-7f37-11e6-a7bd-7761be28bfd9#" class="ds_do_action text-danger" ds_action="account.logout">退出</a></li>
+                            <li><a href="#" class="ds_do_action text-danger" ds_action="account.logout" onclick="signout()">退出</a></li>
                         </ul>
                     </li>
                 </ul>
             </div>
-            <div class="row" id="ucenter_main">
+            <div class="row" id="ucenter_main" style="height:100%;">
                 <div class="col-md-2" id="left_pane">
                     <div class="panel panel-default">
                         <div class="panel-heading">主页</div>
                         <div class="list-group">
-                            <a href="#" class="list-group-item ds_do_action active" ds_action="showPage" ds_data="index/accinfo" action="account.initAccountInfo">账户信息</a>
+                            <a href="#"  class="list-group-item ds_do_action active" ds_action="showPage" ds_data="index/accinfo" action="account.initAccountInfo" onclick="goindex(this)">账户信息</a>
                             <a href="#" class="list-group-item ds_do_action payRecord" ds_action="showPage" ds_data="index/pay_list" action="fee.getPayList">充值记录</a>
                             <a href="#" class="list-group-item ds_do_action costRecord" ds_action="showPage" ds_data="index/cost_list" action="fee.getCostList">消费记录</a>
                             <a href="#" class="list-group-item ds_do_action feeRecord" ds_action="showPage" ds_data="index/fee/account_fee" action="accFee.showMain">账单查询</a>
                             <a href="#" class="list-group-item ds_do_action invoiceRecord" ds_action="showPage" ds_data="index/invoice/invoice_main" action="invoice.showMain">发票管理</a>
-                            <!--<a href="#" class="list-group-item ds_do_action" ds_action="showPage" ds_data="index/help">使用帮助</a>-->
+                            <a href="#" class="list-group-item ds_do_action" ds_action="showPage" ds_data="index/cardinfo" onclick="cardinfo(this)">绑卡信息</a>
                         </div>
                     </div>
-                    <div class="pane_tmpl_download_main">
-                        <a class="btn text-info" href="http://7xjsdj.dl1.z0.glb.clouddn.com/im_win_nologo.rar" target="_top"><span class="glyphicon glyphicon-circle-arrow-down"></span> 下载客户端</a>
-                    </div>
                 </div>
-                <div class="col-md-10">
-                    <iframe class="DRP_iframe" id="DRP_iframe" width="100%" height="100%" src="/UserCenter/AccountInfo/Index" frameborder="0" data-id="/Home/Default"></iframe>
+                <div class="col-md-10" style="height:100%;">
+                    <iframe class="DRP_iframe" id="DRP_iframe" style="width:100%;height:100%;" src="/UserCenter/AccountInfo/Index" frameborder="0" data-id="/Home/Default"></iframe>
                 </div>
             </div>
             <footer class="bs-footer" style="" id="pane_tmpl_main_foot">
-                <div class="text-center"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; © 2016 soxcc</div>
+                <div class="text-center"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; © 2016 sinldo</div>
             </footer>
         </div>
     </div>
@@ -157,27 +195,32 @@
         <div class="loading-content" onclick="$.loading(false)">数据加载中，请稍后…</div>
     </div>
     <iframe style="border:0;width:0;height:0;position:absolute;visibility:hidden;bottom:0;right:0;" name="ds_iframe" id="ds_iframe" src="./用户中心_files/saved_resource.html"></iframe>
-<style type="text/css">
-     .list-group-item {
-         border: 0;
-     }
-    /*.list-group-item:first-child{border-top-right-radius:0;border-top-left-radius:0}*/
-    /*.list-group-item:last-child{border-bottom-right-radius:0;border-bottom-left-radius:0}*/
-    /*a.list-group-item.active, a.list-group-item.active:hover, a.list-group-item.active:focus{*/
-    /*background-color:#c9e2b3;*/
-    /*background-color:#46b8da;*/
-    /*}*/
-    .menu_dropList {
-        background-color: #ffffff;
-    }
+    <style type="text/css">
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
 
-    .menu_dropList > a:hover,
-    .menu_dropList > a:focus {
-        color: #262626;
-        text-decoration: none;
-        background-color: #ffffff;
-    }
-</style>
+        .list-group-item {
+            border: 0;
+        }
+        /*.list-group-item:first-child{border-top-right-radius:0;border-top-left-radius:0}*/
+        /*.list-group-item:last-child{border-bottom-right-radius:0;border-bottom-left-radius:0}*/
+        /*a.list-group-item.active, a.list-group-item.active:hover, a.list-group-item.active:focus{*/
+        /*background-color:#c9e2b3;*/
+        /*background-color:#46b8da;*/
+        /*}*/
+        .menu_dropList {
+            background-color: #ffffff;
+        }
+
+            .menu_dropList > a:hover,
+            .menu_dropList > a:focus {
+                color: #262626;
+                text-decoration: none;
+                background-color: #ffffff;
+            }
+    </style>
     <div id="browser" class="layerDiv" style="display:none;">
         <h2>您使用的浏览器版本过低</h2>
         <h3>很抱歉，您正在使用的浏览器无法完全支持我们的页面，请使用ie8及以上版本或其他浏览器进行访问。</h3>
@@ -197,33 +240,6 @@
         </p>
     </div>
 
-    <script id="tmpl_main_head" type="text/html">
-        {{if domain=='7moor'}}
-        <a href="http://www.soxcc.com/" target="_blank"><img src="img/soxcc.jpg" alt="" style="width: 130px;"></a>
-        {{else}}
-        <a href="javascript:void(0)"><img alt="" src="thirdImg/{{fileName}}" style="width: 130px;max-height: 60px;"></a>
-        {{/if}}
-    </script>
-    <script id="tmpl_login_foot" type="text/html">
-        {{if domain=='7moor'}}
-        <div class="text-center"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &copy; 2016 soxcc</div>
-        {{else}}
-        <div class="text-center">{{#footer}}</div>
-        {{/if}}
-    </script>
-    <script id="tmpl_login_download" type="text/html">
-        {{if domain=='7moor'}}
-        <a class="btn pull-right text-info" href="http://7xjsdj.dl1.z0.glb.clouddn.com/im_win_nologo.rar" target="_top"><span class="glyphicon glyphicon-circle-arrow-down"></span> 下载客户端</a>
-        {{else}}
-        <a class="btn pull-right text-info" href="http://7xjsdj.dl1.z0.glb.clouddn.com/im_win_nologo.rar" target="_top"><span class="glyphicon glyphicon-circle-arrow-down"></span> 下载客户端</a>
-        {{/if}}
-    </script>
-    <script id="tmpl_login_download_main" type="text/html">
-        {{if domain=='7moor'}}
-        <a class="btn text-info" href="http://7xjsdj.dl1.z0.glb.clouddn.com/im_win_nologo.rar" target="_top"><span class="glyphicon glyphicon-circle-arrow-down"></span> 下载客户端</a>
-        {{else}}
-        <a class="btn text-info" href="http://7xjsdj.dl1.z0.glb.clouddn.com/im_win_nologo.rar" target="_top"><span class="glyphicon glyphicon-circle-arrow-down"></span> 下载客户端</a>
-        {{/if}}
-    </script>
+
 </body>
 </html>

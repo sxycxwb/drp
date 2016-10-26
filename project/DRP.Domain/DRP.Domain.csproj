@@ -99,6 +99,7 @@
     <Compile Include="03 Entity\SystemSecurity\FilterIPEntity.cs" />
     <Compile Include="03 Entity\SystemSecurity\LogEntity.cs" />
     <Compile Include="04 IRepository\DrpServManage\ICustomerProductRepository.cs" />
+    <Compile Include="04 IRepository\DrpServManage\ICustomerBankRepository.cs" />
     <Compile Include="04 IRepository\DrpServManage\ICustomerRepository.cs" />
     <Compile Include="04 IRepository\DrpServManage\IRechargeRecordRepository.cs" />
     <Compile Include="04 IRepository\DrpServManage\IProductRepository.cs" />

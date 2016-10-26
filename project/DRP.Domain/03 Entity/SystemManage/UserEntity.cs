@@ -45,7 +45,7 @@ namespace DRP.Domain.Entity.SystemManage
         /// <summary>
         /// 账户余额
         /// </summary>
-        public decimal F_AccountBalance { get; set; }
+        public decimal? F_AccountBalance { get; set; }
         public string F_OrganizeId { get; set; }
         public string F_DepartmentId { get; set; }
         public string F_RoleId { get; set; }

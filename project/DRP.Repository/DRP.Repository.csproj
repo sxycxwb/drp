@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DrpServManage\CustomerProductRepository.cs" />
+    <Compile Include="DrpServManage\CustomerBankRepository.cs" />
     <Compile Include="DrpServManage\CustomerRepository.cs" />
     <Compile Include="DrpServManage\ProductModuleRepository.cs" />
     <Compile Include="DrpServManage\RechargeRecordRepository.cs" />

@@ -1,0 +1,79 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Index.cshtml";
+}
+<script>
+    $(function () {
+        gridList();
+    })
+    function gridList() {
+        var $gridList = $("#gridList");
+        $gridList.dataGrid({
+            url: "/UserCenter/CardInfo/GetGridJson",
+            height: $(window).height() - 128,
+            colModel: [
+                { label: '主键', name: 'F_Id', hidden: true },
+                { label: '银行账户名', name: 'F_BankAccountName', width: 150, align: 'left' },
+                { label: '银行卡号', name: 'F_BankCardNo', width: 100, align: 'left' },
+                { label: '备注', name: 'F_Description', width: 140, align: 'left' }
+            ],
+            pager: "#gridPager",
+            sortname: 'F_CreatorTime desc',
+            viewrecords: true
+        });
+    }
+    function btn_add() {
+        $.modalOpen({
+            id: "Form",
+            title: "新增账户",
+            url: "/UserCenter/CardInfo/Form",
+            width: "700px",
+            height: "310px",
+            callBack: function (iframeId) {
+                $("#gridList").trigger("reloadGrid");
+                top.frames[iframeId].submitForm();
+            }
+        });
+    }
+    function btn_edit() {
+        var keyValue = $("#gridList").jqGridRowValue().F_Id;
+        $.modalOpen({
+            id: "Form",
+            title: "修改账户",
+            url: "/UserCenter/CardInfo/Form?keyValue=" + keyValue,
+            width: "700px",
+            height: "310px",
+            callBack: function (iframeId) {
+                $("#gridList").trigger("reloadGrid");
+                top.frames[iframeId].submitForm();
+            }
+        });
+    }
+    function btn_delete() {
+        $.deleteForm({
+            url: "/UserCenter/CardInfo/DeleteForm",
+            param: { keyValue: $("#gridList").jqGridRowValue().F_Id },
+            success: function() {
+                $("#gridList").trigger("reloadGrid");
+            }
+        });
+    }
+   
+</script>
+<div class="topPanel">
+    <div class="toolbar">
+        <div class="operate">
+            <ul class="nav nav-pills">
+                @*<li><a class="btn btn-primary" onclick="$.reload()"><span class="glyphicon glyphicon-refresh"></span></a></li>
+                <li><a id="DRP-add" authorize="yes" onclick="btn_add()"><i class="fa fa-pencil-square-o"></i>绑定银行卡</a></li>*@
+                <li><a id="DRP-edit" authorize="yes" onclick="btn_edit()"><i class="fa fa-pencil-square-o"></i>修改银行卡</a></li>
+                <li><a id="DRP-delete" authorize="yes" onclick="btn_delete()"><i class="fa fa-trash-o"></i>删除银行卡</a></li>
+            </ul>
+        </div>
+        <script>$('.toolbar').authorizeButton()</script>
+    </div>
+</div>
+<div class="gridPanel">
+    <table id="gridList"></table>
+    <div id="gridPager"></div>
+</div>
