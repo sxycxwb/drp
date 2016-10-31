@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DrpServManage\CustomerBankMap.cs" />
+    <Compile Include="DrpServManage\ComissionRecordMap.cs" />
     <Compile Include="DrpServManage\CustomerProductMap.cs" />
     <Compile Include="DrpServManage\RechargeRecordMap.cs" />
     <Compile Include="DrpServManage\ProductMap.cs" />

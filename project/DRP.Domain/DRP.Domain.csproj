@@ -79,7 +79,9 @@
     <Compile Include="01 Infrastructure\IEntity.cs" />
     <Compile Include="01 Infrastructure\IModificationAudited.cs" />
     <Compile Include="02 ViewModel\AuthorizeActionModel.cs" />
+    <Compile Include="02 ViewModel\CustomProductFeeModel.cs" />
     <Compile Include="03 Entity\DrpServManage\DrpCustomerBankCardEntity.cs" />
+    <Compile Include="03 Entity\DrpServManage\DrpComissionRecordEntity.cs" />
     <Compile Include="03 Entity\DrpServManage\DrpCustomerProductEntity.cs" />
     <Compile Include="03 Entity\DrpServManage\DrpCustomerEntity.cs" />
     <Compile Include="03 Entity\DrpServManage\DrpProductModuleEntity.cs" />

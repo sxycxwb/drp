@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DRP.Data;
 using DRP.Domain.IRepository.DrpServManage;
 using DRP.Domain.IRepository.SystemManage;
+using DRP.Domain.ViewModel;
 using DRP.Repository.DrpServManage;
 using DRP.Repository.SystemManage;
 
@@ -37,53 +38,82 @@ namespace DRP.Application.DrpServManage
             var productList = productService.IQueryable(t => t.F_DeleteMark == false).ToList();
             var customerProductList = customerProductService.IQueryable().ToList();
 
+            #region 获取客户代缴费总和
+            var dbRepository = new RepositoryBase();
+            var productFeeList = dbRepository.FindList<CustomProductFeeModel>(@"SELECT A.F_ID CUSTOMERID,SUM(C.F_CHARGEAMOUNT) PRODUCTFEE 
+            FROM DRP_CUSTOMER A,DRP_CUSTOMERPRODUCT B,DRP_PRODUCT C
+            WHERE A.F_ID = B.F_CUSTOMERID AND B.F_PRODUCTID = C.F_ID
+            AND A.F_DELETEMARK = 0 AND C.F_CHARGESTYLE='MONTH' AND B.F_STATUS = 1
+            GROUP BY A.F_ID,C.F_CHARGEAMOUNT");
+            #endregion
+
             //循环为每位客户进行扣费，计算收益
             foreach (var customer in customerList)
             {
                 //使用系数默认为1
                 decimal useCoefficient = 1;
-                string agentId = customer.F_BelongPersonId;//代理商ID
-                var cusProductList = customerProductList.Where(t => t.F_CustomerId == customer.F_Id);//查询该客户绑定的产品
-                var agent = agentService.FindEntity(t => t.F_Id == agentId);
+                #region 客户账户余额与待扣费产品销售额总价比较 如果余额不足，则将产品状态至为欠费 否则执行扣费操作
+                //1.客户账户余额
+                decimal? balance = customer.F_AccountBalance;
+                //2.客户产品代缴费总额
+                decimal totalFee = 0;
+                var productFee = productFeeList.FirstOrDefault(t => t.CustomerId == customer.F_Id);
+                if (productFee != null)
+                    totalFee = productFee.ProductFee;
 
-                //循环客户产品
-                decimal totalProductProfit = 0;
-                foreach (var cusProduct in cusProductList)
+                //查询该客户绑定的产品
+                var cusProductList = customerProductList.Where(t => t.F_CustomerId == customer.F_Id);
+
+                #region 账户余额不足，则将产品状态至为欠费
+                if (balance < totalFee)
                 {
-                    //客户产品提成系数
-                    var cusProRoyalRate = cusProduct.F_RoyaltyRate;
-                    //产品
-                    var product = productList.FirstOrDefault(t => t.F_Id == cusProduct.F_ProductId);
-                    //产品提成系数
-                    var productRoyalRate = product.F_RoyaltyRate;
-                    //销售价
-                    var chargeAmount = product.F_ChargeAmount;
-                    //成本价
-                    var costPrice = product.F_CostPrice;
-                    //代理商单个产品提成 （销售价-成本价） * 使用系数 * 代理提成率 * 提成比率系数
-                    decimal agentCommission = (chargeAmount - costPrice) * useCoefficient * cusProRoyalRate * productRoyalRate;
-                    //系统单个产品收益
-                    decimal systemProfit = (chargeAmount - costPrice) * useCoefficient - agentCommission;
-
                     using (var db = new RepositoryBase().BeginTrans())
                     {
-                        //1.客户账户扣款 2.代理商提成加到余额 3.系统收益累加 4.日志记录
-                        //执行扣款，客户账户钱不够时如何处理，尤其是当客户拥有多个产品时
-                        customer.F_AccountBalance -= chargeAmount;
-                        agent.F_AccountBalance += agentCommission;
-
-                        customerService.Update(customer);
-                        agentService.Update(agent);
-
+                        foreach (var cusProduct in cusProductList)
+                        {
+                            //欠费
+                            cusProduct.F_Status = 0;
+                            db.Update(cusProduct);
+                        }
+                        db.Commit();
                     }
                 }
 
+                #endregion
+
+                #region 账户余额充足，执行扣款操作；并且同时计算系统收益和代理商提成
+                else
+                {
+                    //循环客户产品
+                    decimal totalProductProfit = 0;
+                    //
+                    foreach (var cusProduct in cusProductList)
+                    {
+                        //客户产品提成系数
+                        var cusProRoyalRate = cusProduct.F_RoyaltyRate;
+                        //产品
+                        var product = productList.FirstOrDefault(t => t.F_Id == cusProduct.F_ProductId);
+                        //产品提成系数
+                        var productRoyalRate = product.F_RoyaltyRate;
+                        //销售价
+                        var chargeAmount = product.F_ChargeAmount;
+                        //成本价
+                        var costPrice = product.F_CostPrice;
+                    }
+                }
+
+                #endregion
+
+
+                #endregion
+
+
+
+
+
             }
 
-            
         }
-
-
 
     }
 }
