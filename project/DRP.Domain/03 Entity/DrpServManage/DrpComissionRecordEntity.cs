@@ -9,8 +9,13 @@ using DRP.Domain.Entities.Auditing;
 
 namespace DRP.Domain.Entity.DrpServManage
 {
-    public class DrpComissionRecordEntity : CreationAuditedEntity<string>
+    public class ComissionRecordEntity : CreationAuditedEntity<string>
     {
+        /// <summary>
+        /// 客户ID
+        /// </summary>
+        public string F_CustomerId { get; set; }
+
         /// <summary>
         /// 受益人ID
         /// </summary>
@@ -23,5 +28,10 @@ namespace DRP.Domain.Entity.DrpServManage
         /// 提成金额
         /// </summary>
         public decimal F_CommissionAmount { get; set; }
+
+        /// <summary>
+        /// 受益人类型
+        /// </summary>
+        public string F_Type { get; set; }
     }
 }

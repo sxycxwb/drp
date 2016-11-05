@@ -9,7 +9,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace DRP.Mapping.DrpServManage
 {
-    public class ComissionRecordMap : EntityTypeConfiguration<DrpComissionRecordEntity>
+    public class ComissionRecordMap : EntityTypeConfiguration<ComissionRecordEntity>
     {
         public ComissionRecordMap()
         {
