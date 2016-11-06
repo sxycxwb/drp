@@ -134,23 +134,27 @@ namespace DRP.Application.DrpServManage
 
                         var comisssionRecord = new ComissionRecordEntity()
                         {
+                            F_Id = Common.GuId(),
                             F_ProductId = product.F_Id,
                             F_CommissionAmount = toyal,
                             F_CommissionPersonId = customer.F_BelongPersonId,
                             F_CustomerId = customer.F_Id,
+                            F_CreatorTime= DateTime.Now,
                             F_Type = ""
                         };
                         //系统收益记录信息
                         var sysComisssionRecord = comisssionRecord;
+                        sysComisssionRecord.F_Id = Common.GuId();
+                        sysComisssionRecord.F_CreatorTime = DateTime.Now;
                         sysComisssionRecord.F_CommissionAmount = systemToyal;
                         sysComisssionRecord.F_CommissionPersonId = "";
 
                         #endregion
 
-                        #region 3.更新客户账户余额，减去当前产品的销售价格
-
+                        #region 3.更新客户账户余额，减去当前产品的销售价格;增加扣费记录
                         customer.F_AccountBalance -= chargeAmount;
 
+                        var deduction = new FeeDeductionRecordEntity();
                         #endregion
 
                         #region 4.执行数据库操作
@@ -211,7 +215,7 @@ namespace DRP.Application.DrpServManage
                         //更新数据库
                     }
                 }
-                //如果比对成功，将状态0或2改为1
+                //如果比对成功，将状态0或2改为1，为客户充值
                 else
                 {
                     recharge.F_Status = 1;

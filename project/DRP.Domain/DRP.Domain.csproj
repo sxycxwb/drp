@@ -86,6 +86,7 @@
     <Compile Include="03 Entity\DrpServManage\DrpCustomerEntity.cs" />
     <Compile Include="03 Entity\DrpServManage\DrpProductModuleEntity.cs" />
     <Compile Include="03 Entity\DrpServManage\DrpProductEntity.cs" />
+    <Compile Include="03 Entity\DrpServManage\DrpFeeDeductionRecordEntity.cs" />
     <Compile Include="03 Entity\DrpServManage\DrpRechargeRecordEntity.cs" />
     <Compile Include="03 Entity\SystemManage\AreaEntity.cs" />
     <Compile Include="03 Entity\SystemManage\ItemsDetailEntity.cs" />
