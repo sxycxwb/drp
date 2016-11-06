@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 Common 基础结构层", "01 Common 基础结构层", "{E9F0AA30-D535-4A8B-B80E-C24481CC65F5}"
 EndProject
@@ -25,11 +25,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DRP.Web", "DRP.Web\DRP.Web.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DRP.Client.Web", "DRP.Client.Web\DRP.Client.Web.csproj", "{2628CBC4-B117-4A26-B3A8-49EFF1CE6437}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04 Tools 工具", "04 Tools 工具", "{2D101F1B-FF09-4BB5-AFF9-3BC250739F1E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05 Tools 工具", "05 Tools 工具", "{2D101F1B-FF09-4BB5-AFF9-3BC250739F1E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailTool", "EmailTool\EmailTool.csproj", "{68337464-E01B-4DD1-9237-0217339F9670}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonTools", "CommonTools\CommonTools.csproj", "{04CB95E6-5935-4F97-87DA-B2956E8D9B3E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04 Test 单元测试", "04 Test 单元测试", "{A655FDC5-38DC-475C-9F2E-408D1EFD0409}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Drp.UnitTest", "Drp.UnitTest\Drp.UnitTest.csproj", "{0BFF9631-E7BF-4F50-8C3F-50D3005E0556}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,6 +81,10 @@ Global
 		{04CB95E6-5935-4F97-87DA-B2956E8D9B3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04CB95E6-5935-4F97-87DA-B2956E8D9B3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04CB95E6-5935-4F97-87DA-B2956E8D9B3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BFF9631-E7BF-4F50-8C3F-50D3005E0556}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BFF9631-E7BF-4F50-8C3F-50D3005E0556}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BFF9631-E7BF-4F50-8C3F-50D3005E0556}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BFF9631-E7BF-4F50-8C3F-50D3005E0556}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -92,5 +100,6 @@ Global
 		{2628CBC4-B117-4A26-B3A8-49EFF1CE6437} = {B455F594-721A-4C99-B7E6-FB132DE1D677}
 		{68337464-E01B-4DD1-9237-0217339F9670} = {2D101F1B-FF09-4BB5-AFF9-3BC250739F1E}
 		{04CB95E6-5935-4F97-87DA-B2956E8D9B3E} = {2D101F1B-FF09-4BB5-AFF9-3BC250739F1E}
+		{0BFF9631-E7BF-4F50-8C3F-50D3005E0556} = {A655FDC5-38DC-475C-9F2E-408D1EFD0409}
 	EndGlobalSection
 EndGlobal

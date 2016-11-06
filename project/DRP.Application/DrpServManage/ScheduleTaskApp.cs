@@ -37,33 +37,77 @@ namespace DRP.Application.DrpServManage
         private IRechargeRecordRepository rechargeService = new RechargeRecordRepository();
         private ICustomerBankRepository cusBankService = new CustomerBankRepository();
 
-        public void ProfitCalculateTask(string customerId = "")
+        /// <summary>
+        /// 扣费 计算收益任务
+        /// </summary>
+        /// <param name="chargeStyle">扣费类型</param>
+        /// <param name="customerId">客户ID</param>
+        /// <param name="productId">产品ID</param>
+        public void ProfitCalculateTask(string chargeStyle = "MONTH", string customerId = "", string productId = "")
         {
+            #region 获取有效客户和有效商品信息
             //获取所有有效客户信息
-            var customerList = customerService.IQueryable(t => t.F_DeleteMark == false).ToList();
+            var expCustomer = ExtLinq.True<CustomerEntity>();
+            expCustomer.And(t => t.F_DeleteMark == false);
+            if (!string.IsNullOrEmpty(customerId))
+            {
+                expCustomer.And(t => t.F_Id == customerId);
+            }
+            var customerList = customerService.IQueryable(expCustomer).ToList();
+
             //获取所有有效商品
-            var productList = productService.IQueryable(t => t.F_DeleteMark == false).ToList();
+            var expProduct = ExtLinq.True<ProductEntity>();
+            expProduct.And(t => t.F_DeleteMark == false && t.F_ChargeStyle == chargeStyle);
+            if (!string.IsNullOrEmpty(productId))
+            {
+                expProduct.And(t => t.F_Id == productId);
+            }
+            var productList = productService.IQueryable(expProduct).ToList();
             var customerProductList = customerProductService.IQueryable().ToList();
+            #endregion
 
             #region 获取客户代缴费总和
 
             var dbRepository = new RepositoryBase();
             var productFeeList =
                 dbRepository.FindList<CustomProductFeeModel>(
-                    @"SELECT A.F_ID CUSTOMERID,SUM(C.F_CHARGEAMOUNT) PRODUCTFEE 
+                    string.Format(@"SELECT A.F_ID CUSTOMERID,SUM(C.F_CHARGEAMOUNT) PRODUCTFEE 
             FROM DRP_CUSTOMER A,DRP_CUSTOMERPRODUCT B,DRP_PRODUCT C
             WHERE A.F_ID = B.F_CUSTOMERID AND B.F_PRODUCTID = C.F_ID
-            AND A.F_DELETEMARK = 0 AND C.F_CHARGESTYLE='MONTH' AND B.F_STATUS = 1
-            GROUP BY A.F_ID,C.F_CHARGEAMOUNT");
+            AND A.F_DELETEMARK = 0 AND C.F_CHARGESTYLE='{0}' AND B.F_STATUS = 1
+            GROUP BY A.F_ID,C.F_CHARGEAMOUNT", chargeStyle));
+
+            #endregion
+
+            #region 使用系数计算
+            decimal useCoefficient = 1;
+            //如果customerId 不为空或 productId不为空，说明不是月初进行的计算，则重新计算当月使用系数
+            if (!string.IsNullOrEmpty(customerId) || !string.IsNullOrEmpty(productId))
+            {
+                DateTime dtNow = DateTime.Now;
+                //如果按月计费
+                if (chargeStyle == "MONTH")
+                {
+                    int monthDays = DateTime.DaysInMonth(dtNow.Year, dtNow.Month);//当前月天数
+                    int currentDayIndex = dtNow.Day;
+                    useCoefficient = (monthDays - currentDayIndex + 1) / monthDays;
+                }
+                else if (chargeStyle == "YEAR")
+                {
+                    int yearDays = ((dtNow.Year % 4 == 0 && dtNow.Year % 100 != 0) || dtNow.Year % 400 == 0) ? 366 : 365; //当前年天数 
+                    int currentDayIndex = dtNow.DayOfYear;
+                    useCoefficient = (yearDays - currentDayIndex + 1) / yearDays;
+
+                }
+
+            }
+
 
             #endregion
 
             //循环为每位客户进行扣费，计算收益
             foreach (var customer in customerList)
             {
-                //使用系数默认为1
-                decimal useCoefficient = 1;
-
                 #region 客户账户余额与待扣费产品销售额总价比较 如果余额不足，则将产品状态至为欠费 否则执行扣费操作
 
                 //1.客户账户余额
@@ -110,12 +154,10 @@ namespace DRP.Application.DrpServManage
                         var cusProRoyalRate = cusProduct.F_RoyaltyRate;
                         //产品
                         var product = productList.FirstOrDefault(t => t.F_Id == cusProduct.F_ProductId);
-                        //产品提成系数
-                        var productRoyalRate = product.F_RoyaltyRate;
-                        //销售价
-                        var chargeAmount = product.F_ChargeAmount;
-                        //成本价
-                        var costPrice = product.F_CostPrice;
+                        var productRoyalRate = product.F_RoyaltyRate;//产品提成系数
+                        var productName = product.F_ProductName;//产品名称
+                        var chargeAmount = product.F_ChargeAmount;//销售价
+                        var costPrice = product.F_CostPrice;//成本价
 
                         //每个产品的代理人提成 TODO 目前只有一级代理人获取收益，后期会加入多级
                         var toyal = (chargeAmount - costPrice) * productRoyalRate * cusProRoyalRate * useCoefficient;
@@ -139,7 +181,7 @@ namespace DRP.Application.DrpServManage
                             F_CommissionAmount = toyal,
                             F_CommissionPersonId = customer.F_BelongPersonId,
                             F_CustomerId = customer.F_Id,
-                            F_CreatorTime= DateTime.Now,
+                            F_CreatorTime = DateTime.Now,
                             F_Type = ""
                         };
                         //系统收益记录信息
@@ -153,8 +195,16 @@ namespace DRP.Application.DrpServManage
 
                         #region 3.更新客户账户余额，减去当前产品的销售价格;增加扣费记录
                         customer.F_AccountBalance -= chargeAmount;
+                        var feeDeduction = new FeeDeductionRecordEntity()
+                        {
+                            F_Id = Common.GuId(),
+                            F_CreatorTime = DateTime.Now,
+                            F_CustomerId = customer.F_Id,
+                            F_ProductId = product.F_Id,
+                            F_ProductName = productName,
+                            F_DeductionFee = chargeAmount
+                        };
 
-                        var deduction = new FeeDeductionRecordEntity();
                         #endregion
 
                         #region 4.执行数据库操作
@@ -162,6 +212,7 @@ namespace DRP.Application.DrpServManage
                         {
                             db.Update(agent); //更新代理人账户余额
                             db.Update(customer); //更新客户账户余额
+                            db.Insert(feeDeduction); //新增客户扣费记录
                             db.Insert(comisssionRecord); //新增代理人收益记录
                             db.Insert(sysComisssionRecord); //新增系统收益记录
                             db.Commit();
@@ -184,10 +235,11 @@ namespace DRP.Application.DrpServManage
         /// 充值任务
         /// </summary>
         /// <param name="bankAccountName">银行账户名</param>
-        public void RechargeTask(string bankAccountName="")
+        public void RechargeTask(string bankAccountName = "")
         {
             //查询所有充值记录中 状态 为 0-手工录账 2-核对未通过
-            Expression<Func<RechargeRecordEntity, bool>> exp = t => t.F_Status == 0 || t.F_Status == 2;//状态条件
+            var exp = ExtLinq.True<RechargeRecordEntity>();
+            exp.And(t => t.F_Status == 0 || t.F_Status == 2);
             if (!string.IsNullOrEmpty(bankAccountName))
             {
                 exp.And(t => t.F_BankAccountName == bankAccountName);//拼接银行账户名的查询条件
@@ -195,10 +247,10 @@ namespace DRP.Application.DrpServManage
             var rechargeList = rechargeService.IQueryable(exp).ToList();
 
             //查询所有银行卡相关信息
-            Expression<Func<CustomerBankEntity, bool>> exp2 = null;
+            var exp2 = ExtLinq.True<CustomerBankEntity>();
             if (!string.IsNullOrEmpty(bankAccountName))
             {
-                exp2 =t => t.F_BankAccountName == bankAccountName;//拼接银行账户名的查询条件
+                exp2 = t => t.F_BankAccountName == bankAccountName;//拼接银行账户名的查询条件
             }
             var cusBankList = cusBankService.IQueryable(exp2).ToList();
 
@@ -206,20 +258,29 @@ namespace DRP.Application.DrpServManage
             {
                 var accountBankName = recharge.F_BankAccountName;
                 var cusBank = cusBankList.FirstOrDefault(t => t.F_BankAccountName == accountBankName);
-                //如果比对银行账户名失败，则将充值记录状态0改为2, 原来是2则保持不变
-                if (cusBank == null)
+                using (var db = new RepositoryBase().BeginTrans())
                 {
-                    if (recharge.F_Status == 0)
+                    //如果比对银行账户名失败，则将充值记录状态0改为2, 原来是2则保持不变
+                    if (cusBank == null)
                     {
-                        recharge.F_Status = 2;
-                        //更新数据库
+                        if (recharge.F_Status == 0)
+                        {
+                            recharge.F_Status = 2;
+                            //更新数据库
+                            db.Update(recharge);
+                        }
                     }
-                }
-                //如果比对成功，将状态0或2改为1，为客户充值
-                else
-                {
-                    recharge.F_Status = 1;
-                    //更新数据库
+                    //如果比对成功，将状态0或2改为1，为客户充值
+                    else
+                    {
+                        recharge.F_Status = 1;
+                        var customer = customerService.FindEntity(t => t.F_Id == cusBank.F_CustomerId);
+                        customer.F_AccountBalance += recharge.F_RechargeAccount;//更新余额
+
+                        db.Update(recharge);//更新充值记录
+                        db.Update(customer);//更新客户信息
+                    }
+                    db.Commit();
                 }
             }
         }
