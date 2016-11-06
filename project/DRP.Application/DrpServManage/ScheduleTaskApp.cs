@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using DRP.Code;
 using DRP.Data;
 using DRP.Domain.Entity.DrpServManage;
 using DRP.Domain.IRepository.DrpServManage;
@@ -15,6 +17,7 @@ namespace DRP.Application.DrpServManage
 {
     public class ScheduleTaskApp
     {
+        #region 收益计算任务
         //1.使用系数 = 当前月能使用的天数/本月天数
         //2.产品提成系数 每种产品都有给代理商设定的提成系数
         //3.客户产品提成系数 默认1 方便以后控制代理商提成
@@ -31,7 +34,10 @@ namespace DRP.Application.DrpServManage
         private ICustomerProductRepository customerProductService = new CustomerProductRepository();
         private IUserRepository agentService = new UserRepository();
 
-        public void ProfitCalculate(string customerId = "")
+        private IRechargeRecordRepository rechargeService = new RechargeRecordRepository();
+        private ICustomerBankRepository cusBankService = new CustomerBankRepository();
+
+        public void ProfitCalculateTask(string customerId = "")
         {
             //获取所有有效客户信息
             var customerList = customerService.IQueryable(t => t.F_DeleteMark == false).ToList();
@@ -148,7 +154,6 @@ namespace DRP.Application.DrpServManage
                         #endregion
 
                         #region 4.执行数据库操作
-
                         using (var db = new RepositoryBase().BeginTrans())
                         {
                             db.Update(agent); //更新代理人账户余额
@@ -157,7 +162,6 @@ namespace DRP.Application.DrpServManage
                             db.Insert(sysComisssionRecord); //新增系统收益记录
                             db.Commit();
                         }
-
                         #endregion
 
                         #endregion
@@ -168,7 +172,54 @@ namespace DRP.Application.DrpServManage
                 }
                 #endregion
             }
-
         }
+        #endregion
+
+        #region 充值任务
+        /// <summary>
+        /// 充值任务
+        /// </summary>
+        /// <param name="bankAccountName">银行账户名</param>
+        public void RechargeTask(string bankAccountName="")
+        {
+            //查询所有充值记录中 状态 为 0-手工录账 2-核对未通过
+            Expression<Func<RechargeRecordEntity, bool>> exp = t => t.F_Status == 0 || t.F_Status == 2;//状态条件
+            if (!string.IsNullOrEmpty(bankAccountName))
+            {
+                exp.And(t => t.F_BankAccountName == bankAccountName);//拼接银行账户名的查询条件
+            }
+            var rechargeList = rechargeService.IQueryable(exp).ToList();
+
+            //查询所有银行卡相关信息
+            Expression<Func<CustomerBankEntity, bool>> exp2 = null;
+            if (!string.IsNullOrEmpty(bankAccountName))
+            {
+                exp2 =t => t.F_BankAccountName == bankAccountName;//拼接银行账户名的查询条件
+            }
+            var cusBankList = cusBankService.IQueryable(exp2).ToList();
+
+            foreach (var recharge in rechargeList)
+            {
+                var accountBankName = recharge.F_BankAccountName;
+                var cusBank = cusBankList.FirstOrDefault(t => t.F_BankAccountName == accountBankName);
+                //如果比对银行账户名失败，则将充值记录状态0改为2, 原来是2则保持不变
+                if (cusBank == null)
+                {
+                    if (recharge.F_Status == 0)
+                    {
+                        recharge.F_Status = 2;
+                        //更新数据库
+                    }
+                }
+                //如果比对成功，将状态0或2改为1
+                else
+                {
+                    recharge.F_Status = 1;
+                    //更新数据库
+                }
+            }
+        }
+
+        #endregion
     }
 }

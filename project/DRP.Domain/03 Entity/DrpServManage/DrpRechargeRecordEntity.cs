@@ -12,6 +12,8 @@ namespace DRP.Domain.Entity.DrpServManage
     /// </summary>
     public class RechargeRecordEntity : AuditedEntity<string>
     {
+        public string CustomerId { get; set; }
+
         /// <summary>
         /// 银行账户名
         /// </summary>
