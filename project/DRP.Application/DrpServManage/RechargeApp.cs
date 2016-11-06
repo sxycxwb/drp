@@ -31,6 +31,20 @@ namespace DRP.Application.DrpServManage
             }
             return service.FindList(expression, pagination).OrderByDescending(t=>t.F_CreatorTime).ToList();
         }
+
+
+        public List<RechargeRecordEntity> GetList(Pagination pagination, string keyword,string customerId)
+        {
+            var expression = ExtLinq.True<RechargeRecordEntity>();
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                //expression = expression.And(t => t.F_Account.Contains(keyword));
+                //expression = expression.Or(t => t.F_AccountCode.Contains(keyword));
+                //expression = expression.Or(t => t.F_MobilePhone.Contains(keyword));
+            }
+           // expression = expression.And(t => t.F_CustomerId == customerId);
+            return service.FindList(expression, pagination).OrderByDescending(t => t.F_CreatorTime).ToList();
+        }
         public RechargeRecordEntity GetForm(string keyValue)
         {
             return service.FindEntity(keyValue);

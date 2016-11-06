@@ -183,6 +183,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\UserCenter\Controllers\AccountInfoController.cs" />
     <Compile Include="Areas\UserCenter\Controllers\CardInfoController.cs" />
+    <Compile Include="Areas\UserCenter\Controllers\RechargeController.cs" />
     <Compile Include="Areas\UserCenter\UserCenterAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -225,6 +226,7 @@
     <Content Include="Areas\UserCenter\Views\AccountInfo\Index.cshtml" />
     <Content Include="Areas\UserCenter\Views\AccountInfo\ChangePwd.cshtml" />
     <Content Include="Areas\UserCenter\Views\CardInfo\Index.cshtml" />
+    <Content Include="Areas\UserCenter\Views\Recharge\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
