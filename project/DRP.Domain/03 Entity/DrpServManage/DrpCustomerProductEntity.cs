@@ -24,7 +24,7 @@ namespace DRP.Domain.Entity.DrpServManage
         /// </summary>
         public decimal F_RoyaltyRate { get; set; }
         /// <summary>
-        /// 状态 1开通，0欠费
+        /// 状态 1开通，0欠费，2停用
         /// </summary>
         public int F_Status { get; set; }
         /// <summary>
