@@ -20,9 +20,9 @@
         }
     });
     function initControl() {
-        $("#F_Gender").bindSelect()
-        $("#F_IsAdministrator").bindSelect()
-        $("#F_EnabledMark").bindSelect()
+        $("#F_Gender").bindSelect();
+        $("#F_IsAdministrator").bindSelect();
+        $("#F_EnabledMark").bindSelect();
         //$("#F_OrganizeId").bindSelect({
         //    url: "/SystemManage/Organize/GetTreeSelectJson"
         //});
@@ -62,17 +62,17 @@
         <div style="padding-top: 20px; margin-right: 30px;">
             <table class="form">
                 <tr>
-                    <th class="formTitle">登录名</th>
+                    <th class="formTitle"><span class="required-span">*</span>登录名</th>
                     <td class="formValue">
                         <input id="F_Account" name="F_Account" type="text" class="form-control required" placeholder="请输入账户" />
                     </td>
-                    <th class="formTitle">密码</th>
+                    <th class="formTitle"><span class="required-span">*</span>密码</th>
                     <td class="formValue">
                         <input id="F_UserPassword" name="F_UserPassword" type="password" class="form-control required" placeholder="请输入密码" />
                     </td>
                 </tr>
                 <tr>
-                    <th class="formTitle">姓名</th>
+                    <th class="formTitle"><span class="required-span">*</span>姓名</th>
                     <td class="formValue">
                         <input id="F_RealName" name="F_RealName" type="text" class="form-control required" placeholder="请输入姓名" />
                     </td>
@@ -85,7 +85,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th class="formTitle">角色</th>
+                    <th class="formTitle"><span class="required-span">*</span>角色</th>
                     <td class="formValue">
                         <select id="F_RoleId" name="F_RoleId" class="form-control required">
                             <option value="">==请选择==</option>

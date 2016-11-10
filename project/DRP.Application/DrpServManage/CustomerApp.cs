@@ -80,7 +80,8 @@ namespace DRP.Application.DrpServManage
             }
             else
             {
-                customerEntity.Create();             
+                customerEntity.Create();
+                customerEntity.F_AccountBalance = 0;//账户余额初始化
             }
             service.SubmitForm(customerEntity, keyValue);
         }

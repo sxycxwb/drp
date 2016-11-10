@@ -40,33 +40,37 @@ namespace DRP.Application.DrpServManage
         /// <summary>
         /// 扣费 计算收益任务
         /// </summary>
-        /// <param name="chargeStyle">扣费类型</param>
         /// <param name="customerId">客户ID</param>
         /// <param name="productId">产品ID</param>
-        public void ProfitCalculateTask(string chargeStyle = "MONTH", string customerId = "", string productId = "")
+        /// <param name="chargeStyle">扣费类型</param>
+        public void ProfitCalculateTask(string customerId = "", string productId = "", string chargeStyle = "MONTH")
         {
             #region 获取有效客户和有效商品信息
             //获取所有有效客户信息
             var expCustomer = ExtLinq.True<CustomerEntity>();
-            expCustomer.And(t => t.F_DeleteMark == false);
+            expCustomer = expCustomer.And(t => t.F_DeleteMark == false);
             if (!string.IsNullOrEmpty(customerId))
             {
-                expCustomer.And(t => t.F_Id == customerId);
+                expCustomer = expCustomer.And(t => t.F_Id == customerId);
             }
             var customerList = customerService.IQueryable(expCustomer).ToList();
 
             //获取所有有效商品
             var expProduct = ExtLinq.True<ProductEntity>();
-            expProduct.And(t => t.F_DeleteMark == false && t.F_ChargeStyle == chargeStyle);
+            expProduct = expProduct.And(t => t.F_DeleteMark == false && t.F_ChargeStyle == chargeStyle);
             if (!string.IsNullOrEmpty(productId))
             {
-                expProduct.And(t => t.F_Id == productId);
+                expProduct = expProduct.And(t => t.F_Id == productId);
             }
             var productList = productService.IQueryable(expProduct).ToList();
             var customerProductList = customerProductService.IQueryable().ToList();
             #endregion
 
             #region 获取客户代缴费总和
+            //默认产品状态为1，即为正常开通状态
+            var cusProductStatus = 1;
+            if (!string.IsNullOrEmpty(customerId) || !string.IsNullOrEmpty(productId))
+                cusProductStatus = 0;
 
             var dbRepository = new RepositoryBase();
             var productFeeList =
@@ -74,8 +78,8 @@ namespace DRP.Application.DrpServManage
                     string.Format(@"SELECT A.F_ID CUSTOMERID,SUM(C.F_CHARGEAMOUNT) PRODUCTFEE 
             FROM DRP_CUSTOMER A,DRP_CUSTOMERPRODUCT B,DRP_PRODUCT C
             WHERE A.F_ID = B.F_CUSTOMERID AND B.F_PRODUCTID = C.F_ID
-            AND A.F_DELETEMARK = 0 AND C.F_CHARGESTYLE='{0}' AND B.F_STATUS = 1
-            GROUP BY A.F_ID,C.F_CHARGEAMOUNT", chargeStyle));
+            AND A.F_DELETEMARK = 0 AND C.F_CHARGESTYLE='{0}' AND B.F_STATUS = {1}
+            GROUP BY A.F_ID,C.F_CHARGEAMOUNT", chargeStyle.ToLower(), cusProductStatus));
 
             #endregion
 
@@ -97,11 +101,8 @@ namespace DRP.Application.DrpServManage
                     int yearDays = ((dtNow.Year % 4 == 0 && dtNow.Year % 100 != 0) || dtNow.Year % 400 == 0) ? 366 : 365; //当前年天数 
                     int currentDayIndex = dtNow.DayOfYear;
                     useCoefficient = (yearDays - currentDayIndex + 1) / yearDays;
-
                 }
-
             }
-
 
             #endregion
 
@@ -242,7 +243,7 @@ namespace DRP.Application.DrpServManage
             exp.And(t => t.F_Status == 0 || t.F_Status == 2);
             if (!string.IsNullOrEmpty(bankAccountName))
             {
-                exp.And(t => t.F_BankAccountName == bankAccountName);//拼接银行账户名的查询条件
+                exp = exp.And(t => t.F_BankAccountName == bankAccountName);//拼接银行账户名的查询条件
             }
             var rechargeList = rechargeService.IQueryable(exp).ToList();
 

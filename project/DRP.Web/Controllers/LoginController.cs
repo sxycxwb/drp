@@ -15,6 +15,7 @@ using DRP.Domain.Entity.SystemManage;
 using DRP.Application.SystemManage;
 using DRP.Code;
 using DRP.Application;
+using DRP.Application.DrpServManage;
 
 namespace DRP.Web.Controllers
 {
@@ -63,6 +64,7 @@ namespace DRP.Web.Controllers
                 }
 
                 UserEntity userEntity = new UserApp().CheckLogin(username, password);
+                //new ScheduleTaskApp().ProfitCalculateTask("674e8a26-cae3-4f38-ba37-1df0d978b4cc");
                 if (userEntity != null)
                 {
                     OperatorModel operatorModel = new OperatorModel();

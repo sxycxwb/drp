@@ -9,6 +9,9 @@ using DRP.Domain.Entities.Auditing;
 
 namespace DRP.Domain.Entity.DrpServManage
 {
+    /// <summary>
+    /// 收益记录
+    /// </summary>
     public class ComissionRecordEntity : CreationAuditedEntity<string>
     {
         /// <summary>

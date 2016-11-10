@@ -42,11 +42,16 @@ namespace DRP.Application.DrpServManage
             {
                 rechargeEntity.Modify(keyValue);
                 service.Update(rechargeEntity);
+                //调用充值任务
+                new ScheduleTaskApp().RechargeTask(rechargeEntity.F_BankAccountName);
             }
             else
             {
                 rechargeEntity.Create();
                 service.Insert(rechargeEntity);
+                //调用充值任务
+                new ScheduleTaskApp().RechargeTask(rechargeEntity.F_BankAccountName);
+
             }
         }
     }
