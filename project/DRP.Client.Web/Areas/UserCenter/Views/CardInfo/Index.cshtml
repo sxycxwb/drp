@@ -30,6 +30,7 @@
             width: "500px",
             height: "400px",
             callBack: function (iframeId) {
+                $.reload();
                 top.frames[iframeId].submitForm();
             }
         });

@@ -147,6 +147,8 @@
     <Content Include="Content\img\wechat.jpg" />
     <Content Include="Content\img\weipayimg.png" />
     <Content Include="Content\img\weixin_nfine.png" />
+    <Content Include="Content\js\angular-1.0.1.min.js" />
+    <Content Include="Content\js\angular.min.js" />
     <Content Include="Content\js\bootstrap.min.js" />
     <Content Include="Content\js\bootstrap\bootstrap.js" />
     <Content Include="Content\js\bootstrap\bootstrap.min.css" />
@@ -183,6 +185,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\UserCenter\Controllers\AccountInfoController.cs" />
     <Compile Include="Areas\UserCenter\Controllers\CardInfoController.cs" />
+    <Compile Include="Areas\UserCenter\Controllers\CustomerProductController.cs" />
     <Compile Include="Areas\UserCenter\Controllers\RechargeController.cs" />
     <Compile Include="Areas\UserCenter\UserCenterAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -236,6 +239,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\UserCenter\Views\CustomerProduct\" />
     <Folder Include="Content\img\samples\" />
     <Folder Include="Content\js\charts\" />
     <Folder Include="Content\js\datepicker\" />

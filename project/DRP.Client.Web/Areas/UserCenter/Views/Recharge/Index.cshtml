@@ -15,10 +15,11 @@
                 { label: '主键', name: 'F_Id', hidden: true },
                 { label: '银行账户名', name: 'F_BankAccountName', width: 150, align: 'left' },
                 { label: '银行卡号', name: 'F_BankCardNo', width: 100, align: 'left' },
-                { label: '备注', name: 'F_Description', width: 140, align: 'left' }
+                { label: '充值金额', name: 'F_RechargeAccount', width: 140, align: 'left' },
+                { label: '到账时间', name: 'F_CheckTime', width: 140, align: 'left' }
             ],
             pager: "#gridPager",
-            sortname: 'F_CreatorTime desc',
+            sortname: 'F_CheckTime desc',
             viewrecords: true
         });
     }
