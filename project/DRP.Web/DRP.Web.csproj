@@ -587,6 +587,14 @@
       <Project>{124cd8ce-d1fb-40f0-8248-7e80b092426d}</Project>
       <Name>DRP.Repository</Name>
     </ProjectReference>
+    <ProjectReference Include="..\StackExchange.Profiling.EntityFramework6\StackExchange.Profiling.EntityFramework6.csproj">
+      <Project>{4dfa7ad2-fcae-44db-af5c-f26aba93dbdc}</Project>
+      <Name>StackExchange.Profiling.EntityFramework6</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StackExchange.Profiling\StackExchange.Profiling.csproj">
+      <Project>{386222bd-6b6e-480f-a342-8de1ab516e2c}</Project>
+      <Name>StackExchange.Profiling</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
