@@ -17,7 +17,7 @@
             async: false,
             success: function (data) {
                 $.each(data, function (i) {
-                    var info = { F_Id: data[i].F_Id, F_ProductName: data[i].F_CreatorTime };
+                    var info = { F_Id: data[i].F_Id, F_ProductName: data[i].F_ProductName };
                     if (data[i].F_Status == '1') {
                         $scope.payarray.push(info);
                     }
@@ -31,6 +31,34 @@
             }
         })
     });
+    function btn_stoppay(id) {
+        var keyValue = id;
+        $.modalConfirm("注：您确定要【停用】该产品吗？", function (r) {
+            if (r) {
+                $.submitForm({
+                    url: "/UserCenter/CustomerProduct/StopPayProduct",
+                    param: { keyValue: keyValue },
+                    success: function () {
+                        $.currentWindow().$("#gridList").trigger("reloadGrid");
+                    }
+                })
+            }
+        });
+    }
+    function btn_startpay(id) {
+        var keyValue = id;
+        $.modalConfirm("注：您确定要【购买】该产品吗？", function (r) {
+            if (r) {
+                $.submitForm({
+                    url: "/UserCenter/CustomerProduct/StartPayProduct",
+                    param: { keyValue: keyValue },
+                    success: function () {
+                        $.currentWindow().$("#gridList").trigger("reloadGrid");
+                    }
+                })
+            }
+        });
+    }
 </script>
 <div id="right_pane" class="container-fluid" ng-app="app" ng-cloak ng-controller="formAlreadyBuyController">
     <div class="row">
@@ -38,17 +66,21 @@
             <div>
                 <h4>已购买产品<small></small></h4>
                 <p class="buy_product" ng-repeat="a in payarray">
-                    <button type="button" class="btn btn-lg btn-success ds_do_action" ds_action="loadMainView" ds_product="zj" ds_data="{{a.F_Id}}">{{a.F_ProductName}}</button>
+                    <button type="button" class="btn btn-lg btn-success ds_do_action" ds_action="loadMainView" ds_product="zj" onclick="btn_stoppay(this)" ds_data="{{a.F_Id}}">{{a.F_ProductName}}</button>
                     &nbsp;&nbsp;&nbsp;
                 </p>
             </div>
             <div style="margin-top: 30px;" >
                 <h4>未支付产品</h4>
-                <p class="nobuy_product" ng-repeat="a in nopayarray"><button type="button" class="btn btn-lg ds_do_action" ds_action="loadMainView" ds_product="custFee" ds_data="{{a.F_Id}}">{{a.F_ProductName}}</button>&nbsp;&nbsp;&nbsp;</p>
+                <p class="nobuy_product" ng-repeat="a in nopayarray">
+                <button type="button" class="btn btn-lg ds_do_action" ds_action="loadMainView" ds_product="custFee" ds_data="{{a.F_Id}}">{{a.F_ProductName}}</button>
+                &nbsp;&nbsp;&nbsp;</p>
             </div>
             <div style="margin-top: 30px;" >
                 <h4>已停用产品</h4>
-                <p class="nobuy_product" ng-repeat="a in stoppayarray"><button type="button" class="btn btn-lg ds_do_action" ds_action="loadMainView" ds_product="custFee" ds_data="{{a.F_Id}}">{{a.F_ProductName}}</button>&nbsp;&nbsp;&nbsp;</p>
+                <p class="nobuy_product" ng-repeat="a in stoppayarray">
+                <button type="button" class="btn btn-lg ds_do_action" ds_action="loadMainView" ds_product="custFee" onclick="btn_startpay({{a.F_Id}})" ds_data="{{a.F_Id}}">{{a.F_ProductName}}</button>
+                &nbsp;&nbsp;&nbsp;</p>
             </div>
         </div>
         <div class="col-md-4" style="float: left; ">
