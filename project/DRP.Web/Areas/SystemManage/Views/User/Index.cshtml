@@ -129,7 +129,7 @@
                     url: "/SystemManage/User/DisabledAccount",
                     param: { keyValue: keyValue },
                     success: function () {
-                        $.currentWindow().$("#gridList").trigger("reloadGrid");
+                        window.location.reload();//刷新当前页面.
                     }
                 })
             }
@@ -143,7 +143,7 @@
                     url: "/SystemManage/User/EnabledAccount",
                     param: { keyValue: keyValue },
                     success: function () {
-                        $.currentWindow().$("#gridList").trigger("reloadGrid");
+                        window.location.reload();//刷新当前页面.
                     }
                 });
             }

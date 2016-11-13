@@ -2,24 +2,93 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Index.cshtml";
 }
-<div id="right_pane" class="container-fluid">
+@*<script src="~/Content/js/angular-1.0.1.min.js"></script>*@
+<script src="~/Content/js/angular.min.js"></script>
+<script type="text/javascript">
+    var app = angular.module('app', []);
+    app.controller('formAlreadyBuyController', function ($scope) {
+        $scope.payarray = [];
+        $scope.nopayarray = [];
+        $scope.stoppayarray = [];
+        $.ajax({
+            url: "/UserCenter/CustomerProduct/GetGridJson",
+            type: "get",
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                $.each(data, function (i) {
+                    var info = { F_Id: data[i].F_Id, F_ProductName: data[i].F_ProductName };
+                    if (data[i].F_Status == '1') {
+                        $scope.payarray.push(info);
+                    }
+                    else if (data[i].F_Status == '0') {
+                        $scope.nopayarray.push(info);
+                    }
+                    else {
+                        $scope.stoppayarray.push(info);
+                    }
+                })
+            }
+        })
+    });
+    function btn_stoppay(id) {
+        var keyValue = id;
+        $.modalConfirm("注：您确定要【停用】该产品吗？", function (r) {
+            if (r) {
+                $.submitForm({
+                    url: "/UserCenter/CustomerProduct/StopPayProduct",
+                    param: { keyValue: keyValue },
+                    success: function () {
+                        $.currentWindow().$("#gridList").trigger("reloadGrid");
+                    }
+                })
+            }
+        });
+    }
+    function btn_startpay(id) {
+        var keyValue = id;
+        $.modalConfirm("注：您确定要【购买】该产品吗？", function (r) {
+            if (r) {
+                $.submitForm({
+                    url: "/UserCenter/CustomerProduct/StartPayProduct",
+                    param: { keyValue: keyValue },
+                    success: function () {
+                        $.currentWindow().$("#gridList").trigger("reloadGrid");
+                    }
+                })
+            }
+        });
+    }
+</script>
+<div id="right_pane" class="container-fluid" ng-app="app" ng-cloak ng-controller="formAlreadyBuyController">
     <div class="row">
         <div class="col-md-8" style="border-right: 1px solid #ccc; float: left; width: 65%;">
             <div>
-                <h4>已购买产品<small>（点击产品进入管理页面）</small></h4>
-                <p class="buy_product"><button type="button" class="btn btn-lg btn-success ds_do_action" ds_action="loadMainView" ds_product="zj" ds_data="zj/zj_main">企业总机</button>&nbsp;&nbsp;&nbsp;</p>
+                <h4>已购买产品<small></small></h4>
+                <p class="buy_product" ng-repeat="a in payarray">
+                    <button type="button" class="btn btn-lg btn-success ds_do_action" ds_action="loadMainView" ds_product="zj" onclick="btn_stoppay(this)" ds_data="{{a.F_Id}}">{{a.F_ProductName}}</button>
+                    &nbsp;&nbsp;&nbsp;
+                </p>
             </div>
-            <div style="margin-top: 30px;">
-                <h4>未购买产品</h4>
-                <p class="nobuy_product"><button type="button" class="btn btn-lg ds_do_action" ds_action="loadMainView" ds_product="custFee" ds_data="NA">自定义扣费</button>&nbsp;&nbsp;&nbsp;</p>
+            <div style="margin-top: 30px;" >
+                <h4>未支付产品</h4>
+                <p class="nobuy_product" ng-repeat="a in nopayarray">
+                <button type="button" class="btn btn-lg ds_do_action" ds_action="loadMainView" ds_product="custFee" ds_data="{{a.F_Id}}">{{a.F_ProductName}}</button>
+                &nbsp;&nbsp;&nbsp;</p>
+            </div>
+            <div style="margin-top: 30px;" >
+                <h4>已停用产品</h4>
+                <p class="nobuy_product" ng-repeat="a in stoppayarray">
+                <button type="button" class="btn btn-lg ds_do_action" ds_action="loadMainView" ds_product="custFee" onclick="btn_startpay({{a.F_Id}})" ds_data="{{a.F_Id}}">{{a.F_ProductName}}</button>
+                &nbsp;&nbsp;&nbsp;</p>
             </div>
         </div>
-        <div class="col-md-4" style="float: left; width: 33.3%;">
+        <div class="col-md-4" style="float: left; ">
             <div>
-                <h4 id="acc_companyName" style="display: inline-block;">@ClientOperatorProvider.Provider.GetCurrent().UserName<small>&nbsp;<span class="label label-success">未认证</span></small></h4>
+                <h4 id="acc_companyName" style="display: inline-block;">@ClientOperatorProvider.Provider.GetCurrent().UserName<small>&nbsp;<span class="label label-success">已认证</span></small></h4>
                 @*&nbsp;&nbsp;<button type="button" class="btn btn-xs btn-primary ds_do_action submit_identity" ds_action="account.showIdentify" ds_data="" style="">认证</button>
-    &nbsp;&nbsp;<button type="button" class="btn btn-xs btn-primary ds_do_action view_identity" ds_action="account.showIdentifyInfo" ds_data="" style="display: none;">查看认证</button>
-    &nbsp;&nbsp;<button type="button" class="btn btn-xs btn-primary ds_do_action bill_hide audit_identity" ds_action="account.showAuditIdentify" ds_data="" style="display: inline-block;">审核认证</button>*@
+                    &nbsp;&nbsp;<button type="button" class="btn btn-xs btn-primary ds_do_action view_identity" ds_action="account.showIdentifyInfo" ds_data="" style="display: none;">查看认证</button>
+                    &nbsp;&nbsp;<button type="button" class="btn btn-xs btn-primary ds_do_action bill_hide audit_identity" ds_action="account.showAuditIdentify" ds_data="" style="display: inline-block;">审核认证</button>*@
             </div>
             <div>
                 <label>账户登录名:</label><span style="margin-left: 10px;" id="acc_name">@ClientOperatorProvider.Provider.GetCurrent().UserCode</span>
