@@ -33,6 +33,7 @@ namespace DRP.Repository.SystemManage
                 }
                 else
                 {
+                    userEntity.F_AccountBalance = 0;//账户默认余额为0
                     userEntity.F_DeleteMark = false;
                     userEntity.F_AccountBalance = 0;//用户账户初始化
                     userLogOnEntity.F_Id = userEntity.F_Id;

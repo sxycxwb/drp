@@ -95,6 +95,7 @@ namespace DRP.Application.DrpServManage
                 customerProductEntity.Create();
                 customerProductEntity.F_CustomerId = keyValue;
                 customerProductEntity.F_ProductId = itemId;
+                customerProductEntity.F_RoyaltyRate = 100;//默认提成比率为100
                 customerProductList.Add(customerProductEntity);
             }
             service.SubmitProduct(customerProductList, keyValue);

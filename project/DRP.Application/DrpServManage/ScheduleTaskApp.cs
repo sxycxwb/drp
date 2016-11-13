@@ -63,7 +63,13 @@ namespace DRP.Application.DrpServManage
                 expProduct = expProduct.And(t => t.F_Id == productId);
             }
             var productList = productService.IQueryable(expProduct).ToList();
-            var customerProductList = customerProductService.IQueryable().ToList();
+
+            var expCusPro = ExtLinq.True<CustomerProductEntity>();
+            if (!string.IsNullOrEmpty(customerId))
+            {
+                expCusPro = expCusPro.And(t => t.F_CustomerId == customerId);
+            }
+            var customerProductList = customerProductService.IQueryable(expCusPro).ToList();
             #endregion
 
             #region 获取客户代缴费总和
@@ -79,12 +85,12 @@ namespace DRP.Application.DrpServManage
             FROM DRP_CUSTOMER A,DRP_CUSTOMERPRODUCT B,DRP_PRODUCT C
             WHERE A.F_ID = B.F_CUSTOMERID AND B.F_PRODUCTID = C.F_ID
             AND A.F_DELETEMARK = 0 AND C.F_CHARGESTYLE='{0}' AND B.F_STATUS = {1}
-            GROUP BY A.F_ID,C.F_CHARGEAMOUNT", chargeStyle.ToLower(), cusProductStatus));
+            GROUP BY A.F_ID", chargeStyle.ToLower(), cusProductStatus));
 
             #endregion
 
             #region 使用系数计算
-            decimal useCoefficient = 1;
+            double useCoefficient = 1;
             //如果customerId 不为空或 productId不为空，说明不是月初进行的计算，则重新计算当月使用系数
             if (!string.IsNullOrEmpty(customerId) || !string.IsNullOrEmpty(productId))
             {
@@ -94,13 +100,13 @@ namespace DRP.Application.DrpServManage
                 {
                     int monthDays = DateTime.DaysInMonth(dtNow.Year, dtNow.Month);//当前月天数
                     int currentDayIndex = dtNow.Day;
-                    useCoefficient = (monthDays - currentDayIndex + 1) / monthDays;
+                    useCoefficient = Math.Round((double)(monthDays - currentDayIndex + 1) / monthDays, 2);
                 }
                 else if (chargeStyle == "YEAR")
                 {
                     int yearDays = ((dtNow.Year % 4 == 0 && dtNow.Year % 100 != 0) || dtNow.Year % 400 == 0) ? 366 : 365; //当前年天数 
                     int currentDayIndex = dtNow.DayOfYear;
-                    useCoefficient = (yearDays - currentDayIndex + 1) / yearDays;
+                    useCoefficient = Math.Round((double)(yearDays - currentDayIndex + 1) / yearDays, 2);
                 }
             }
 
@@ -118,6 +124,8 @@ namespace DRP.Application.DrpServManage
                 var productFee = productFeeList.FirstOrDefault(t => t.CustomerId == customer.F_Id);
                 if (productFee != null)
                     totalFee = productFee.ProductFee;
+                if (totalFee == 0)
+                    continue;
 
                 //查询该客户绑定的产品
                 var cusProductList = customerProductList.Where(t => t.F_CustomerId == customer.F_Id);
@@ -152,18 +160,19 @@ namespace DRP.Application.DrpServManage
                     foreach (var cusProduct in cusProductList)
                     {
                         //客户产品提成系数
-                        var cusProRoyalRate = cusProduct.F_RoyaltyRate;
+                        var cusProRoyalRate = cusProduct.F_RoyaltyRate / 100;
                         //产品
                         var product = productList.FirstOrDefault(t => t.F_Id == cusProduct.F_ProductId);
-                        var productRoyalRate = product.F_RoyaltyRate;//产品提成系数
+                        var productRoyalRate = product.F_RoyaltyRate / 100;//产品提成系数
                         var productName = product.F_ProductName;//产品名称
-                        var chargeAmount = product.F_ChargeAmount;//销售价
-                        var costPrice = product.F_CostPrice;//成本价
+                        var chargeAmount = product.F_ChargeAmount * Convert.ToDecimal(useCoefficient);//销售价
+                        var costPrice = product.F_CostPrice * Convert.ToDecimal(useCoefficient);//成本价
 
                         //每个产品的代理人提成 TODO 目前只有一级代理人获取收益，后期会加入多级
-                        var toyal = (chargeAmount - costPrice) * productRoyalRate * cusProRoyalRate * useCoefficient;
+                        var toyal = (chargeAmount - costPrice) * productRoyalRate * cusProRoyalRate;
+                        toyal = Math.Round(toyal, 2);//保留两位小数
                         //每个产品的系统收益
-                        var systemToyal = (chargeAmount - costPrice) - toyal;
+                        var systemToyal = (chargeAmount - costPrice) * Convert.ToDecimal(useCoefficient) - toyal;
 
                         #region 业务实体赋值，更新数据库
 
@@ -183,7 +192,7 @@ namespace DRP.Application.DrpServManage
                             F_CommissionPersonId = customer.F_BelongPersonId,
                             F_CustomerId = customer.F_Id,
                             F_CreatorTime = DateTime.Now,
-                            F_Type = ""
+                            F_Type = "agent"
                         };
                         //系统收益记录信息
                         var sysComisssionRecord = comisssionRecord;
@@ -191,11 +200,12 @@ namespace DRP.Application.DrpServManage
                         sysComisssionRecord.F_CreatorTime = DateTime.Now;
                         sysComisssionRecord.F_CommissionAmount = systemToyal;
                         sysComisssionRecord.F_CommissionPersonId = "";
+                        sysComisssionRecord.F_Type = "system";
 
                         #endregion
 
                         #region 3.更新客户账户余额，减去当前产品的销售价格;增加扣费记录
-                        customer.F_AccountBalance -= chargeAmount;
+                        customer.F_AccountBalance -= Math.Round(chargeAmount, 2);
                         var feeDeduction = new FeeDeductionRecordEntity()
                         {
                             F_Id = Common.GuId(),

@@ -21,7 +21,10 @@ namespace DRP.Web
 
         protected void Application_BeginRequest()
         {
-            MiniProfiler.Start();
+            if (Request.IsLocal)
+            {
+                MiniProfiler.Start();
+            }
         }
 
         protected void Application_EndRequest()

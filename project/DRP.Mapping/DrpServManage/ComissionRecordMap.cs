@@ -13,7 +13,7 @@ namespace DRP.Mapping.DrpServManage
     {
         public ComissionRecordMap()
         {
-            this.ToTable("Drp_ComissionRecord");
+            this.ToTable("drp_commissionrecord");
             this.HasKey(t => t.F_Id);
         }
     }

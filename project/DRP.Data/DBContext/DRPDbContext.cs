@@ -8,6 +8,7 @@ using System;
 using System.Configuration;
 using System.Data.Common;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Reflection;
@@ -41,6 +42,9 @@ namespace DRP.Data
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            //modelBuilder.Conventions.Remove<IncludeMetadataConvention>();//防止黑幕交易 要不然每次都要访问 
+            Database.SetInitializer<DRPDbContext>(null);
+
             string assembleFileName = Assembly.GetExecutingAssembly().CodeBase.Replace("DRP.Data.DLL", "DRP.Mapping.DLL").Replace("file:///", "");
             Assembly asm = Assembly.LoadFile(assembleFileName);
             var typesToRegister = asm.GetTypes()
