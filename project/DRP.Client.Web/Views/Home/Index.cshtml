@@ -109,7 +109,7 @@
         }
         function cardinfo(obj) {
             changeclass(obj);
-            $("#DRP_iframe").attr("src","/UserCenter/CardInfo/Index");
+            $("#DRP_iframe").attr("src", "/UserCenter/CardInfo/Index");
         }
         function rechargeinfo(obj) {
             changeclass(obj);
@@ -178,7 +178,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">主页</div>
                         <div class="list-group">
-                            <a href="#"  class="list-group-item ds_do_action active" ds_action="showPage" ds_data="index/accinfo" action="account.initAccountInfo" onclick="goindex(this)">账户信息</a>
+                            <a href="#" class="list-group-item ds_do_action active" ds_action="showPage" ds_data="index/accinfo" action="account.initAccountInfo" onclick="goindex(this)">账户信息</a>
                             <a href="#" class="list-group-item ds_do_action payRecord" ds_action="showPage" ds_data="index/pay_list" onclick="rechargeinfo(this)" action="fee.getPayList">充值记录</a>
                             <a href="#" class="list-group-item ds_do_action costRecord" ds_action="showPage" ds_data="index/cost_list" action="fee.getCostList">消费记录</a>
                             <a href="#" class="list-group-item ds_do_action feeRecord" ds_action="showPage" ds_data="index/fee/account_fee" action="accFee.showMain">账单查询</a>

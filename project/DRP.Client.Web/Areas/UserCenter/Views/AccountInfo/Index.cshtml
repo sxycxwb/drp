@@ -32,28 +32,28 @@
         })
     });
     function btn_stoppay(id) {
-        var keyValue = id;
+        var keyValue = $(id).attr("ds_data");
         $.modalConfirm("注：您确定要【停用】该产品吗？", function (r) {
             if (r) {
                 $.submitForm({
                     url: "/UserCenter/CustomerProduct/StopPayProduct",
                     param: { keyValue: keyValue },
                     success: function () {
-                        $.currentWindow().$("#gridList").trigger("reloadGrid");
+                        window.location.reload();//刷新当前页面.
                     }
                 })
             }
         });
     }
     function btn_startpay(id) {
-        var keyValue = id;
+        var keyValue = $(id).attr("ds_data");
         $.modalConfirm("注：您确定要【购买】该产品吗？", function (r) {
             if (r) {
                 $.submitForm({
                     url: "/UserCenter/CustomerProduct/StartPayProduct",
                     param: { keyValue: keyValue },
                     success: function () {
-                        $.currentWindow().$("#gridList").trigger("reloadGrid");
+                        window.location.reload();//刷新当前页面.
                     }
                 })
             }
@@ -79,7 +79,7 @@
             <div style="margin-top: 30px;" >
                 <h4>已停用产品</h4>
                 <p class="nobuy_product" ng-repeat="a in stoppayarray">
-                <button type="button" class="btn btn-lg ds_do_action" ds_action="loadMainView" ds_product="custFee" onclick="btn_startpay({{a.F_Id}})" ds_data="{{a.F_Id}}">{{a.F_ProductName}}</button>
+                <button type="button" class="btn btn-lg ds_do_action" ds_action="loadMainView" ds_product="custFee" onclick="btn_startpay(this)" ds_data="{{a.F_Id}}">{{a.F_ProductName}}</button>
                 &nbsp;&nbsp;&nbsp;</p>
             </div>
         </div>
