@@ -14,8 +14,8 @@ namespace DRP.Web
         {
             // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=316888
 
-            //指定Hangfire使用内存存储后台任务信息
-            GlobalConfiguration.Configuration.UseStorage(new MySqlStorage("Data Source=111.203.235.204;port=3306;Initial Catalog=hangfiremonitor;user id=drp;password=484950;Allow User Variables=True;"));
+            //指定Hangfire使用内存存储后台任务信息 
+            GlobalConfiguration.Configuration.UseStorage(new MySqlStorage("Data Source=124.193.171.214;port=3306;Initial Catalog=test_hangfiremonitor;user id=root;password=123abc..;Allow User Variables=True;"));
             //启用HangfireServer这个中间件（它会自动释放）
 
             ////使用内存，每次重启站点内容会丢失

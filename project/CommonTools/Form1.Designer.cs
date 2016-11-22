@@ -32,13 +32,15 @@
             this.txtConStr = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnDesEncrypt = new System.Windows.Forms.Button();
+            this.txtResult = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btnEncrypt
             // 
-            this.btnEncrypt.Location = new System.Drawing.Point(613, 39);
+            this.btnEncrypt.Location = new System.Drawing.Point(920, 58);
+            this.btnEncrypt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnEncrypt.Name = "btnEncrypt";
-            this.btnEncrypt.Size = new System.Drawing.Size(75, 23);
+            this.btnEncrypt.Size = new System.Drawing.Size(112, 34);
             this.btnEncrypt.TabIndex = 0;
             this.btnEncrypt.Text = "加密";
             this.btnEncrypt.UseVisualStyleBackColor = true;
@@ -46,42 +48,58 @@
             // 
             // txtConStr
             // 
-            this.txtConStr.Location = new System.Drawing.Point(126, 39);
+            this.txtConStr.Location = new System.Drawing.Point(189, 58);
+            this.txtConStr.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtConStr.Multiline = true;
             this.txtConStr.Name = "txtConStr";
-            this.txtConStr.Size = new System.Drawing.Size(481, 34);
+            this.txtConStr.Size = new System.Drawing.Size(720, 49);
             this.txtConStr.TabIndex = 1;
-            this.txtConStr.Text = "Data Source=111.203.235.204;port=3306;Initial Catalog=drpdb;user id=drp;password=" +
-    "484950;";
+            this.txtConStr.Text = "Data Source=124.193.171.214;port=3306;Initial Catalog=test_drpdb;user id=root;pas" +
+    "sword=123abc..;";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(33, 44);
+            this.label1.Location = new System.Drawing.Point(50, 66);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(77, 12);
+            this.label1.Size = new System.Drawing.Size(116, 18);
             this.label1.TabIndex = 2;
             this.label1.Text = "链接字符串：";
             // 
             // btnDesEncrypt
             // 
-            this.btnDesEncrypt.Location = new System.Drawing.Point(707, 39);
+            this.btnDesEncrypt.Location = new System.Drawing.Point(1060, 58);
+            this.btnDesEncrypt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnDesEncrypt.Name = "btnDesEncrypt";
-            this.btnDesEncrypt.Size = new System.Drawing.Size(75, 23);
+            this.btnDesEncrypt.Size = new System.Drawing.Size(112, 34);
             this.btnDesEncrypt.TabIndex = 3;
             this.btnDesEncrypt.Text = "解密";
             this.btnDesEncrypt.UseVisualStyleBackColor = true;
             this.btnDesEncrypt.Click += new System.EventHandler(this.btnDesEncrypt_Click);
             // 
+            // txtResult
+            // 
+            this.txtResult.Location = new System.Drawing.Point(189, 155);
+            this.txtResult.Margin = new System.Windows.Forms.Padding(4);
+            this.txtResult.Multiline = true;
+            this.txtResult.Name = "txtResult";
+            this.txtResult.Size = new System.Drawing.Size(983, 266);
+            this.txtResult.TabIndex = 4;
+            this.txtResult.Text = "Data Source=124.193.171.214;port=3306;Initial Catalog=test_drpdb;user id=root;pas" +
+    "sword=123abc..;";
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(794, 397);
+            this.ClientSize = new System.Drawing.Size(1191, 596);
+            this.Controls.Add(this.txtResult);
             this.Controls.Add(this.btnDesEncrypt);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtConStr);
             this.Controls.Add(this.btnEncrypt);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -95,6 +113,7 @@
         private System.Windows.Forms.TextBox txtConStr;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnDesEncrypt;
+        private System.Windows.Forms.TextBox txtResult;
     }
 }
 

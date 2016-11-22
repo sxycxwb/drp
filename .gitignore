@@ -54,3 +54,8 @@
 /project/EmailTool/bin/Debug/EmailTool.vshost.exe.config
 /project/EmailTool/bin/Debug/EmailTool.vshost.exe
 /project/Drp.UnitTest/obj/Debug
+/project/Drp.UnitTest/bin/Debug
+/project/StackExchange.Profiling/bin/Debug
+/project/StackExchange.Profiling/obj/Debug
+/project/StackExchange.Profiling.EntityFramework6/bin/Debug
+/project/StackExchange.Profiling.EntityFramework6/obj/Debug

@@ -21,13 +21,13 @@ namespace CommonTools
         private void btnEncrypt_Click(object sender, EventArgs e)
         {
             string connStr = txtConStr.Text.Trim();
-            txtConStr.Text = DESEncrypt.Encrypt(connStr);
+            txtResult.Text = DESEncrypt.Encrypt(connStr);
         }
 
         private void btnDesEncrypt_Click(object sender, EventArgs e)
         {
             string connStr = txtConStr.Text.Trim();
-            txtConStr.Text = DESEncrypt.Decrypt(connStr);
+            txtResult.Text = DESEncrypt.Decrypt(connStr);
         }
     }
 }
