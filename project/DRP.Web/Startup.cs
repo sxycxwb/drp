@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Configuration;
+using DRP.Code;
 using Hangfire;
 using Microsoft.Owin;
 using Owin;
@@ -15,7 +17,9 @@ namespace DRP.Web
             // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=316888
 
             //指定Hangfire使用内存存储后台任务信息 
-            GlobalConfiguration.Configuration.UseStorage(new MySqlStorage("Data Source=124.193.171.214;port=3306;Initial Catalog=test_hangfiremonitor;user id=root;password=123abc..;Allow User Variables=True;"));
+            var connectString = ConfigurationManager.ConnectionStrings["DRPHangfireDbContext"].ConnectionString;
+            connectString = DESEncrypt.Decrypt(connectString);
+            GlobalConfiguration.Configuration.UseStorage(new MySqlStorage($"{connectString} Allow User Variables=True;",new MySqlStorageOptions()));
             //启用HangfireServer这个中间件（它会自动释放）
 
             ////使用内存，每次重启站点内容会丢失
@@ -27,6 +31,7 @@ namespace DRP.Web
             BackgroundJob.Enqueue(() => Console.WriteLine("Hello, world!"));
             BackgroundJob.Schedule(() => Console.WriteLine("Delayed"), TimeSpan.FromDays(1));
             RecurringJob.AddOrUpdate(() => Console.Write("Recurring"), Cron.Daily);
+            RecurringJob.AddOrUpdate(() => Console.Write("EveryMonth Exceute!"), "1 0 1 * *");//每个月凌晨0点1分
             // Hangfire.MySql.MySqlStorageConnection
         }
     }

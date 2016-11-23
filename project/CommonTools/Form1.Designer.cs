@@ -38,7 +38,7 @@
             // btnEncrypt
             // 
             this.btnEncrypt.Location = new System.Drawing.Point(920, 58);
-            this.btnEncrypt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnEncrypt.Margin = new System.Windows.Forms.Padding(4);
             this.btnEncrypt.Name = "btnEncrypt";
             this.btnEncrypt.Size = new System.Drawing.Size(112, 34);
             this.btnEncrypt.TabIndex = 0;
@@ -49,13 +49,13 @@
             // txtConStr
             // 
             this.txtConStr.Location = new System.Drawing.Point(189, 58);
-            this.txtConStr.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtConStr.Margin = new System.Windows.Forms.Padding(4);
             this.txtConStr.Multiline = true;
             this.txtConStr.Name = "txtConStr";
             this.txtConStr.Size = new System.Drawing.Size(720, 49);
             this.txtConStr.TabIndex = 1;
-            this.txtConStr.Text = "Data Source=124.193.171.214;port=3306;Initial Catalog=test_drpdb;user id=root;pas" +
-    "sword=123abc..;";
+            this.txtConStr.Text = "Data Source=124.193.171.214;port=3306;Initial Catalog=test_hangfiremonitor_db;use" +
+    "r id=root;password=123abc..;";
             // 
             // label1
             // 
@@ -70,7 +70,7 @@
             // btnDesEncrypt
             // 
             this.btnDesEncrypt.Location = new System.Drawing.Point(1060, 58);
-            this.btnDesEncrypt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnDesEncrypt.Margin = new System.Windows.Forms.Padding(4);
             this.btnDesEncrypt.Name = "btnDesEncrypt";
             this.btnDesEncrypt.Size = new System.Drawing.Size(112, 34);
             this.btnDesEncrypt.TabIndex = 3;
@@ -86,8 +86,6 @@
             this.txtResult.Name = "txtResult";
             this.txtResult.Size = new System.Drawing.Size(983, 266);
             this.txtResult.TabIndex = 4;
-            this.txtResult.Text = "Data Source=124.193.171.214;port=3306;Initial Catalog=test_drpdb;user id=root;pas" +
-    "sword=123abc..;";
             // 
             // Form1
             // 
@@ -99,7 +97,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtConStr);
             this.Controls.Add(this.btnEncrypt);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);

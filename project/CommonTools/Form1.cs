@@ -26,7 +26,7 @@ namespace CommonTools
 
         private void btnDesEncrypt_Click(object sender, EventArgs e)
         {
-            string connStr = txtConStr.Text.Trim();
+            string connStr = txtResult.Text.Trim();
             txtResult.Text = DESEncrypt.Decrypt(connStr);
         }
     }
