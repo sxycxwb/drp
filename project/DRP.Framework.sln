@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 Common 基础结构层", "01 Common 基础结构层", "{E9F0AA30-D535-4A8B-B80E-C24481CC65F5}"
 EndProject
@@ -34,12 +34,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04 Test 单元测试", "04 Test 单元测试", "{A655FDC5-38DC-475C-9F2E-408D1EFD0409}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Drp.UnitTest", "Drp.UnitTest\Drp.UnitTest.csproj", "{0BFF9631-E7BF-4F50-8C3F-50D3005E0556}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06 MinProfiler", "06 MinProfiler", "{B02CBFCC-8353-4D9D-A7AC-B341061F9BDF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackExchange.Profiling", "StackExchange.Profiling\StackExchange.Profiling.csproj", "{386222BD-6B6E-480F-A342-8DE1AB516E2C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackExchange.Profiling.EntityFramework6", "StackExchange.Profiling.EntityFramework6\StackExchange.Profiling.EntityFramework6.csproj", "{4DFA7AD2-FCAE-44DB-AF5C-F26ABA93DBDC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -91,14 +85,6 @@ Global
 		{0BFF9631-E7BF-4F50-8C3F-50D3005E0556}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0BFF9631-E7BF-4F50-8C3F-50D3005E0556}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0BFF9631-E7BF-4F50-8C3F-50D3005E0556}.Release|Any CPU.Build.0 = Release|Any CPU
-		{386222BD-6B6E-480F-A342-8DE1AB516E2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{386222BD-6B6E-480F-A342-8DE1AB516E2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{386222BD-6B6E-480F-A342-8DE1AB516E2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{386222BD-6B6E-480F-A342-8DE1AB516E2C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4DFA7AD2-FCAE-44DB-AF5C-F26ABA93DBDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4DFA7AD2-FCAE-44DB-AF5C-F26ABA93DBDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4DFA7AD2-FCAE-44DB-AF5C-F26ABA93DBDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4DFA7AD2-FCAE-44DB-AF5C-F26ABA93DBDC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -115,7 +101,5 @@ Global
 		{68337464-E01B-4DD1-9237-0217339F9670} = {2D101F1B-FF09-4BB5-AFF9-3BC250739F1E}
 		{04CB95E6-5935-4F97-87DA-B2956E8D9B3E} = {2D101F1B-FF09-4BB5-AFF9-3BC250739F1E}
 		{0BFF9631-E7BF-4F50-8C3F-50D3005E0556} = {A655FDC5-38DC-475C-9F2E-408D1EFD0409}
-		{386222BD-6B6E-480F-A342-8DE1AB516E2C} = {B02CBFCC-8353-4D9D-A7AC-B341061F9BDF}
-		{4DFA7AD2-FCAE-44DB-AF5C-F26ABA93DBDC} = {B02CBFCC-8353-4D9D-A7AC-B341061F9BDF}
 	EndGlobalSection
 EndGlobal

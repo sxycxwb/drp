@@ -63,7 +63,7 @@
             title: "修改角色",
             url: "/SystemManage/Role/Form?keyValue=" + keyValue,
             width: "550px",
-            height: "600px",
+            height: "650px",
             btn: null
         });
     }
@@ -71,10 +71,10 @@
         $.deleteForm({
             url: "/SystemManage/Role/DeleteForm",
             param: { keyValue: $("#gridList").jqGridRowValue().F_Id },
-            success: function () {
+            success: function() {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
             }
-        })
+        });
     }
     function btn_details() {
         var keyValue = $("#gridList").jqGridRowValue().F_Id;

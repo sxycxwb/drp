@@ -23,12 +23,12 @@
         $("#F_Gender").bindSelect();
         $("#F_IsAdministrator").bindSelect();
         $("#F_EnabledMark").bindSelect();
-        //$("#F_OrganizeId").bindSelect({
-        //    url: "/SystemManage/Organize/GetTreeSelectJson"
-        //});
-        //$("#F_DepartmentId").bindSelect({
-        //    url: "/SystemManage/Organize/GetTreeSelectJson",
-        //});
+        $("#F_OrganizeId").bindSelect({
+            url: "/SystemManage/Organize/GetTreeSelectJson"
+        });
+        $("#F_DepartmentId").bindSelect({
+            url: "/SystemManage/Organize/GetTreeSelectJson",
+        });
         $("#F_RoleId").bindSelect({
             url: "/SystemManage/Role/GetGridJson",
             id: "F_Id",
@@ -64,31 +64,43 @@
                 <tr>
                     <th class="formTitle"><span class="required-span">*</span>登录名</th>
                     <td class="formValue">
-                        <input id="F_Account" name="F_Account" type="text" class="form-control required" placeholder="请输入账户" />
+                        <input id="F_Account" name="F_Account" type="text" class="form-control required" placeholder="请输入账户"/>
                     </td>
                     <th class="formTitle"><span class="required-span">*</span>密码</th>
                     <td class="formValue">
-                        <input id="F_UserPassword" name="F_UserPassword" type="password" class="form-control required" placeholder="请输入密码" />
+                        <input id="F_UserPassword" name="F_UserPassword" type="password" class="form-control required" placeholder="请输入密码"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">公司</th>
+                    <td class="formValue">
+                        <select id="F_OrganizeId" name="F_OrganizeId" class="form-control required"></select>
+                    </td>
+                    <th class="formTitle">部门</th>
+                    <td class="formValue">
+                        <select id="F_DepartmentId" name="F_DepartmentId" class="form-control required">
+                            <option value="">==请选择==</option>
+                        </select>
                     </td>
                 </tr>
                 <tr>
                     <th class="formTitle"><span class="required-span">*</span>姓名</th>
                     <td class="formValue">
-                        <input id="F_RealName" name="F_RealName" type="text" class="form-control required" placeholder="请输入姓名" />
+                        <input id="F_RealName" name="F_RealName" type="text" class="form-control required" placeholder="请输入姓名"/>
                     </td>
+                    <th class="formTitle"><span class="required-span">*</span>角色</th>
+                    <td class="formValue">
+                        <select id="F_RoleId" name="F_RoleId" class="form-control required">
+                            <option value="">==请选择==</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
                     <th class="formTitle">性别</th>
                     <td class="formValue">
                         <select id="F_Gender" name="F_Gender" class="form-control required">
                             <option value="true">男</option>
                             <option value="false">女</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <th class="formTitle"><span class="required-span">*</span>角色</th>
-                    <td class="formValue">
-                        <select id="F_RoleId" name="F_RoleId" class="form-control required">
-                            <option value="">==请选择==</option>
                         </select>
                     </td>
                     <th class="formTitle">生日</th>
@@ -109,7 +121,7 @@
                 <tr>
                     <th class="formTitle">联系人邮箱</th>
                     <td class="formValue">
-                        <input id="F_Email" name="F_Email" type="text" class="form-control email" />
+                        <input id="F_Email" name="F_Email" type="text" class="form-control email"/>
                     </td>
                     <th class="formTitle">允许登录</th>
                     <td class="formValue">

@@ -72,6 +72,14 @@
       <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MiniProfiler, Version=3.2.0.157, Culture=neutral, PublicKeyToken=b44f9351044011a3, processorArchitecture=MSIL">
+      <HintPath>..\packages\MiniProfiler.3.2.0.157\lib\net40\MiniProfiler.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MiniProfiler.EntityFramework6, Version=3.0.11.0, Culture=neutral, PublicKeyToken=b44f9351044011a3, processorArchitecture=MSIL">
+      <HintPath>..\packages\MiniProfiler.EF6.3.0.11\lib\net40\MiniProfiler.EntityFramework6.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.6.9.9\lib\net45\MySql.Data.dll</HintPath>
       <Private>True</Private>
@@ -592,14 +600,6 @@
     <ProjectReference Include="..\DRP.Repository\DRP.Repository.csproj">
       <Project>{124cd8ce-d1fb-40f0-8248-7e80b092426d}</Project>
       <Name>DRP.Repository</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\StackExchange.Profiling.EntityFramework6\StackExchange.Profiling.EntityFramework6.csproj">
-      <Project>{4dfa7ad2-fcae-44db-af5c-f26aba93dbdc}</Project>
-      <Name>StackExchange.Profiling.EntityFramework6</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\StackExchange.Profiling\StackExchange.Profiling.csproj">
-      <Project>{386222bd-6b6e-480f-a342-8de1ab516e2c}</Project>
-      <Name>StackExchange.Profiling</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

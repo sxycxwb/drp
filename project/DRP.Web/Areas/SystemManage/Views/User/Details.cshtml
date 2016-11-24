@@ -54,31 +54,43 @@
                 <tr>
                     <th class="formTitle">登录名</th>
                     <td class="formValue">
-                        <input id="F_Account" name="F_Account" type="text" class="form-control required" placeholder="请输入账户" />
+                        <input id="F_Account" name="F_Account" type="text" class="form-control required" placeholder="请输入账户"/>
                     </td>
                     <th class="formTitle">密码</th>
                     <td class="formValue">
-                        <input id="F_UserPassword" name="F_UserPassword" type="password" class="form-control required" placeholder="请输入密码" />
+                        <input id="F_UserPassword" name="F_UserPassword" type="password" class="form-control required" placeholder="请输入密码"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">公司</th>
+                    <td class="formValue">
+                        <select id="F_OrganizeId" name="F_OrganizeId" class="form-control required"></select>
+                    </td>
+                    <th class="formTitle">部门</th>
+                    <td class="formValue">
+                        <select id="F_DepartmentId" name="F_DepartmentId" class="form-control required">
+                            <option value="">==请选择==</option>
+                        </select>
                     </td>
                 </tr>
                 <tr>
                     <th class="formTitle">姓名</th>
                     <td class="formValue">
-                        <input id="F_RealName" name="F_RealName" type="text" class="form-control required" placeholder="请输入姓名" />
+                        <input id="F_RealName" name="F_RealName" type="text" class="form-control required" placeholder="请输入姓名"/>
                     </td>
+                    <th class="formTitle">角色</th>
+                    <td class="formValue">
+                        <select id="F_RoleId" name="F_RoleId" class="form-control required">
+                            <option value="">==请选择==</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
                     <th class="formTitle">性别</th>
                     <td class="formValue">
                         <select id="F_Gender" name="F_Gender" class="form-control required">
                             <option value="true">男</option>
                             <option value="false">女</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <th class="formTitle">角色</th>
-                    <td class="formValue">
-                        <select id="F_RoleId" name="F_RoleId" class="form-control required">
-                            <option value="">==请选择==</option>
                         </select>
                     </td>
                     <th class="formTitle">生日</th>

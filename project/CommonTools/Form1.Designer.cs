@@ -54,8 +54,8 @@
             this.txtConStr.Name = "txtConStr";
             this.txtConStr.Size = new System.Drawing.Size(720, 49);
             this.txtConStr.TabIndex = 1;
-            this.txtConStr.Text = "Data Source=124.193.171.214;port=3306;Initial Catalog=test_hangfiremonitor_db;use" +
-    "r id=root;password=123abc..;";
+            this.txtConStr.Text = "Data Source=124.193.171.214;port=3306;Initial Catalog=test_drpdb;user id=root;pas" +
+    "sword=123abc..;Character Set=utf8;";
             // 
             // label1
             // 
