@@ -226,6 +226,7 @@
     <Content Include="Areas\UserCenter\Views\AccountInfo\ChangePwd.cshtml" />
     <Content Include="Areas\UserCenter\Views\CardInfo\Index.cshtml" />
     <Content Include="Areas\UserCenter\Views\Recharge\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\drp_client.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

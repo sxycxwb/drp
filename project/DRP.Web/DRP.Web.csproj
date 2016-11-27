@@ -551,8 +551,6 @@
     <Content Include="Content\js\simditor\css\editor.scss" />
     <Content Include="Content\js\simditor\css\fonticon.scss" />
     <Content Include="Content\js\simditor\css\simditor.scss" />
-    <Content Include="Resource\DbBackup\201607181640402083.bak" />
-    <Content Include="Resource\DbBackup\201607190929504502.bak" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Default.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -569,6 +567,7 @@
     <Content Include="Areas\DrpServManage\Views\Recharge\Form.cshtml" />
     <Content Include="Areas\DrpServManage\Views\Recharge\Index.cshtml" />
     <None Include="Properties\PublishProfiles\drp.pubxml" />
+    <None Include="Properties\PublishProfiles\drp_web.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -579,6 +578,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\ReportManage\Views\Echarts\" />
+    <Folder Include="Resource\DbBackup\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DRP.Application\DRP.Application.csproj">

@@ -29,6 +29,11 @@ namespace DRP.Application.DrpServManage
                 //expression = expression.Or(t => t.F_AccountCode.Contains(keyword));
                 //expression = expression.Or(t => t.F_MobilePhone.Contains(keyword));
             }
+            if (!OperatorProvider.Provider.GetCurrent().IsSystem) //不是超级管理员
+            {
+                var currentUserId = OperatorProvider.Provider.GetCurrent().UserId;
+                expression = expression.And(t => t.F_CreatorUserId == currentUserId);
+            }
             return service.FindList(expression, pagination).OrderByDescending(t => t.F_CreatorTime).ToList();
         }
 
@@ -49,6 +54,14 @@ namespace DRP.Application.DrpServManage
         public RechargeRecordEntity GetForm(string keyValue)
         {
             return service.FindEntity(keyValue);
+        }
+
+        public void ResetForm(string keyValue)
+        {
+            var entity = service.FindEntity(keyValue);
+            entity.F_Status = 3;
+            entity.Modify(keyValue);
+            service.Update(entity);
         }
 
         public void SubmitForm(RechargeRecordEntity rechargeEntity, string keyValue)

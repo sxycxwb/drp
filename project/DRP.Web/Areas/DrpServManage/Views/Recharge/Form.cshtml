@@ -33,10 +33,14 @@
         if (!$('#form1').formValid()) {
             return false;
         }
-        $.submitForm({
+        var F_BankAccountName = $('#F_BankAccountName').val();
+        var F_RechargeAccount = $('#F_RechargeAccount').val();
+        $.confirmForm({
             url: "/DrpServManage/Recharge/SubmitForm",
             param: $("#form1").formSerialize(),
-            success: function() {
+            loading:"正在提交中...",
+            prompt:"确认要为【"+F_BankAccountName+"】账户</br>充值【"+F_RechargeAccount+"】元吗？",
+            success: function () {
                 $.currentWindow().$("#gridList").resetSelection();
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
             }

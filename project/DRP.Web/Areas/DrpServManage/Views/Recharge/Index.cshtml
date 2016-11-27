@@ -67,43 +67,12 @@
             }
         });
     }
-    function btn_edit_module() {
-        var chargePattern = $("#gridList").jqGridRowValue().F_ChargePattern;
-        if (chargePattern == "产品") {
-            $.modalAlert('计费模式为产品时无法维护产品模块', 'warning');
-            return;
-        }
-        var productId = $("#gridList").jqGridRowValue().F_Id;
-        $.modalOpen({
-            id: "productmodule",
-            title: "产品模块",
-            url: "/DrpServManage/ProductModule/Index?productId=" + productId,
-            width: "900px",
-            height: "600px",
-            btn: null,
-            cancel: function () {
-                $("#gridList").resetSelection();
-                $("#gridList").trigger("reloadGrid");
-                return true;
-            }
-        });
-    }
-    function btn_edit() {
-        var keyValue = $("#gridList").jqGridRowValue().F_Id;
-        $.modalOpen({
-            id: "Form",
-            title: "修改产品",
-            url: "/DrpServManage/Product/Form?keyValue=" + keyValue,
-            width: "700px",
-            height: "510px",
-            callBack: function (iframeId) {
-                top.frames[iframeId].submitForm();
-            }
-        });
-    }
-    function btn_delete() {
+
+    function btn_reset() {
         $.deleteForm({
-            url: "/DrpServManage/Product/DeleteForm",
+            url: "/DrpServManage/Recharge/ResetForm",
+            prompt: "注：你确认要撤销该笔录账信息吗？",
+            loading: "正在撤销...",
             param: { keyValue: $("#gridList").jqGridRowValue().F_Id },
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");

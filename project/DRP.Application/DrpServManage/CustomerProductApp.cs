@@ -33,10 +33,16 @@ namespace DRP.Application.DrpServManage
 
             return customerProductList;
         }
+
+        public CustomerProductEntity GetForm(string keyValue)
+        {
+            return service.FindEntity(keyValue);
+        }
+
         /// <summary>
         /// 更新实体
         /// </summary>
-        /// <param name="userEntity"></param>
+        /// <param name="customerProductEntity"></param>
         public void UpdateForm(CustomerProductEntity customerProductEntity)
         {
             service.Update(customerProductEntity);

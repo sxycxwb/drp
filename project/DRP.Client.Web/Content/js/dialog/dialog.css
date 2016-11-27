@@ -41,7 +41,7 @@ html #layui_layer_skinlayercss{display:none;position:absolute;width:1989px}
 20%,40%,60%,80%{-webkit-transform:translateX(10px);-ms-transform:translateX(10px);transform:translateX(10px)}}.layer-anim-06{-webkit-animation-name:shake;animation-name:shake}
 @-webkit-keyframes fadeIn{0%{opacity:0}
 100%{opacity:1}}
-.layui-layer-title{padding:0 0px 0 15px;height:40px;line-height:40px;font-size:14px;font-weight: 900;color:#fff;overflow:hidden;background-color:#34495e;border-radius:2px 2px 0 0;}
+.layui-layer-title{padding:0 0px 0 15px;height:40px;line-height:40px;font-size:14px;font-weight: 900;color:#fff;overflow:hidden;background-color:#337ab7;border-radius:2px 2px 0 0;}
 .layui-layer-setwin{position:absolute;right:13px;*right:0;top:9px;font-size:0;line-height:initial}
 .layui-layer-setwin a{position:relative;width:16px;height:16px;margin-left:10px;font-size:12px;_overflow:hidden}
 .layui-layer-setwin .layui-layer-min cite{position:absolute;width:14px;height:2px;left:0;top:50%;margin-top:-1px;background-color:#2E2D3C;cursor:pointer;_overflow:hidden}

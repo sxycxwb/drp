@@ -123,7 +123,7 @@ namespace DRP.Domain.Entities
             }
             else
             {
-                var modifyEntity = this as Auditing.FullAuditedEntity<string>;
+                var modifyEntity = this as Auditing.AuditedEntity<string>;
                 modifyEntity.F_Id = keyValue;
                 if (LoginInfo != null)
                 {

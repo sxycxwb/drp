@@ -218,11 +218,19 @@ namespace DRP.Application.DrpServManage
 
                         #endregion
 
-                        #region 4.执行数据库操作
+                        #region 4.更新客户产品信息
+
+                        cusProduct.F_Status = 1;
+                        cusProduct.F_ChargingDateFlag = DateTime.Now.ToString("yyyy-MM");//更新计费日期标识为当前月
+
+                        #endregion
+
+                        #region 5.执行数据库操作
                         using (var db = new RepositoryBase().BeginTrans())
                         {
                             db.Update(agent); //更新代理人账户余额
                             db.Update(customer); //更新客户账户余额
+                            db.Update(cusProduct);//更新客户产品状态
                             db.Insert(feeDeduction); //新增客户扣费记录
                             db.Insert(comisssionRecord); //新增代理人收益记录
                             db.Insert(sysComisssionRecord); //新增系统收益记录

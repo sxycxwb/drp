@@ -33,7 +33,13 @@ namespace DRP.Application.DrpServManage
                 expression = expression.Or(t => t.F_AccountCode.Contains(keyword));
                 expression = expression.Or(t => t.F_MobilePhone.Contains(keyword));
             }
-            expression = expression.And(t=>t.F_DeleteMark == false);
+            expression = expression.And(t => t.F_DeleteMark == false);
+            if (!OperatorProvider.Provider.GetCurrent().IsSystem) //不是超级管理员
+            {
+                var currentUserId = OperatorProvider.Provider.GetCurrent().UserId;
+                expression = expression.And(t => t.F_CreatorUserId == currentUserId || t.F_BelongPersonId == currentUserId);
+            }
+
             return service.FindList(expression, pagination);
         }
         public CustomerEntity GetForm(string keyValue)
@@ -66,7 +72,7 @@ namespace DRP.Application.DrpServManage
                     productId = productId,
                     productName = product.F_ProductName,
                     productDes = product.F_Description,
-                    isChecked= isChecked
+                    isChecked = isChecked
                 });
             }
             return productCheckList;
@@ -105,7 +111,7 @@ namespace DRP.Application.DrpServManage
         {
             service.DeleteForm(keyValue);
         }
-        
+
         public void UpdateForm(CustomerEntity customerEntity)
         {
             service.Update(customerEntity);

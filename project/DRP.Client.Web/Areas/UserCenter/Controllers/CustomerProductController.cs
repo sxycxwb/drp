@@ -12,6 +12,7 @@ namespace DRP.Client.Web.Areas.UserCenter.Controllers
     public class CustomerProductController : ControllerBase
     {
         private CustomerProductApp customerProductApp = new CustomerProductApp();
+        private ScheduleTaskApp scheduleTaskApp = new ScheduleTaskApp();
 
         // GET: UserCenter/CustomerProduct
         public ActionResult Index()
@@ -34,8 +35,7 @@ namespace DRP.Client.Web.Areas.UserCenter.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult StopPayProduct(string keyValue)
         {
-            CustomerProductEntity customerProductEntity = new CustomerProductEntity();
-            customerProductEntity.F_Id = keyValue;
+            var customerProductEntity = customerProductApp.GetForm(keyValue);
             customerProductEntity.F_Status = 2;
             customerProductApp.UpdateForm(customerProductEntity);
             return Success("产品停用成功。");
@@ -46,10 +46,12 @@ namespace DRP.Client.Web.Areas.UserCenter.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult StartPayProduct(string keyValue)
         {
-            CustomerProductEntity customerProductEntity = new CustomerProductEntity();
-            customerProductEntity.F_Id = keyValue;
-            customerProductEntity.F_Status = 1;
-            customerProductApp.UpdateForm(customerProductEntity);
+            var customerProductEntity = customerProductApp.GetForm(keyValue);
+
+            var customerId = customerProductEntity.F_CustomerId;
+            var productId = customerProductEntity.F_ProductId;
+            scheduleTaskApp.ProfitCalculateTask(customerId,productId);
+
             return Success("产品购买成功。");
         }
     }

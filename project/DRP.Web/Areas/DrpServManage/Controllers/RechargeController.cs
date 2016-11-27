@@ -37,6 +37,17 @@ namespace DRP.Web.Areas.DrpServManage.Controllers
             var data = rechargeApp.GetForm(keyValue);
             return Content(data.ToJson());
         }
+
+        [HttpPost]
+        [HandlerAuthorize]
+        [HandlerAjaxOnly]
+        [ValidateAntiForgeryToken]
+        public ActionResult ResetForm(string keyValue)
+        {
+            rechargeApp.ResetForm(keyValue);
+            return Success("撤销成功。");
+        }
+
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
