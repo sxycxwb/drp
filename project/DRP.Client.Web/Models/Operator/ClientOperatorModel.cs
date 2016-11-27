@@ -26,7 +26,10 @@ namespace DRP.Client.Web
         /// 联系邮箱
         /// </summary>
         public string Email { get; set; }
-
+        /// <summary>
+        /// 用户余额
+        /// </summary>
+        public decimal? AccountBalance { get; set; }
         public string UserPwd { get; set; }
         public string LoginIPAddress { get; set; }
         public string LoginIPAddressName { get; set; }

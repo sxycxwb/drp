@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Index.cshtml";
+}
+<script>
+    $(function () {
+        gridList();
+    })
+    function gridList() {
+        var $gridList = $("#gridList");
+        $gridList.dataGrid({
+            url: "/UserCenter/Feededuction/GetGridJson",
+            height: $(window).height() - 128,
+            colModel: [
+                { label: '主键', name: 'F_Id', hidden: true },
+                { label: '产品名称', name: 'F_ProductName', width: 150, align: 'left' },
+                { label: '扣费金额', name: 'F_DeductionFee', width: 100, align: 'left' },
+                { label: '扣费时间', name: 'F_CreatorTime', width: 140, align: 'left' }
+            ],
+            pager: "#gridPager",
+            sortname: 'F_CreatorTime desc',
+            viewrecords: true
+        });
+    }
+</script>
+<div class="gridPanel">
+    <table id="gridList"></table>
+    <div id="gridPager"></div>
+</div>

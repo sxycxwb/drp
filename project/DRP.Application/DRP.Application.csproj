@@ -48,6 +48,7 @@
     <Compile Include="DrpServManage\CustomerProductApp.cs" />
     <Compile Include="DrpServManage\CustomerBankApp.cs" />
     <Compile Include="DrpServManage\CustomerApp.cs" />
+    <Compile Include="DrpServManage\FeedeductionApp.cs" />
     <Compile Include="DrpServManage\RechargeApp.cs" />
     <Compile Include="DrpServManage\ProductApp.cs" />
     <Compile Include="DrpServManage\ProductModuleApp.cs" />

@@ -12,7 +12,6 @@
     <link href="~/Content/css/framework-theme.css" rel="stylesheet" />
     <script type="text/javascript" src="~/Content/js/jquery/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="~/Content/js/jquery.json.min.js"></script>
-    <script src="~/Content/js/bootstrap/bootstrap.js"></script>
     <script type="text/javascript" src="~/Content/js/bootstrap.min.js"></script>
     <script src="~/Content/js/dialog/dialog.js"></script>
     <script src="~/Content/js/cookie/jquery.cookie.js"></script>
@@ -117,6 +116,10 @@
             changeclass(obj);
             $("#DRP_iframe").attr("src", "/UserCenter/Recharge/Index");
         }
+        function feedeductioninfo(obj) {
+            changeclass(obj);
+            $("#DRP_iframe").attr("src", "/UserCenter/Feededuction/Index");
+        }
         function signout() {
             window.location.href = "/Login/Index";
         }
@@ -152,7 +155,7 @@
                         <!--<span class="uc_accountname"></span>-->
                         <!--<span class="uc_email"></span>-->
                         &nbsp;&nbsp;
-                        余额:<span class="uc_balance" style="color: #f0ad4e;">0.00</span>元
+                        余额:<span class="uc_balance" style="color: #f0ad4e;">@ClientOperatorProvider.Provider.GetCurrent().AccountBalance</span>元
                         &nbsp;
                         透支额度:<span class="uc_overdraw" style="color: #f0ad4e;">0.00</span>元
                         &nbsp;
@@ -182,7 +185,7 @@
                         <div class="list-group">
                             <a href="#"  class="list-group-item ds_do_action active" ds_action="showPage" ds_data="index/accinfo" action="account.initAccountInfo" onclick="goindex(this)">账户信息</a>
                             <a href="#" class="list-group-item ds_do_action payRecord" ds_action="showPage" ds_data="index/pay_list" onclick="rechargeinfo(this)" action="fee.getPayList">充值记录</a>
-                            <a href="#" class="list-group-item ds_do_action costRecord" ds_action="showPage" ds_data="index/cost_list" action="fee.getCostList">消费记录</a>
+                            <a href="#" class="list-group-item ds_do_action costRecord" ds_action="showPage" ds_data="index/cost_list" onclick="feedeductioninfo(this)" action="fee.getCostList">消费记录</a>
                             <a href="#" class="list-group-item ds_do_action feeRecord" ds_action="showPage" ds_data="index/fee/account_fee" action="accFee.showMain">账单查询</a>
                             <a href="#" class="list-group-item ds_do_action invoiceRecord" ds_action="showPage" ds_data="index/invoice/invoice_main" action="invoice.showMain">发票管理</a>
                             <a href="#" class="list-group-item ds_do_action" ds_action="showPage" ds_data="index/cardinfo" onclick="cardinfo(this)">绑卡信息</a>

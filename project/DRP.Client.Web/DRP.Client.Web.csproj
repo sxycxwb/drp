@@ -182,6 +182,7 @@
     <Compile Include="Areas\UserCenter\Controllers\AccountInfoController.cs" />
     <Compile Include="Areas\UserCenter\Controllers\CardInfoController.cs" />
     <Compile Include="Areas\UserCenter\Controllers\CustomerProductController.cs" />
+    <Compile Include="Areas\UserCenter\Controllers\FeedeductionController.cs" />
     <Compile Include="Areas\UserCenter\Controllers\RechargeController.cs" />
     <Compile Include="Areas\UserCenter\UserCenterAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -226,6 +227,7 @@
     <Content Include="Areas\UserCenter\Views\AccountInfo\ChangePwd.cshtml" />
     <Content Include="Areas\UserCenter\Views\CardInfo\Index.cshtml" />
     <Content Include="Areas\UserCenter\Views\Recharge\Index.cshtml" />
+    <Content Include="Areas\UserCenter\Views\Feededuction\Index.cshtml" />
     <None Include="Properties\PublishProfiles\drp_client.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
