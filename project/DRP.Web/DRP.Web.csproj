@@ -425,6 +425,7 @@
     <Compile Include="App_Start\01 Handler\HandlerLoginAttribute.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\DrpServManage\Controllers\CustomerTrackController.cs" />
     <Compile Include="Areas\DrpServManage\Controllers\RechargeController.cs" />
     <Compile Include="Areas\DrpServManage\Controllers\ProductModuleController.cs" />
     <Compile Include="Areas\DrpServManage\Controllers\ProductController.cs" />
@@ -566,6 +567,9 @@
     <Content Include="Areas\DrpServManage\Views\Customer\Product.cshtml" />
     <Content Include="Areas\DrpServManage\Views\Recharge\Form.cshtml" />
     <Content Include="Areas\DrpServManage\Views\Recharge\Index.cshtml" />
+    <Content Include="Areas\DrpServManage\Views\CustomerTrack\Details.cshtml" />
+    <Content Include="Areas\DrpServManage\Views\CustomerTrack\Form.cshtml" />
+    <Content Include="Areas\DrpServManage\Views\CustomerTrack\Index.cshtml" />
     <None Include="Properties\PublishProfiles\drp.pubxml" />
     <None Include="Properties\PublishProfiles\drp_web.pubxml" />
     <None Include="Web.Debug.config">

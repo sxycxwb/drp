@@ -83,6 +83,7 @@
     <Compile Include="02 ViewModel\Drp\CustomProductFeeModel.cs" />
     <Compile Include="03 Entity\DrpServManage\DrpCustomerBankCardEntity.cs" />
     <Compile Include="03 Entity\DrpServManage\DrpComissionRecordEntity.cs" />
+    <Compile Include="03 Entity\DrpServManage\DrpCustomerTrackEntity.cs" />
     <Compile Include="03 Entity\DrpServManage\DrpCustomerProductEntity.cs" />
     <Compile Include="03 Entity\DrpServManage\DrpCustomerEntity.cs" />
     <Compile Include="03 Entity\DrpServManage\DrpProductModuleEntity.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="03 Entity\SystemSecurity\LogEntity.cs" />
     <Compile Include="04 IRepository\DrpServManage\ICustomerProductRepository.cs" />
     <Compile Include="04 IRepository\DrpServManage\ICustomerBankRepository.cs" />
+    <Compile Include="04 IRepository\DrpServManage\ICustomerTrackRepository.cs" />
     <Compile Include="04 IRepository\DrpServManage\ICustomerRepository.cs" />
     <Compile Include="04 IRepository\DrpServManage\IFeedeductionRecordRepository.cs" />
     <Compile Include="04 IRepository\DrpServManage\IRechargeRecordRepository.cs" />
