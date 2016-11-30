@@ -50,10 +50,6 @@ namespace DRP.Domain.Entity.DrpServManage
         public string F_LastModifyUserName { get; set; }
 
         /// <summary>
-        /// 有效标识
-        /// </summary>
-        public bool? F_EnabledMark { get; set; }
-        /// <summary>
         /// 公司简介
         /// </summary>
         public string F_Description { get; set; }

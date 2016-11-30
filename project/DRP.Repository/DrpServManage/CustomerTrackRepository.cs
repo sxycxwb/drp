@@ -27,20 +27,26 @@ namespace DRP.Repository.DrpServManage
             }
         }
 
-        public void SubmitForm(CustomerTrackEntity customerEntity, string keyValue)
+        public void SubmitForm(CustomerTrackEntity customerTrackEntity, string keyValue)
         {
             using (var db = new RepositoryBase().BeginTrans())
             {
                 if (!string.IsNullOrEmpty(keyValue))
                 {
-                    db.Update(customerEntity);
+                    db.Update(customerTrackEntity);
+                    var LoginInfo = OperatorProvider.Provider.GetCurrent();
+                    if (LoginInfo != null)
+                        customerTrackEntity.F_LastModifyUserName = LoginInfo.UserName;
                 }
                 else
                 {
                     #region 处理顾客 记事簿 新增时的属性
-                    customerEntity.F_DeleteMark = false;
+                    customerTrackEntity.F_DeleteMark = false;
+                    var LoginInfo = OperatorProvider.Provider.GetCurrent();
+                    if (LoginInfo != null)
+                        customerTrackEntity.F_CreatorUserName = LoginInfo.UserName;
                     #endregion
-                    db.Insert(customerEntity);
+                    db.Insert(customerTrackEntity);
                 }
                 db.Commit();
             }

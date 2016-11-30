@@ -37,13 +37,19 @@ namespace DRP.Application.DrpServManage
         private IRechargeRecordRepository rechargeService = new RechargeRecordRepository();
         private ICustomerBankRepository cusBankService = new CustomerBankRepository();
 
+
+        public void ProfitCalculateTask_Year(string customerId = "", string productId = "")
+        {
+            ProfitCalculateTask(customerId, productId, "year");
+        }
+
         /// <summary>
         /// 扣费 计算收益任务
         /// </summary>
         /// <param name="customerId">客户ID</param>
         /// <param name="productId">产品ID</param>
         /// <param name="chargeStyle">扣费类型</param>
-        public void ProfitCalculateTask(string customerId = "", string productId = "", string chargeStyle = "MONTH")
+        public void ProfitCalculateTask(string customerId = "", string productId = "", string chargeStyle = "month")
         {
             #region 获取有效客户和有效商品信息
             //获取所有有效客户信息
@@ -60,32 +66,36 @@ namespace DRP.Application.DrpServManage
             expProduct = expProduct.And(t => t.F_DeleteMark == false && t.F_ChargeStyle == chargeStyle);
             if (!string.IsNullOrEmpty(productId))
             {
-                expProduct = expProduct.And(t => t.F_Id == productId);
+                expProduct = expProduct.And(t => t.F_Id == productId && t.F_ChargeStyle.ToUpper() == chargeStyle);
             }
             var productList = productService.IQueryable(expProduct).ToList();
 
+            //获取客户产品信息
             var expCusPro = ExtLinq.True<CustomerProductEntity>();
             if (!string.IsNullOrEmpty(customerId))
-            {
                 expCusPro = expCusPro.And(t => t.F_CustomerId == customerId);
-            }
+
+            if (!string.IsNullOrEmpty(productId))
+                expCusPro = expCusPro.And(t => t.F_ProductId == productId);
+
             var customerProductList = customerProductService.IQueryable(expCusPro).ToList();
             #endregion
 
             #region 获取客户代缴费总和
-            //默认产品状态为1，即为正常开通状态
-            var cusProductStatus = 1;
-            if (!string.IsNullOrEmpty(customerId) || !string.IsNullOrEmpty(productId))
-                cusProductStatus = 0;
 
             var dbRepository = new RepositoryBase();
-            var productFeeList =
-                dbRepository.FindList<CustomProductFeeModel>(
-                    string.Format(@"SELECT A.F_ID CUSTOMERID,SUM(C.F_CHARGEAMOUNT) PRODUCTFEE 
-            FROM DRP_CUSTOMER A,DRP_CUSTOMERPRODUCT B,DRP_PRODUCT C
-            WHERE A.F_ID = B.F_CUSTOMERID AND B.F_PRODUCTID = C.F_ID
-            AND A.F_DELETEMARK = 0 AND C.F_CHARGESTYLE='{0}' AND B.F_STATUS = {1}
-            GROUP BY A.F_ID", chargeStyle.ToLower(), cusProductStatus));
+            var sqlStr = @"SELECT A.F_ID CUSTOMERID,SUM(C.F_CHARGEAMOUNT) PRODUCTFEE 
+            FROM DRP_CUSTOMER A,DRP_CUSTOMERPRODUCT B, DRP_PRODUCT C
+             WHERE A.F_ID = B.F_CUSTOMERID AND B.F_PRODUCTID = C.F_ID
+            AND A.F_DELETEMARK = 0 AND C.F_CHARGESTYLE='" + chargeStyle.ToLower() + "' ";
+
+            if (!string.IsNullOrEmpty(customerId) && !string.IsNullOrEmpty(productId))
+            {
+                sqlStr += $"AND C.F_Id = '{productId}' ";
+            }
+            sqlStr += "GROUP BY A.F_ID";
+
+            var productFeeList = dbRepository.FindList<CustomProductFeeModel>(sqlStr);
 
             #endregion
 
@@ -96,13 +106,13 @@ namespace DRP.Application.DrpServManage
             {
                 DateTime dtNow = DateTime.Now;
                 //如果按月计费
-                if (chargeStyle == "MONTH")
+                if (chargeStyle == "month")
                 {
                     int monthDays = DateTime.DaysInMonth(dtNow.Year, dtNow.Month);//当前月天数
                     int currentDayIndex = dtNow.Day;
                     useCoefficient = Math.Round((double)(monthDays - currentDayIndex + 1) / monthDays, 2);
                 }
-                else if (chargeStyle == "YEAR")
+                else if (chargeStyle == "year")
                 {
                     int yearDays = ((dtNow.Year % 4 == 0 && dtNow.Year % 100 != 0) || dtNow.Year % 400 == 0) ? 366 : 365; //当前年天数 
                     int currentDayIndex = dtNow.DayOfYear;
@@ -128,6 +138,8 @@ namespace DRP.Application.DrpServManage
                     continue;
 
                 //查询该客户绑定的产品
+                //var expCusPro = ExtLinq.True<CustomerProductEntity>();
+
                 var cusProductList = customerProductList.Where(t => t.F_CustomerId == customer.F_Id);
                 //查客户对应代理人信息
                 var agent = agentService.FindEntity(t => t.F_Id == customer.F_BelongPersonId);
@@ -159,10 +171,24 @@ namespace DRP.Application.DrpServManage
 
                     foreach (var cusProduct in cusProductList)
                     {
+                        var chargingDate = cusProduct.F_ChargingDateFlag;
+                        if (chargeStyle == "month")
+                        {
+                            if (chargingDate == DateTime.Now.ToString("yyyy-MM"))
+                                continue;
+                        }
+                        if (chargeStyle == "year")
+                        {
+                            if (chargingDate == DateTime.Now.ToString("yyyy"))
+                                continue;
+                        }
+
                         //客户产品提成系数
                         var cusProRoyalRate = cusProduct.F_RoyaltyRate / 100;
                         //产品
                         var product = productList.FirstOrDefault(t => t.F_Id == cusProduct.F_ProductId);
+
+
                         var productRoyalRate = product.F_RoyaltyRate / 100;//产品提成系数
                         var productName = product.F_ProductName;//产品名称
                         var chargeAmount = product.F_ChargeAmount * Convert.ToDecimal(useCoefficient);//销售价
@@ -205,7 +231,7 @@ namespace DRP.Application.DrpServManage
                         #endregion
 
                         #region 3.更新客户账户余额，减去当前产品的销售价格;增加扣费记录
-                        customer.F_AccountBalance -= Math.Round(chargeAmount, 2);
+                        customer.F_AccountBalance -= Math.Round(product.F_ChargeAmount, 2);
                         var feeDeduction = new FeeDeductionRecordEntity()
                         {
                             F_Id = Common.GuId(),
@@ -213,7 +239,7 @@ namespace DRP.Application.DrpServManage
                             F_CustomerId = customer.F_Id,
                             F_ProductId = product.F_Id,
                             F_ProductName = productName,
-                            F_DeductionFee = chargeAmount
+                            F_DeductionFee = product.F_ChargeAmount
                         };
 
                         #endregion
@@ -221,16 +247,19 @@ namespace DRP.Application.DrpServManage
                         #region 4.更新客户产品信息
 
                         cusProduct.F_Status = 1;
-                        cusProduct.F_ChargingDateFlag = DateTime.Now.ToString("yyyy-MM");//更新计费日期标识为当前月
+                        if (chargeStyle == "month")
+                            cusProduct.F_ChargingDateFlag = DateTime.Now.ToString("yyyy-MM"); //更新计费日期标识为当前月
+                        else
+                            cusProduct.F_ChargingDateFlag = DateTime.Now.ToString("yyyy");
 
                         #endregion
 
-                        #region 5.执行数据库操作
+                            #region 5.执行数据库操作
                         using (var db = new RepositoryBase().BeginTrans())
                         {
                             db.Update(agent); //更新代理人账户余额
                             db.Update(customer); //更新客户账户余额
-                            db.Update(cusProduct);//更新客户产品状态
+                            db.Update(cusProduct);//更新客户产品
                             db.Insert(feeDeduction); //新增客户扣费记录
                             db.Insert(comisssionRecord); //新增代理人收益记录
                             db.Insert(sysComisssionRecord); //新增系统收益记录

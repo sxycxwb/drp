@@ -12,6 +12,7 @@ namespace DRP.Client.Web.Areas.UserCenter.Controllers
     public class CustomerProductController : ControllerBase
     {
         private CustomerProductApp customerProductApp = new CustomerProductApp();
+        private ProductApp productApp = new ProductApp();
         private ScheduleTaskApp scheduleTaskApp = new ScheduleTaskApp();
 
         // GET: UserCenter/CustomerProduct
@@ -47,10 +48,11 @@ namespace DRP.Client.Web.Areas.UserCenter.Controllers
         public ActionResult StartPayProduct(string keyValue)
         {
             var customerProductEntity = customerProductApp.GetForm(keyValue);
-
             var customerId = customerProductEntity.F_CustomerId;
             var productId = customerProductEntity.F_ProductId;
-            scheduleTaskApp.ProfitCalculateTask(customerId,productId);
+
+            var productEntity = productApp.GetForm(productId);
+            scheduleTaskApp.ProfitCalculateTask(customerId, productId, productEntity.F_ChargeStyle);
 
             return Success("产品购买成功。");
         }

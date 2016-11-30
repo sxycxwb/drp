@@ -2,6 +2,10 @@
     ViewBag.Title = "Form";
     Layout = "~/Views/Shared/_Form.cshtml";
 }
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<script src="~/Content/js/ueditor/ueditor.config.js"></script>
+<script src="~/Content/js/ueditor/ueditor.all.min.js"></script>
+<script src="~/Content/js/ueditor/lang/zh-cn/zh-cn.js"></script>
 <script>
     var keyValue = $.request("keyValue");
     $(function () {
@@ -21,7 +25,12 @@
         }
     });
     function initControl() {
-        $("#F_EnabledMark").bindSelect()
+        //实例化编辑器
+        //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
+        var ue = UE.getEditor('editor');
+        var a = top.clients.dataItems["CustomerTackStatus"];
+        
+        $("#F_EnabledMark").bindSelect();
         $("#F_BelongPersonId").bindSelect({
             url: "/SystemManage/User/GetListJson",
             id: "F_Id",
@@ -37,6 +46,8 @@
         if (!$('#form1').formValid()) {
             return false;
         }
+        $('#F_Content').val(UE.getEditor('editor').getContent());
+
         $.submitForm({
             url: "/DrpServManage/CustomerTrack/SubmitForm?keyValue=" + keyValue,
             param: $("#form1").formSerialize(),
@@ -48,9 +59,6 @@
 </script>
 <form id="form1">
     <div style="margin-top: 10px; margin-left: 10px; margin-right: 10px;">
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#">记事簿信息</a></li>
-        </ul>
         <div style="padding-top: 20px; margin-right: 30px;">
             <table class="form">
                 <tr>
@@ -60,7 +68,7 @@
                     </td>
                     <th class="formTitle"><span class="required-span">*</span>客户维护状态</th>
                     <td class="formValue">
-                        <select id="F_Status" name="F_Status" class="form-control required">
+                        <select id="F_Status" name="F_Status" class="form-control">
                             <option value="">==请选择==</option>
                         </select>
                     </td>
@@ -75,7 +83,9 @@
                     <th class="formTitle" valign="top" style="padding-top: 5px;">详细内容
                     </th>
                     <td class="formValue" colspan="3">
-                        <textarea id="F_Description" name="F_Content" placeholder="请输入详细内容" class="form-control" style="height: 60px;"></textarea>
+                        <input id="F_Content" name="F_Content" style="display: none;"/>
+                        <script id="editor" type="text/plain" style="width: 100%; height: 250px;">
+                        </script>
                     </td>
                 </tr>
             </table>

@@ -40,6 +40,7 @@ namespace DRP.Web.Areas.DrpServManage.Controllers
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
         public ActionResult SubmitForm(CustomerTrackEntity customerTrackEntity, string keyValue)
         {
             customerTrackApp.SubmitForm(customerTrackEntity, keyValue);
