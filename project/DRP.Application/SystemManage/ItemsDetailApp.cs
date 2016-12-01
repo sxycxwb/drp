@@ -52,6 +52,7 @@ namespace DRP.Application.SystemManage
             }
             else
             {
+                itemsDetailEntity.F_DeleteMark = false;
                 itemsDetailEntity.Create();
                 service.Insert(itemsDetailEntity);
             }

@@ -24,6 +24,17 @@ namespace DRP.Application.DrpServManage
         private IProductRepository productService = new ProductRepository();
         private ICustomerProductRepository customerProductService = new CustomerProductRepository();
 
+        public List<CustomerEntity> GetList(string keyword)
+        {
+            var expression = ExtLinq.True<CustomerEntity>();
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                expression = expression.And(t => t.F_CompanyName.Contains(keyword));
+            }
+            expression = expression.And(t => t.F_DeleteMark == false);
+            return service.IQueryable(expression).ToList();
+        }
+
         public List<CustomerEntity> GetList(Pagination pagination, string keyword)
         {
             var expression = ExtLinq.True<CustomerEntity>();

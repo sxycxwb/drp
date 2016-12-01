@@ -4,6 +4,9 @@
  * Description: 计费运营系统
  * Website：
 *********************************************************************************/
+
+using System.Collections;
+using System.Collections.Generic;
 using DRP.Application.DrpServManage;
 using DRP.Code;
 using DRP.Domain.Entity.DrpServManage;
@@ -29,6 +32,18 @@ namespace DRP.Web.Areas.DrpServManage.Controllers
             };
             return Content(data.ToJson());
         }
+
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetCustoemrJson(string name)
+        {
+            var rows = customerApp.GetList(name);
+            var arr = new ArrayList();
+            rows.ForEach(t => { arr.Add(new { id = t.F_Id, text = t.F_CompanyName }); });
+            var data = arr;
+            return Content(data.ToJson());
+        }
+
         [HttpGet]
         [HandlerAjaxOnly]
         public ActionResult GetFormJson(string keyValue)

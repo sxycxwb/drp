@@ -331,6 +331,7 @@
     <Content Include="Content\js\qrcode\qrcode.js" />
     <Content Include="Content\js\select2\select2.min.css" />
     <Content Include="Content\js\select2\select2.min.js" />
+    <Content Include="Content\js\select2\zh-CN.js" />
     <Content Include="Content\js\simditor\css\simditor.css" />
     <Content Include="Content\js\simditor\js\hotkeys.js" />
     <Content Include="Content\js\simditor\js\hotkeys.min.js" />
