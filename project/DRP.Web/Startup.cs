@@ -34,7 +34,7 @@ namespace DRP.Web
             //RecurringJob.AddOrUpdate(() => Console.Write("Recurring"), Cron.Daily);
 
             //每个月凌晨0点1分 执行扣费并计算收益  月扣费
-            RecurringJob.AddOrUpdate(() => new ScheduleTaskApp().ProfitCalculateTask("", "", "MONTH"), "1 0 1 * *");
+            RecurringJob.AddOrUpdate(() => new ScheduleTaskApp().ProfitCalculateTask("", "", "month"), "1 0 1 * *");
 
             //每年1月凌晨0点1分 执行扣费并计算收益  月扣费  //minutes, hours, days, months, and days of week
             RecurringJob.AddOrUpdate(() => new ScheduleTaskApp().ProfitCalculateTask_Year("", ""), "1 0 1 1/12 *");

@@ -19,7 +19,7 @@ namespace Drp.UnitTest
         [Fact]
         public void ProfitCalculateTaskTest()
         {
-            new ScheduleTaskApp().ProfitCalculateTask("674e8a26-cae3-4f38-ba37-1df0d978b4cc");
+            new ScheduleTaskApp().ProfitCalculateTask("");
         }
 
         int Add(int x, int y)

@@ -43,10 +43,6 @@ namespace DRP.Web.Areas.DrpServManage.Controllers
         [ValidateInput(false)]
         public ActionResult SubmitForm(CustomerTrackEntity customerTrackEntity, string keyValue)
         {
-            Logger.Debug("Debug");
-            Logger.Warn("Warn");
-            Logger.Info("Info");
-            Logger.Error("Error");
             customerTrackApp.SubmitForm(customerTrackEntity, keyValue);
             return Success("操作成功。");
         }

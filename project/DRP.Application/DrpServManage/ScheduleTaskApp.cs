@@ -15,7 +15,7 @@ using DRP.Repository.SystemManage;
 
 namespace DRP.Application.DrpServManage
 {
-    public class ScheduleTaskApp
+    public class ScheduleTaskApp : BaseApp
     {
         #region 收益计算任务
         //1.使用系数 = 当前月能使用的天数/本月天数
@@ -66,7 +66,7 @@ namespace DRP.Application.DrpServManage
             expProduct = expProduct.And(t => t.F_DeleteMark == false && t.F_ChargeStyle == chargeStyle);
             if (!string.IsNullOrEmpty(productId))
             {
-                expProduct = expProduct.And(t => t.F_Id == productId && t.F_ChargeStyle.ToUpper() == chargeStyle);
+                expProduct = expProduct.And(t => t.F_Id == productId && t.F_ChargeStyle == chargeStyle);
             }
             var productList = productService.IQueryable(expProduct).ToList();
 
@@ -125,6 +125,8 @@ namespace DRP.Application.DrpServManage
             //循环为每位客户进行扣费，计算收益
             foreach (var customer in customerList)
             {
+                Logger.Info($"*****************【{customer.F_CompanyName}】计费开始****************");
+
                 #region 客户账户余额与待扣费产品销售额总价比较 如果余额不足，则将产品状态至为欠费 否则执行扣费操作
 
                 //1.客户账户余额
@@ -171,6 +173,15 @@ namespace DRP.Application.DrpServManage
 
                     foreach (var cusProduct in cusProductList)
                     {
+                        //客户产品提成系数
+                        var cusProRoyalRate = cusProduct.F_RoyaltyRate / 100;
+                        //产品
+                        var product = productList.FirstOrDefault(t => t.F_Id == cusProduct.F_ProductId);
+
+                        if (product == null)
+                            continue;
+
+                        #region 计费日期的判断
                         var chargingDate = cusProduct.F_ChargingDateFlag;
                         if (chargeStyle == "month")
                         {
@@ -182,12 +193,7 @@ namespace DRP.Application.DrpServManage
                             if (chargingDate == DateTime.Now.ToString("yyyy"))
                                 continue;
                         }
-
-                        //客户产品提成系数
-                        var cusProRoyalRate = cusProduct.F_RoyaltyRate / 100;
-                        //产品
-                        var product = productList.FirstOrDefault(t => t.F_Id == cusProduct.F_ProductId);
-
+                        #endregion
 
                         var productRoyalRate = product.F_RoyaltyRate / 100;//产品提成系数
                         var productName = product.F_ProductName;//产品名称
@@ -254,7 +260,7 @@ namespace DRP.Application.DrpServManage
 
                         #endregion
 
-                            #region 5.执行数据库操作
+                        #region 5.执行数据库操作
                         using (var db = new RepositoryBase().BeginTrans())
                         {
                             db.Update(agent); //更新代理人账户余额
@@ -274,6 +280,8 @@ namespace DRP.Application.DrpServManage
 
                 }
                 #endregion
+
+                Logger.Info($"*****************【{customer.F_CompanyName}】计费结束****************");
             }
         }
         #endregion

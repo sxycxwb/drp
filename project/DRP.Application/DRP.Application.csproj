@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="00 Infrastructure\BaseApp.cs" />
     <Compile Include="00 Infrastructure\DbLogType.cs" />
     <Compile Include="DrpServManage\CustomerTrackApp.cs" />
     <Compile Include="DrpServManage\CustomerProductApp.cs" />
