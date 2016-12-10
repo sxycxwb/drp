@@ -150,27 +150,103 @@ $(function ($) {
         }, 300);
     });
 });
+
 function GetLoadNav() {
     var data = top.clients.authorizeMenu;
-    var _html = "";
+    var _menuhtml = "";
     $.each(data, function (i) {
         var row = data[i];
         if (row.F_ParentId == "0") {
-            _html += '<li>';
-            _html += '<a data-id="' + row.F_Id + '" href="#" class="dropdown-toggle"><i class="' + row.F_Icon + '"></i><span>' + row.F_FullName + '</span><i class="fa fa-angle-right drop-icon"></i></a>';
-            var childNodes = row.ChildNodes;
-            if (childNodes.length > 0) {
-                _html += '<ul class="submenu">';
-                $.each(childNodes, function (i) {
-                    var subrow = childNodes[i];
-                    _html += '<li>';
-                    _html += '<a class="menuItem" data-id="' + subrow.F_Id + '" href="' + subrow.F_UrlAddress + '" data-index="' + subrow.F_SortCode + '">' + subrow.F_FullName + '</a>';
-                    _html += '</li>';
-                });
-                _html += '</ul>';
+            _menuhtml = '<ul  onclick="navbar_click(this)"  class="nav navbar-nav pull-left"><li> <a style="font-size:13px;" id="' + row.F_Id + '" class="btn"   data-id="' + row.F_Id + '"><i class="' + row.F_Icon + '"></i>&ensp;' + row.F_FullName + '</a>  </li> </ul>';
+            $("#nav_menu").append(_menuhtml);
+            if (i == 0) {
+                $("#menu_title").text(row.F_FullName);
+                $("#" + row.F_Id + "").css("background-color", "#14A689");
+                var childNodes = row.ChildNodes;
+                var _html = "";
+                if (childNodes.length > 0) {
+                    $.each(childNodes, function (i) {
+                        var subrow = childNodes[i];
+                        if (subrow.F_ParentId == row.F_Id) {
+                            //二级菜单
+                            $("#menu_title").text(row.F_FullName);
+                            $("#" + row.F_Id + "").css("background-color", "#14A689");
+                            _html += '<li>';
+                            var subchildNodes = subrow.ChildNodes;
+                            if (subchildNodes.length > 0) {
+                                _html += '<a data-id="' + subrow.F_Id + '" href="#" class="dropdown-toggle"><i class="' + subrow.F_Icon + '"></i><span>' + subrow.F_FullName + '</span><i class="fa fa-angle-right drop-icon"></i></a>';
+                                _html += '<ul class="submenu">';
+                                $.each(subchildNodes, function (i) {
+                                    var subrowsj = subchildNodes[i];
+                                    //三级菜单
+                                    if (subrowsj.F_ParentId == subrow.F_Id) {
+                                        _html += '<li>';
+                                        _html += '<a class="menuItem" data-id="' + subrowsj.F_Id + '" href="' + subrowsj.F_UrlAddress + '" data-index="' + subrowsj.F_SortCode + '">' + subrowsj.F_FullName + '</a>';
+                                        _html += '</li>';
+                                        // alert(subrowsj.F_FullName);
+                                    }
+                                });
+                                _html += '</ul>';
+                            } else {
+                                _html += '<a  class="menuItem"  data-id="' + subrow.F_Id + '" href="' + subrow.F_UrlAddress + '" data-index="' + subrow.F_SortCode + '"><i class="' + subrow.F_Icon + '"></i><span>' + subrow.F_FullName + '</span></a>';
+                            }
+                            _html += '</li>';
+                        }
+                    });
+                    $("#navzx_menu").prepend(_html);
+                }
+                $.getScript("../Content/js/indextab.js");
             }
-            _html += '</li>';
         }
     });
-    $("#sidebar-nav ul").prepend(_html);
+}
+
+function navbar_click(a) {
+    $("#navzx_menu").empty();
+    $(".btn").css("background-color", "#1ABC9C");
+    var s = a.firstChild.innerHTML;
+    var b = "" + s.match(/d="\S*(\S*)"/);
+    var f_id = b.substr(3, b.length - 5);
+    var data = top.clients.authorizeMenu;
+    $.each(data, function (i) {
+        var row = data[i];
+        if (row.F_ParentId == "0") {
+
+            var childNodes = row.ChildNodes;
+            if (childNodes.length > 0) {
+                var _html = "";
+                $.each(childNodes, function (i) {
+                    var subrow = childNodes[i];
+
+                    if (subrow.F_ParentId == f_id) {
+                        //二级菜单
+                        $("#menu_title").text(row.F_FullName);
+                        $("#" + row.F_Id + "").css("background-color", "#14A689");
+                        _html += '<li>';
+                        var subchildNodes = subrow.ChildNodes;
+                        if (subchildNodes.length > 0) {
+                            _html += '<a data-id="' + subrow.F_Id + '" href="#" class="dropdown-toggle"><i class="' + subrow.F_Icon + '"></i><span>' + subrow.F_FullName + '</span><i class="fa fa-angle-right drop-icon"></i></a>';
+                            _html += '<ul class="submenu">';
+                            $.each(subchildNodes, function (i) {
+                                var subrowsj = subchildNodes[i];
+                                //三级菜单
+                                if (subrowsj.F_ParentId == subrow.F_Id) {
+                                    _html += '<li>';
+                                    _html += '<a class="menuItem" data-id="' + subrowsj.F_Id + '" href="' + subrowsj.F_UrlAddress + '" data-index="' + subrowsj.F_SortCode + '">' + subrowsj.F_FullName + '</a>';
+                                    _html += '</li>';
+                                }
+                            });
+                            _html += '</ul>';
+                        } else {
+                            _html += '<a  class="menuItem"  data-id="' + subrow.F_Id + '" href="' + subrow.F_UrlAddress + '" data-index="' + subrow.F_SortCode + '"><i class="' + subrow.F_Icon + '"></i><span>' + subrow.F_FullName + '</span></a>';
+                        }
+                        _html += '</li>';
+                    }
+                });
+
+                $("#navzx_menu").prepend(_html);
+            }
+        }
+    });
+    $.getScript("../Content/js/indextab.js");
 }

@@ -24,7 +24,7 @@ a:hover,a:focus{color:#475059;}
 .navbar-toggle .icon-bar{background:none repeat scroll 0 0 white}
 .nav>li{float:left}
 .navbar-nav{margin:0 0 0 10px}
-.navbar-nav>li>a{padding-bottom:15px;padding-top:15px;line-height:24px;}
+.navbar-nav>li>a{padding-bottom:5px;padding-top:15px;line-height:24px;}
 .nav-pills>li{float:none}
 .nav-pills>li>a{background-clip:padding-box;}
 .navbar>.container .navbar-brand{background:#34495e;color:#fff;font-weight: bold;font-size: 20px;width:220px;margin-left:-8px;text-align:center;padding:15px 0px;}
@@ -70,14 +70,17 @@ a:hover,a:focus{color:#475059;}
 #nav-col{padding:0;z-index:100;position:absolute;background:#2c3e50;width:220px;}
 @media (max-width:991px){#nav-col{position:relative;width:auto;}}#sidebar-nav{max-height:100%;padding-left:0;padding-right:0;}
 #sidebar-nav .nav>li{margin:0}
-#sidebar-nav .nav>li.nav-header{color:#fff;padding:12px 15px 6px 14px;border-top:2px solid #253443;}
+#sidebar-nav .nav>li.nav-header{color:#fff;padding:12px 15px 6px 14px;border-top:1px solid #253443;}
 #sidebar-nav .nav>li.nav-header.nav-header-first{padding-top:4px;border-top:0;}
-#sidebar-nav .nav > li.common a{height:34px;line-height:20px;font-size: 11px;white-space: nowrap;}
+#sidebar-nav .nav > li.common a{height:34px;line-height:20px;font-family:'Microsoft Yi Baiti'; font-size: 13px;white-space: nowrap;}
 #sidebar-nav .nav > li.common a > span{white-space: nowrap;font-weight:initial;}
 #sidebar-nav .nav > li.common a>i{position:absolute;margin-top:4px;font-size: 1.125em;}
-#sidebar-nav .nav>li>a{color:#fff;height:44px;line-height:28px;transition:border-color 0.1s ease-in-out 0s,background-color 0.1s ease-in-out 0s,box-shadow 0.1s ease-in-out 0s;overflow:hidden;padding:8px 15px 8px 20px;border-left:0 solid transparent;}
+
+/*菜单li样式*/
+#sidebar-nav .nav>li>a{color:#fff;height:35px; transition:border-color 0.1s ease-in-out 0s,background-color 0.1s ease-in-out 0s,box-shadow 0.1s ease-in-out 0s;overflow:hidden;padding:8px 15px 8px 20px;border-left:0 solid transparent;}
 #sidebar-nav .nav>li>a:hover{border-left-color:#1ABC9C}
-#sidebar-nav .nav>li>a>i{position:absolute;margin-top:8px;}
+#sidebar-nav .nav>li>a>i{position:absolute;margin-top:2px;}/*菜单图标位置*/
+
 #sidebar-nav .nav>li>a>span{margin-left:35px;font-weight:700;}
 #sidebar-nav .nav>li>a>span.label{font-size:0.75em;margin:5px 0 0 0;padding:4px 0.6em;}
 #sidebar-nav .nav>li>a>span.label.label-circle{margin-right:5px}
@@ -87,7 +90,7 @@ a:hover,a:focus{color:#475059;}
 #sidebar-nav .nav li.open>a.dropdown-toggle>.drop-icon,#sidebar-nav .nav li.active>a.dropdown-toggle>.drop-icon{color:#fff;transform:rotate(90deg);}
 #sidebar-nav .nav li .submenu{display:none;background:#253443;padding:5px 0;margin:0;list-style:none;}
 #sidebar-nav .nav li .submenu>li{position:relative}
-#sidebar-nav .nav li .submenu>li>a{display:block;line-height:38px;padding-left:66px;color:#fff;outline:none;text-decoration:none;transition:border-color 0.1s ease-in-out 0s,background-color 0.1s ease-in-out 0s,box-shadow 0.1s ease-in-out 0s;}
+#sidebar-nav .nav li .submenu>li>a{display:block;line-height:30px;padding-left:66px;color:#fff;outline:none;text-decoration:none;transition:border-color 0.1s ease-in-out 0s,background-color 0.1s ease-in-out 0s,box-shadow 0.1s ease-in-out 0s;}
 #sidebar-nav .nav li .submenu>li:first-of-type>a{border-top:0}
 #sidebar-nav .nav li .submenu>li>a:hover,#sidebar-nav .nav li .submenu>li>a.active,#sidebar-nav .nav li .submenu>li.active>a,#sidebar-nav .nav li .submenu>li.open>a{text-decoration:none;color:#fff;background-color:#1f2c39;}
 #sidebar-nav .nav li.active>.submenu{display:block}
