@@ -29,40 +29,42 @@
                             </li>
                         </ul>
                     </div>
+                    <div id="nav_menu" class="nav-no-collapse navbar-left pull-left hidden-sm hidden-xs">
+                    </div>
                     <div class="nav-no-collapse pull-right" id="header-nav">
                         <ul class="nav navbar-nav pull-right">
-                            <li class="mobile-search">
-                                <a class="btn">
-                                    <i class="fa fa-search"></i>
-                                </a>
-                                <div class="drowdown-search">
-                                    <form role="search">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Search...">
-                                            <i class="fa fa-search nav-search-icon"></i>
-                                        </div>
-                                    </form>
-                                </div>
-                            </li>
+                            @*<li class="mobile-search">
+                                    <a class="btn">
+                                        <i class="fa fa-search"></i>
+                                    </a>
+                                    <div class="drowdown-search">
+                                        <form role="search">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Search...">
+                                                <i class="fa fa-search nav-search-icon"></i>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </li>*@
                             @*<li class="dropdown hidden-xs">
-                                <a class="btn dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-tasks"></i>
-                                    <span class="count">5</span>
-                                </a>
-                            </li>
-                            <li class="dropdown hidden-xs">
-                                <a class="btn dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-bell"></i>
-                                    <span class="count">8</span>
-                                </a>
-                            </li>
+                                    <a class="btn dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fa fa-tasks"></i>
+                                        <span class="count">5</span>
+                                    </a>
+                                </li>
+                                <li class="dropdown hidden-xs">
+                                    <a class="btn dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fa fa-bell"></i>
+                                        <span class="count">8</span>
+                                    </a>
+                                </li>
 
-                            <li class="dropdown hidden-xs">
-                                <a class="btn dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-envelope-o"></i>
-                                    <span class="count">16</span>
-                                </a>
-                            </li>*@
+                                <li class="dropdown hidden-xs">
+                                    <a class="btn dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fa fa-envelope-o"></i>
+                                        <span class="count">16</span>
+                                    </a>
+                                </li>*@
                             <li class="dropdown profile-dropdown">
                                 <a href="#" class="dropdown" data-toggle="dropdown">
                                     <img src="~/Content/img/samples/portrait.jpg" alt="" />
@@ -93,37 +95,52 @@
                                     <span class="name">
                                         @DRP.Code.OperatorProvider.Provider.GetCurrent().UserCode:@DRP.Code.OperatorProvider.Provider.GetCurrent().UserName
                                     </span>
+                                    <span class="status">
+                                        <i class="fa fa-circle"></i>在线
+                                    </span>
                                 </div>
                             </div>
                             <div class="collapse navbar-collapse navbar-ex1-collapse" id="sidebar-nav">
                                 <ul class="nav nav-pills nav-stacked">
+                                    <li class="nav-header hidden-sm hidden-xs">
+                                        <span id="menu_title" style="font-size:14px; color:#ffd800;font-weight:700">系统菜单</span>
+                                        <i class="fa fa-list" style="color:#ffd800; font-size: 14px; margin-top: -6px; position: absolute; right: 23px; top: 50%; cursor: pointer;"></i>
+                                    </li>
+                                </ul>
+
+                                <ul id="navzx_menu" class="nav nav-pills nav-stacked">
+                                    
+                                </ul>
+
+
+                                <ul class="nav nav-pills nav-stacked">
                                     @*<li class="nav-header hidden-sm hidden-xs">常用菜单
-                                        <i class="fa fa-gear" style="color: #868b98; font-size: 12px; margin-top: -6px; position: absolute; right: 23px; top: 50%; cursor: pointer;"></i>
-                                    </li>
-                                    <li class="common">
-                                        <a href="#">
-                                            <i class="fa fa-star-o"></i>
-                                            <span>联系人</span>
-                                        </a>
-                                    </li>
-                                    <li class="common">
-                                        <a href="#">
-                                            <i class="fa fa-star-o"></i>
-                                            <span>合同</span>
-                                        </a>
-                                    </li>
-                                    <li class="common">
-                                        <a href="maps.html">
-                                            <i class="fa fa-star-o"></i>
-                                            <span>产品</span>
-                                        </a>
-                                    </li>
-                                    <li class="common">
-                                        <a href="#">
-                                            <i class="fa fa-star-o"></i>
-                                            <span>客户</span>
-                                        </a>
-                                    </li>*@
+                                            <i class="fa fa-gear" style="color: #868b98; font-size: 12px; margin-top: -6px; position: absolute; right: 23px; top: 50%; cursor: pointer;"></i>
+                                        </li>
+                                        <li class="common">
+                                            <a href="#">
+                                                <i class="fa fa-star-o"></i>
+                                                <span>联系人</span>
+                                            </a>
+                                        </li>
+                                        <li class="common">
+                                            <a href="#">
+                                                <i class="fa fa-star-o"></i>
+                                                <span>合同</span>
+                                            </a>
+                                        </li>
+                                        <li class="common">
+                                            <a href="maps.html">
+                                                <i class="fa fa-star-o"></i>
+                                                <span>产品</span>
+                                            </a>
+                                        </li>
+                                        <li class="common">
+                                            <a href="#">
+                                                <i class="fa fa-star-o"></i>
+                                                <span>客户</span>
+                                            </a>
+                                        </li>*@
                                 </ul>
                             </div>
                         </div>
