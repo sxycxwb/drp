@@ -14,7 +14,7 @@ namespace DRP.Client.Web
         {
             get { return new ClientOperatorProvider(); }
         }
-        private string LoginUserKey = "DRP_loginuserkey_2016";
+        private string LoginUserKey = "DRP_loginclientuserkey_2016";
         private string LoginProvider = Configs.GetValue("LoginProvider");
 
         public ClientOperatorModel GetCurrent()
