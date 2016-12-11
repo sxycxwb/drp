@@ -12,7 +12,7 @@ namespace DRP.Code
         {
             get { return new OperatorProvider(); }
         }
-        private string LoginUserKey = "DRP_loginuserkey_2016";
+        private string LoginUserKey = "DRP_systemuserkey_2016";
         private string LoginProvider = Configs.GetValue("LoginProvider");
 
         public OperatorModel GetCurrent()

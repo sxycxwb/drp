@@ -14,8 +14,11 @@ namespace DRP.Client.Web
         {
             get { return new ClientOperatorProvider(); }
         }
-        private string LoginUserKey = "DRP_loginclientuserkey_2016";
+        private string LoginUserKey = "DRP_clientuserkey_2016";
         private string LoginProvider = Configs.GetValue("LoginProvider");
+
+        private string SystemLoginUserKey = "DRP_systemuserkey_2016";
+        private string SystemLoginProvider = Configs.GetValue("SystemLoginProvider");
 
         public ClientOperatorModel GetCurrent()
         {
@@ -30,6 +33,21 @@ namespace DRP.Client.Web
             }
             return operatorModel;
         }
+
+        public OperatorModel GetSystemCurrent()
+        {
+            OperatorModel operatorModel = new OperatorModel();
+            if (SystemLoginProvider == "Cookie")
+            {
+                operatorModel = DESEncrypt.Decrypt(WebHelper.GetCookie(SystemLoginUserKey).ToString()).ToObject<OperatorModel>();
+            }
+            else
+            {
+                operatorModel = DESEncrypt.Decrypt(WebHelper.GetSession(SystemLoginUserKey).ToString()).ToObject<OperatorModel>();
+            }
+            return operatorModel;
+        }
+
         public void AddCurrent(ClientOperatorModel operatorModel)
         {
             if (LoginProvider == "Cookie")

@@ -464,7 +464,6 @@ $.fn.dataGrid = function (options) {
         shrinkToFit: false,
         gridview: true
     };
-    var options = $.extend(defaults, options);
     var $element = $(this);
     options["onSelectRow"] = function (rowid) {
         var length = $(this).jqGrid("getGridParam", "selrow").length;
@@ -478,5 +477,6 @@ $.fn.dataGrid = function (options) {
             $operate.animate({ "left": '-100.1%' }, 200);
         });
     };
+    var options = $.extend(defaults, options);
     $element.jqGrid(options);
 };

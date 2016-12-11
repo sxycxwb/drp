@@ -20,7 +20,7 @@ namespace DRP.Application.SystemManage
 
         public List<ModuleEntity> GetList()
         {
-            return service.IQueryable().OrderBy(t => t.F_SortCode).ToList();
+            return service.IQueryable().Where(t => t.F_DeleteMark == false).OrderBy(t => t.F_SortCode).ToList();
         }
         public ModuleEntity GetForm(string keyValue)
         {
@@ -28,6 +28,9 @@ namespace DRP.Application.SystemManage
         }
         public void DeleteForm(string keyValue)
         {
+            var customerCenterMenuId = Configs.GetValue("CustomerCenterMenuId");
+            if (!string.IsNullOrEmpty(customerCenterMenuId) && customerCenterMenuId == keyValue)
+                throw new Exception("无法删除用户中心菜单！");
             if (service.IQueryable().Count(t => t.F_ParentId.Equals(keyValue)) > 0)
             {
                 throw new Exception("删除失败！操作的对象包含了下级数据。");
@@ -47,6 +50,7 @@ namespace DRP.Application.SystemManage
             else
             {
                 moduleEntity.Create();
+                moduleEntity.F_DeleteMark = false;
                 service.Insert(moduleEntity);
             }
         }

@@ -18,6 +18,7 @@ namespace DRP.Application.SystemManage
     public class RoleAuthorizeApp
     {
         private IRoleAuthorizeRepository service = new RoleAuthorizeRepository();
+        private IModuleRepository moduleService = new ModuleRepository();
         private ModuleApp moduleApp = new ModuleApp();
         private ModuleButtonApp moduleButtonApp = new ModuleButtonApp();
 
@@ -25,16 +26,39 @@ namespace DRP.Application.SystemManage
         {
             return service.IQueryable(t => t.F_ObjectId == ObjectId).ToList();
         }
+
+        /// <summary>
+        /// 后台用户是否有权限查看用户中心
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
+        public bool SystemUserToUseCenterValidate(string roleId)
+        {
+            var customerCenterMenuId = Configs.GetValue("CustomerCenterMenuId");
+            if (OperatorProvider.Provider.GetCurrent().IsSystem)
+                return true;
+            var menuCount = moduleService.IQueryable(t => t.F_Id == customerCenterMenuId || t.F_ParentId == customerCenterMenuId).Count();
+            if (menuCount > 1)
+                return true;
+            else
+                return false;
+        }
+
         public List<ModuleEntity> GetMenuList(string roleId)
         {
             var data = new List<ModuleEntity>();
+            var customerCenterMenuId = Configs.GetValue("CustomerCenterMenuId");
             if (OperatorProvider.Provider.GetCurrent().IsSystem)
             {
                 data = moduleApp.GetList();
+                if (!string.IsNullOrEmpty(customerCenterMenuId))
+                    data = data.Where(t => t.F_Id != customerCenterMenuId).ToList();//过滤用户中心菜单
             }
             else
             {
                 var moduledata = moduleApp.GetList();
+                if (!string.IsNullOrEmpty(customerCenterMenuId))
+                    moduledata = moduledata.Where(t => t.F_Id != customerCenterMenuId).ToList();//过滤用户中心菜单
                 var authorizedata = service.IQueryable(t => t.F_ObjectId == roleId && t.F_ItemType == 1).ToList();
                 foreach (var item in authorizedata)
                 {

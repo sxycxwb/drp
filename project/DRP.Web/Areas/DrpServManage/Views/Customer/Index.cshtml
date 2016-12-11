@@ -6,10 +6,43 @@
 <script>
     $(function () {
         gridList();
-    })
+    });
+
+    function dataGrid(gridOptions) {
+        var defaults = {
+            datatype: "json",
+            autowidth: true,
+            rownumbers: true,
+            shrinkToFit: false,
+            gridview: true
+        };
+        var $element = $(this);
+        gridOptions["onSelectRow"] = function (rowid) {
+            var length = $(this).jqGrid("getGridParam", "selrow").length;
+            var keyValue = $("#gridList").jqGridRowValue().F_Id;
+            var redictUrl = "/DrpServManage/Customer/RedictUserCenter" + "?keyValue=" + keyValue;
+            $("#DRP-redict").attr('href', redictUrl);
+
+            var $operate = $(".operate");
+            if (length > 0) {
+                $operate.animate({ "left": 0 }, 200);
+            } else {
+                $operate.animate({ "left": '-100.1%' }, 200);
+            }
+            $operate.find('.close').click(function () {
+                $operate.animate({ "left": '-100.1%' }, 200);
+            });
+        };
+
+        var options = $.extend(defaults, gridOptions);
+        $element.jqGrid(options);
+    }
+
+
     function gridList() {
         var $gridList = $("#gridList");
-        $gridList.dataGrid({
+
+        dataGrid({
             url: "/DrpServManage/Customer/GetGridJson",
             height: $(window).height() - 128,
             colModel: [
@@ -43,7 +76,7 @@
         });
         $("#btn_search").click(function () {
             $gridList.jqGrid('setGridParam', {
-                postData: { keyword: $("#txt_keyword").val() },
+                postData: { keyword: $("#txt_keyword").val() }
             }).trigger('reloadGrid');
         });
     }
@@ -76,7 +109,7 @@
         $.deleteForm({
             url: "/DrpServManage/Customer/DeleteForm",
             param: { keyValue: $("#gridList").jqGridRowValue().F_Id },
-            success: function() {
+            success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
             }
         });
@@ -92,7 +125,7 @@
             btn: null
         });
     }
-    function btn_setproduct(){
+    function btn_setproduct() {
         var keyValue = $("#gridList").jqGridRowValue().F_Id;
         var companyName = $("#gridList").jqGridRowValue().F_CompanyName;
         $.modalOpen({
@@ -106,7 +139,7 @@
             }
         });
     }
-    
+
     //function btn_disabled() {
     //    var keyValue = $("#gridList").jqGridRowValue().F_Id;
     //    $.modalConfirm("注：您确定要【禁用】该项用户吗？", function (r) {
@@ -154,8 +187,9 @@
                 <li><a id="DRP-set" authorize="yes" onclick="btn_setproduct()"><i class="fa fa-pencil-square-o"></i>设置产品</a></li>
                 @*<li><a id="NF-revisepassword" authorize="yes" onclick="btn_revisepassword()"><i class="fa fa-key"></i>密码重置</a></li>*@
                 <li class="split"></li>
-                <li><a id="NF-disabled" authorize="yes" onclick="btn_disabled()"><i class="fa fa-stop-circle"></i>禁用</a></li>
-                <li><a id="NF-enabled" authorize="yes" onclick="btn_enabled()"><i class="fa fa-play-circle"></i>启用</a></li>
+                <li><a id="DRP-redict" authorize="yes" href="" target="_Blank"><i class="fa fa-stop-circle"></i>跳转用户中心</a></li>
+                @*<li><a id="NF-disabled" authorize="yes" onclick="btn_disabled()"><i class="fa fa-stop-circle"></i>禁用</a></li>
+                    <li><a id="NF-enabled" authorize="yes" onclick="btn_enabled()"><i class="fa fa-play-circle"></i>启用</a></li>*@
             </ul>
             <a href="javascript:;" class="close"></a>
         </div>

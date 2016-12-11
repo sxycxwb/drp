@@ -4,6 +4,8 @@
  * Description: 分销系统
  * Website：
 *********************************************************************************/
+
+using System;
 using DRP.Code;
 using DRP.Domain.Entity.SystemManage;
 using DRP.Domain.IRepository.SystemManage;
@@ -36,6 +38,15 @@ namespace DRP.Application.SystemManage
         }
         public void DeleteForm(string keyValue)
         {
+            #region 判断是否是客户相关角色信息，如果是则提示不能删除
+            var role = service.FindEntity(keyValue);
+            var code = role.F_EnCode;
+            string customerRoleCodeList = Configs.GetValue("CustomerRoleCode");
+            string[] roleCodeArr = customerRoleCodeList.Split(';');
+            if (roleCodeArr.Contains(code))
+                throw new Exception("您无权删除客户相关角色信息！"); 
+            #endregion
+
             service.DeleteForm(keyValue);
         }
         public void SubmitForm(RoleEntity roleEntity, string[] permissionIds, string keyValue)

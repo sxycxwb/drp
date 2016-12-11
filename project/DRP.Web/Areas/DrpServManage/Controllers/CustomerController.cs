@@ -45,6 +45,15 @@ namespace DRP.Web.Areas.DrpServManage.Controllers
         }
 
         [HttpGet]
+        [HandlerAuthorize]
+        public ActionResult RedictUserCenter(string keyValue)
+        {
+            string key = DESEncrypt.Encrypt(keyValue);
+            string customerCenterUrl = Configs.GetValue("CustomerCenterUrl");
+            return Redirect(customerCenterUrl + "?key=" + key);
+        }
+
+        [HttpGet]
         [HandlerAjaxOnly]
         public ActionResult GetFormJson(string keyValue)
         {
