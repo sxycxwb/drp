@@ -21,9 +21,15 @@ namespace DRP.Web.Controllers
 {
     public class LoginController : Controller
     {
+        public Log Logger
+        {
+            get { return LogFactory.GetLogger(this.GetType().ToString()); }
+        }
+
         [HttpGet]
         public virtual ActionResult Index()
         {
+            Logger.Info("Info测试");
             var test = string.Format("{0:E2}", 1);
             return View();
         }

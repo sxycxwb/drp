@@ -44,6 +44,7 @@
     <Compile Include="DrpServManage\CustomerBankRepository.cs" />
     <Compile Include="DrpServManage\CustomerTrackRepository.cs" />
     <Compile Include="DrpServManage\CustomerRepository.cs" />
+    <Compile Include="DrpServManage\ProductCategoryRepository.cs" />
     <Compile Include="DrpServManage\ProductModuleRepository.cs" />
     <Compile Include="DrpServManage\FeedeductionRecordRepository.cs" />
     <Compile Include="DrpServManage\RechargeRecordRepository.cs" />

@@ -4,6 +4,7 @@
 }
 <script>
     var keyValue = $.request("keyValue");
+    var categoryId = $.request("categoryId");
     $(function () {
         initControl();
         if (!!keyValue) {
@@ -53,9 +54,11 @@
         if (!$('#form1').formValid()) {
             return false;
         }
+        var postData = $("#form1").formSerialize();
+        postData["F_CategoryId"] = categoryId;
         $.submitForm({
             url: "/DrpServManage/Product/SubmitForm?keyValue=" + keyValue,
-            param: $("#form1").formSerialize(),
+            param: postData,
             success: function () {
                 $.currentWindow().$("#gridList").resetSelection();
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
@@ -67,7 +70,7 @@
     <div style="margin-top: 10px; margin-left: 10px; margin-right: 10px;">
         <ul class="nav nav-tabs">
             <li role="presentation" class="active"><a href="#">基本信息</a></li>
-            <li role="presentation"><a href="#">扩展信息</a></li>
+            <li role="presentation"><a href="#">扩展对接</a></li>
         </ul>
         <div style="padding-top: 20px; margin-right: 30px;">
             <table class="form">
@@ -90,9 +93,23 @@
                     <td class="formValue">
                         <input id="F_CostPrice" name="F_CostPrice" type="number" class="form-control " style="display: inline-block; width: 200px;" placeholder="请输入成本价" /> <span style="display: inline-block; margin-left: 4px; font-weight: bold;"> 元</span>
                     </td>
+                    <th class="formTitle">成本价格区间</th>
+                    <td class="formValue">
+                        <input id="F_CostPriceMin" name="F_CostPriceMin" type="number" class="form-control " style="display: inline-block; width: 100px;" placeholder="请输入最低价" /> -
+                        <input id="F_CostPriceMax" name="F_CostPriceMax" type="number" class="form-control " style="display: inline-block; width: 100px;" placeholder="请输入最高价" />
+                        <span style="display: inline-block; margin-left: 4px; font-weight: bold;"> 元</span>
+                    </td>
+                </tr>
+                <tr>
                     <th class="formTitle">销售价</th>
                     <td class="formValue">
                         <input id="F_ChargeAmount" name="F_ChargeAmount" type="number" class="form-control " style="display: inline-block; width: 200px;" placeholder="请输入销售价" /> <span style="display: inline-block; margin-left: 4px; font-weight: bold;"> 元</span>
+                    </td>
+                    <th class="formTitle">销售价格区间</th>
+                    <td class="formValue">
+                        <input id="F_ChargeAmountMin" name="F_ChargeAmountMin" type="number" class="form-control " style="display: inline-block; width: 100px;" placeholder="请输入最低价" /> -
+                        <input id="F_ChargeAmountMax" name="F_ChargeAmountMax" type="number" class="form-control " style="display: inline-block; width: 100px;" placeholder="请输入最高价" />
+                        <span style="display: inline-block; margin-left: 4px; font-weight: bold;"> 元</span>
                     </td>
                 </tr>
                 <tr>
@@ -100,6 +117,14 @@
                     <td class="formValue">
                         <input id="F_RoyaltyRate" name="F_RoyaltyRate" type="number" class="form-control required" style="display: inline-block; width: 200px;" placeholder="请输入提成率" /> <span style="display: inline-block; margin-left: 4px; font-weight: bold;"> %</span>
                     </td>
+                    <th class="formTitle">提成率区间</th>
+                    <td class="formValue">
+                        <input id="F_RoyaltyRateMin" name="F_RoyaltyRateMin" type="number" class="form-control " style="display: inline-block; width: 100px;" placeholder="请输入最小值" /> -
+                        <input id="F_RoyaltyRateMax" name="F_RoyaltyRateMax" type="number" class="form-control " style="display: inline-block; width: 100px;" placeholder="请输入最大值" />
+                        <span style="display: inline-block; margin-left: 4px; font-weight: bold;"> 元</span>
+                    </td>
+                </tr>
+                <tr>
                     <th class="formTitle"><span class="required-span">*</span>计费方式</th>
                     <td class="formValue">
                         <select id="F_ChargeStyle" name="F_ChargeStyle" class="form-control required">
@@ -109,6 +134,13 @@
                             <option value="month">月</option>
                             @*<option value="week">周</option>
                                 <option value="day">日</option>*@
+                        </select>
+                    </td>
+                    <th class="formTitle"><span class="required-span">*</span>提成规则</th>
+                    <td class="formValue">
+                        <select id="F_ChargeRule" name="F_ChargeRule" class="form-control required">
+                            <option value="0">去除成本价</option>
+                            <option value="1">保留成本价</option>
                         </select>
                     </td>
                 </tr>

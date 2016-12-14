@@ -650,6 +650,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\DrpServManage\Controllers\CustomerTrackController.cs" />
+    <Compile Include="Areas\DrpServManage\Controllers\ProductCategoryController.cs" />
     <Compile Include="Areas\DrpServManage\Controllers\RechargeController.cs" />
     <Compile Include="Areas\DrpServManage\Controllers\ProductModuleController.cs" />
     <Compile Include="Areas\DrpServManage\Controllers\ProductController.cs" />
@@ -810,6 +811,9 @@
     <Content Include="Content\js\ueditor\net\config.json" />
     <Content Include="Content\js\ueditor\net\controller.ashx" />
     <Content Include="Content\js\ueditor\net\Web.config" />
+    <Content Include="Areas\DrpServManage\Views\ProductCategory\Details.cshtml" />
+    <Content Include="Areas\DrpServManage\Views\ProductCategory\Form.cshtml" />
+    <Content Include="Areas\DrpServManage\Views\ProductCategory\Index.cshtml" />
     <None Include="Properties\PublishProfiles\drp.pubxml" />
     <None Include="Properties\PublishProfiles\drp_web.pubxml" />
     <None Include="Web.Debug.config">

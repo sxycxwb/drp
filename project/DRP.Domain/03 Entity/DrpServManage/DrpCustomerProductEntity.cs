@@ -31,5 +31,10 @@ namespace DRP.Domain.Entity.DrpServManage
         /// 计费日期标识
         /// </summary>
         public string F_ChargingDateFlag { get; set; }
+
+        /// <summary>
+        /// 是否锁定，锁定后代理商无法修改价格
+        /// </summary>
+        public bool? F_IsLocked { get; set; }
     }
 }
