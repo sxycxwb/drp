@@ -15,8 +15,8 @@ namespace DRP.Domain.Entity.DrpServManage
         /// <summary>
         /// 产品分类ID
         /// </summary>
-        public string F_ProductCategoryId { get; set; }
-
+        public string F_CategoryId { get; set; }
+        
         /// <summary>
         /// 产品名称
         /// </summary>
@@ -35,12 +35,12 @@ namespace DRP.Domain.Entity.DrpServManage
         /// <summary>
         /// 成本最低价
         /// </summary>
-        public decimal F_CostPriceMin { get; set; }
+        public decimal? F_CostPriceMin { get; set; }
 
         /// <summary>
         /// 成本最高价
         /// </summary>
-        public decimal F_CostPriceMax { get; set; }
+        public decimal? F_CostPriceMax { get; set; }
 
         /// <summary>
         /// 销售价
@@ -50,12 +50,12 @@ namespace DRP.Domain.Entity.DrpServManage
         /// <summary>
         /// 销售最低价
         /// </summary>
-        public decimal F_ChargeAmountMin { get; set; }
+        public decimal? F_ChargeAmountMin { get; set; }
 
         /// <summary>
         /// 销售最高价
         /// </summary>
-        public decimal F_ChargeAmountMax { get; set; }
+        public decimal? F_ChargeAmountMax { get; set; }
 
         /// <summary>
         /// 代理商提成率
@@ -66,12 +66,12 @@ namespace DRP.Domain.Entity.DrpServManage
         /// <summary>
         /// 代理商提成率最低值
         /// </summary>
-        public decimal F_RoyaltyRateMin { get; set; }
+        public decimal? F_RoyaltyRateMin { get; set; }
 
         /// <summary>
         /// 代理商提成率最高值
         /// </summary>
-        public decimal F_RoyaltyRateMax { get; set; }
+        public decimal? F_RoyaltyRateMax { get; set; }
 
         /// <summary>
         /// 计费方式 -年、季、月、周、日

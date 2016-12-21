@@ -53,10 +53,16 @@
         });
     }
     function btn_add() {
+        var currentObj = $("#itemTree").getCurrentNode();
+        if (typeof currentObj == "undefined") {
+            $.modalAlert("请选择分类后再添加产品！", "warning");
+            return false;
+        }
+
         var itemId = $("#itemTree").getCurrentNode().id;
         var itemName = $("#itemTree").getCurrentNode().text;
         if (!itemId) {
-            $.modalAlert("请选择分类后再新增！", "warning");
+            $.modalAlert("请选择分类后再添加产品！", "warning");
             return false;
         }
         $.modalOpen({

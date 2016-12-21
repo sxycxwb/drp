@@ -16,7 +16,7 @@
             shrinkToFit: false,
             gridview: true
         };
-        var $element = $(this);
+        var $element = $("#gridList");
         gridOptions["onSelectRow"] = function (rowid) {
             var length = $(this).jqGrid("getGridParam", "selrow").length;
             var keyValue = $("#gridList").jqGridRowValue().F_Id;
@@ -40,7 +40,7 @@
 
 
     function gridList() {
-        var $gridList = $("#gridList");
+        //var $gridList = $("#gridList");
 
         dataGrid({
             url: "/DrpServManage/Customer/GetGridJson",
@@ -130,10 +130,12 @@
         var companyName = $("#gridList").jqGridRowValue().F_CompanyName;
         $.modalOpen({
             id: "Details",
-            title: "设置产品 ->" + companyName,
+            title: companyName + " -> 设置产品 ",
             url: "/DrpServManage/Customer/Product?keyValue=" + keyValue,
-            width: "100%",
+            width: "90%",
             height: "100%",
+            btn: ['关闭'],
+            btnclass: ['btn btn-danger'],
             callBack: function (iframeId) {
                 top.frames[iframeId].submitForm();
             }

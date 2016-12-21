@@ -21,9 +21,11 @@ namespace DRP.Application.DrpServManage
         private IProductRepository service = new ProductRepository();
         private IProductModuleRepository moduleService = new ProductModuleRepository();
 
-        public List<ProductEntity> GetList(Pagination pagination, string keyword)
+        public List<ProductEntity> GetList(Pagination pagination, string keyword, string categoryId)
         {
             var expression = ExtLinq.True<ProductEntity>();
+            if (!string.IsNullOrEmpty(categoryId))
+                expression = expression.And(t => t.F_CategoryId == categoryId);
             if (!string.IsNullOrEmpty(keyword))
             {
                 //expression = expression.And(t => t.F_Account.Contains(keyword));

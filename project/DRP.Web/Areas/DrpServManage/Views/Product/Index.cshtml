@@ -20,11 +20,11 @@
     function gridList() {
         var $gridList = $("#gridList");
         $gridList.dataGrid({
-            url: "/DrpServManage/Product/GetGridJson",
-            height: $(window).height() - 128,
+            //url: "/DrpServManage/Product/GetGridJson",
+            height: $(window).height() - 96,
             colModel: [
                 { label: '主键', name: 'F_Id', hidden: true },
-                { label: '产品名称', name: 'F_ProductName', width: 200, align: 'left' },
+                { label: '产品名称', name: 'F_ProductName', width: 180, align: 'left' },
                 {
                     label: '计费模式',
                     name: 'F_ChargePattern',
@@ -73,16 +73,23 @@
         });
         $("#btn_search").click(function () {
             $gridList.jqGrid('setGridParam', {
-                postData: { keyword: $("#txt_keyword").val() },
+                url: "/DrpServManage/Product/GetGridJson",
+                postData: { categoryId: $("#categroyTree").getCurrentNode().id, keyword: $("#txt_keyword").val() },
             }).trigger('reloadGrid');
         });
     }
 
     function btn_add() {
+
+        var currentObj = $("#categroyTree").getCurrentNode();
+        if (typeof currentObj == "undefined") {
+            $.modalAlert("请选择分类后再添加产品！", "warning");
+            return false;
+        }
         var categoryId = $("#categroyTree").getCurrentNode().id;
         var categoryName = $("#categroyTree").getCurrentNode().text;
         if (!categoryId) {
-            $.modalAlert("请选择分类后再新增！", "warning");
+            $.modalAlert("请选择分类后再添加产品！", "warning");
             return false;
         }
 
@@ -90,8 +97,8 @@
             id: "Form",
             title: categoryName + " 》新增产品",
             url: "/DrpServManage/Product/Form?categoryId=" + categoryId,
-            width: "700px",
-            height: "510px",
+            width: "900px",
+            height: "610px",
             callBack: function (iframeId) {
                 top.frames[iframeId].submitForm();
             }
@@ -99,6 +106,7 @@
     }
 
     function btn_edit_module() {
+
         var chargePattern = $("#gridList").jqGridRowValue().F_ChargePattern;
         if (chargePattern == "产品") {
             $.modalAlert('计费模式为产品时无法维护产品模块', 'warning');
@@ -121,13 +129,14 @@
     }
 
     function btn_edit() {
+        var categoryName = $("#categroyTree").getCurrentNode().text;
         var keyValue = $("#gridList").jqGridRowValue().F_Id;
         $.modalOpen({
             id: "Form",
-            title: "修改产品",
+            title: categoryName + " 》修改产品",
             url: "/DrpServManage/Product/Form?keyValue=" + keyValue,
-            width: "700px",
-            height: "510px",
+            width: "900px",
+            height: "600px",
             callBack: function (iframeId) {
                 top.frames[iframeId].submitForm();
             }
@@ -150,8 +159,8 @@
             id: "Details",
             title: "查看产品",
             url: "/DrpServManage/Product/Details?keyValue=" + keyValue,
-            width: "700px",
-            height: "550px",
+            width: "900px",
+            height: "600px",
             btn: null
         });
     }

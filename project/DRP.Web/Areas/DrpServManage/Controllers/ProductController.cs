@@ -19,11 +19,11 @@ namespace DRP.Web.Areas.DrpServManage.Controllers
 
         [HttpGet]
         [HandlerAjaxOnly]
-        public ActionResult GetGridJson(Pagination pagination, string keyword)
+        public ActionResult GetGridJson(Pagination pagination, string keyword,string categoryId)
         {
             var data = new
             {
-                rows = productApp.GetList(pagination, keyword),
+                rows = productApp.GetList(pagination, keyword, categoryId),
                 total = pagination.total,
                 page = pagination.page,
                 records = pagination.records
