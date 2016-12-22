@@ -90,10 +90,10 @@
         $.deleteForm({
             url: "/SystemManage/User/DeleteForm",
             param: { keyValue: $("#gridList").jqGridRowValue().F_Id },
-            success: function () {
+            success: function() {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
             }
-        })
+        });
     }
     function btn_details() {
         var keyValue = $("#gridList").jqGridRowValue().F_Id;
