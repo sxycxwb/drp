@@ -15,6 +15,6 @@ namespace DRP.Domain.IRepository.DrpServManage
     {
         void DeleteForm(string keyValue);
         void SubmitForm(CustomerEntity customerEntity, string keyValue);
-        void SubmitProduct(List<CustomerProductEntity> customerProductList, string keyValue);
+        void SubmitProduct(CustomerProductEntity customerProduct, string keyValue);
     }
 }

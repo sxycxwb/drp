@@ -103,19 +103,17 @@ namespace DRP.Application.DrpServManage
             service.SubmitForm(customerEntity, keyValue);
         }
 
-        public void SubmitProduct(string[] productIds, string keyValue)
+        public void SubmitProduct(ProductEntity productEntity, string keyValue, string customerId)
         {
-            var customerProductList = new List<CustomerProductEntity>();
-            foreach (var itemId in productIds)
-            {
-                var customerProductEntity = new CustomerProductEntity();
-                customerProductEntity.Create();
-                customerProductEntity.F_CustomerId = keyValue;
-                customerProductEntity.F_ProductId = itemId;
-                customerProductEntity.F_RoyaltyRate = 100;//默认提成比率为100
-                customerProductList.Add(customerProductEntity);
-            }
-            service.SubmitProduct(customerProductList, keyValue);
+            var chargeAmount = productEntity.F_ChargeAmount;
+
+            var customerProductEntity = new CustomerProductEntity();
+            customerProductEntity.Create();
+            customerProductEntity.F_CustomerId = customerId;
+            customerProductEntity.F_ChargeAmount = chargeAmount;//销售价
+            customerProductEntity.F_ProductId = keyValue;
+            customerProductEntity.F_RoyaltyRate = 100;//默认提成比率为100
+            service.SubmitProduct(customerProductEntity, keyValue);
         }
 
         public void DeleteForm(string keyValue)

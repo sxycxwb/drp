@@ -128,16 +128,16 @@
     function btn_setproduct() {
         var keyValue = $("#gridList").jqGridRowValue().F_Id;
         var companyName = $("#gridList").jqGridRowValue().F_CompanyName;
-        $.modalOpen({
+        var index = $.modalOpen({
             id: "Details",
             title: companyName + " -> 设置产品 ",
             url: "/DrpServManage/Customer/Product?keyValue=" + keyValue,
             width: "90%",
             height: "100%",
-            btn: ['关闭'],
-            btnclass: ['btn btn-danger'],
+            btn: ['确定','关闭'],
+            btnclass: ['btn btn-success','btn btn-danger'],
             callBack: function (iframeId) {
-                top.frames[iframeId].submitForm();
+                //top.frames[iframeId].submitForm();
             }
         });
     }

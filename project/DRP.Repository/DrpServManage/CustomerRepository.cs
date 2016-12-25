@@ -51,12 +51,12 @@ namespace DRP.Repository.DrpServManage
             }
         }
 
-        public void SubmitProduct(List<CustomerProductEntity> customerProductList, string keyValue)
+        public void SubmitProduct(CustomerProductEntity customerProduct, string keyValue)
         {
             using (var db = new RepositoryBase().BeginTrans())
             {
                 db.Delete<CustomerProductEntity>(t => t.F_CustomerId == keyValue);
-                db.Insert(customerProductList);
+                db.Insert(customerProduct);
                 db.Commit();
             }
         }

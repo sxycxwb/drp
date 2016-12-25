@@ -33,16 +33,6 @@ namespace DRP.Domain.Entity.DrpServManage
         public decimal F_CostPrice { get; set; }
 
         /// <summary>
-        /// 成本最低价
-        /// </summary>
-        public decimal? F_CostPriceMin { get; set; }
-
-        /// <summary>
-        /// 成本最高价
-        /// </summary>
-        public decimal? F_CostPriceMax { get; set; }
-
-        /// <summary>
         /// 销售价
         /// </summary>
         public decimal F_ChargeAmount { get; set; }
@@ -61,17 +51,6 @@ namespace DRP.Domain.Entity.DrpServManage
         /// 代理商提成率
         /// </summary>
         public decimal F_RoyaltyRate { get; set; }
-
-
-        /// <summary>
-        /// 代理商提成率最低值
-        /// </summary>
-        public decimal? F_RoyaltyRateMin { get; set; }
-
-        /// <summary>
-        /// 代理商提成率最高值
-        /// </summary>
-        public decimal? F_RoyaltyRateMax { get; set; }
 
         /// <summary>
         /// 计费方式 -年、季、月、周、日

@@ -20,6 +20,10 @@ namespace DRP.Domain.Entity.DrpServManage
         /// </summary>
         public string F_ProductId { get; set; }
         /// <summary>
+        /// 销售价
+        /// </summary>
+        public decimal F_ChargeAmount { get; set; }
+        /// <summary>
         /// 提成比
         /// </summary>
         public decimal F_RoyaltyRate { get; set; }
