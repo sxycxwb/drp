@@ -78,6 +78,14 @@ namespace DRP.Web.Areas.DrpServManage.Controllers
         }
 
         [HttpPost]
+        [HandlerAjaxOnly]
+        public ActionResult RemoveProduct(string keyValue)
+        {
+            customerApp.RemoveProduct(keyValue);
+            return Success("移除成功。");
+        }
+
+        [HttpPost]
         [HandlerAuthorize]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]

@@ -119,7 +119,7 @@ namespace DRP.Client.Web.Controllers
                 logEntity.F_Description = "系统后台管理员登录用户中心成功";
                 new LogApp().WriteDbLog(logEntity);
             }
-            return Redirect("Home/Index");
+            return RedirectToAction("Index","Home");
         }
 
         private void SetClientOperatorModel(CustomerEntity customerEntity)

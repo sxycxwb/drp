@@ -74,7 +74,7 @@
                                 if (data.state == "success") {
                                     options.success(data);
                                     $.modalMsg(data.message, data.state);
-
+                                    BindProduct(keyValue);
                                     //重新加载产品列表
                                 } else {
                                     $.modalAlert(data.message, data.state);
@@ -161,7 +161,28 @@
                     $(this).css('cursor', 'pointer');
                 });
                 $('.product').click(function () {
-                    alert('123');
+                    var productName = $(this).find('.productName').html();
+                    var fid = $(this).attr('id');
+                    $.modalConfirm("注：您确定要移除产品【" + productName + "】吗？", function(r) {
+                        if (r) {
+                            $.ajax({
+                                url: "/DrpServManage/Customer/RemoveProduct",
+                                type: "post",
+                                data: { keyValue: fid },
+                                dataType: "json",
+                                async: false,
+                                success: function(data) {
+                                    if (data.state == "success") {
+                                        $.modalMsg(data.message, data.state);
+                                        BindProduct(keyValue);
+                                        //重新加载产品列表
+                                    } else {
+                                        $.modalAlert(data.message, data.state);
+                                    }
+                                }
+                            });
+                        }
+                    });
                 });
 
             }
@@ -380,7 +401,7 @@
     </div>
 </div>
 <script type="text/x-jsrender" id="listTemplate">
-    <div class="product" id="{{:productId}}">
+    <div class="product" id="{{:fid}}">
         <div class="shut"></div>
         <div class="productName">
             {{:productName}}

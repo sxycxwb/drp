@@ -70,23 +70,23 @@ namespace DRP.Application.DrpServManage
             expressionCusPro = expressionCusPro.And(t => t.F_CustomerId == keyValue);
             var customerProductList = customerProductService.IQueryable(expressionCusPro).ToList();
 
-            List<object> productCheckList = new List<object>();
-            foreach (var product in productList)
+            List<object> productSelectList = new List<object>();
+            foreach (var customerProduct in customerProductList)
             {
+                var customerProductId = customerProduct.F_ProductId;
+                var product = productList.ToList().Find(t => t.F_Id == customerProductId);
+
                 var productId = product.F_Id;
-                var isChecked = false;
-                var checkProduct = customerProductList.Find(t => t.F_ProductId == productId && t.F_CustomerId == keyValue);
-                if (checkProduct != null)
-                    isChecked = true;
-                productCheckList.Add(new
+
+                productSelectList.Add(new
                 {
+                    fid = customerProduct.F_Id,
                     productId = productId,
                     productName = product.F_ProductName,
-                    productDes = product.F_Description,
-                    isChecked = isChecked
+                    productDes = product.F_Description
                 });
             }
-            return productCheckList;
+            return productSelectList;
         }
 
         public void SubmitForm(CustomerEntity customerEntity, string keyValue)
@@ -115,6 +115,12 @@ namespace DRP.Application.DrpServManage
             customerProductEntity.F_RoyaltyRate = 100;//默认提成比率为100
             service.SubmitProduct(customerProductEntity, keyValue);
         }
+
+        public void RemoveProduct(string keyValue)
+        {
+            customerProductService.Delete(t => t.F_Id == keyValue);
+        }
+
 
         public void DeleteForm(string keyValue)
         {
