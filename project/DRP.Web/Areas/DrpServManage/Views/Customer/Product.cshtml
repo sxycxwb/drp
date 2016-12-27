@@ -19,7 +19,7 @@
     });
 
     function initControl() {
-        BindProduct(keyValue);//绑定客户已设置产品列表
+        BindProductList(keyValue);//绑定客户已设置产品列表
 
         $('#F_ProductName').attr('readonly', 'readonly');
         $('#F_ChargePattern').attr('readonly', 'readonly');
@@ -74,7 +74,7 @@
                                 if (data.state == "success") {
                                     options.success(data);
                                     $.modalMsg(data.message, data.state);
-                                    BindProduct(keyValue);
+                                    BindProductList(keyValue);
                                     //重新加载产品列表
                                 } else {
                                     $.modalAlert(data.message, data.state);
@@ -93,17 +93,8 @@
                         });
                     }, 500);
 
-
-
-                    //$.submitForm({
-                    //    url: "/DrpServManage/Customer/SubmitProduct",
-                    //    param: postData,
-                    //    success: function () {
-                    //        //$.currentWindow().$("#gridList").trigger("reloadGrid");
-                    //    }
-                    //});
                 }
-            });       
+            });
         });
     }
 
@@ -132,23 +123,31 @@
         gridOptions["onSelectRow"] = function (rowid) {
             var productId = $("#gridList").jqGridRowValue().F_Id;
             $('#F_ProductId').val(productId);
-            $.ajax({
-                url: "/DrpServManage/Product/GetFormJson",
-                data: { keyValue: productId },
-                dataType: "json",
-                async: false,
-                success: function (data) {
-                    $("#form1").formSerialize(data);
-                    $('#chargeAmountRange').html('(范围:' + data.F_ChargeAmountMin + '~' + data.F_ChargeAmountMax + ')');
-                }
-            });
+            BindProduct(productId, 'add');
         };
 
         var options = $.extend(defaults, gridOptions);
         $element.jqGrid(options);
     }
 
-    function BindProduct(customerId) {
+    function BindProduct(productId, flag) {
+        $.ajax({
+            url: "/DrpServManage/Product/GetFormJson",
+            data: { keyValue: productId },
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                var btnContent = "确认并添加";
+                if (flag == "edit")
+                    btnContent = "确认并修改";
+                $('#btnSureAdd').html(btnContent);
+                $("#form1").formSerialize(data);
+                $('#chargeAmountRange').html('(范围:' + data.F_ChargeAmountMin + '~' + data.F_ChargeAmountMax + ')');
+            }
+        });
+    }
+
+    function BindProductList(customerId) {
         $.ajax({
             url: "/DrpServManage/Customer/GetProductJson",
             data: { keyValue: customerId },
@@ -157,13 +156,18 @@
             success: function (data) {
                 var productListHtml = $("#listTemplate").render(data);
                 $("#productList").html(productListHtml);
-                $('.productName').mouseover(function() {
+                $('.productName').mouseover(function () {
                     $(this).css('cursor', 'pointer');
                 });
-                $('.product').click(function () {
-                    var productName = $(this).find('.productName').html();
+                $('.productName').click(function () {
+                    var productId = $(this).attr('id');
+                    BindProduct(productId, 'edit');
+                });
+
+                $('.shut').click(function () {
+                    var productName = $(this).parent().find('.productName').html();
                     var fid = $(this).attr('id');
-                    $.modalConfirm("注：您确定要移除产品【" + productName + "】吗？", function(r) {
+                    $.modalConfirm("注：您确定要移除产品【" + productName + "】吗？", function (r) {
                         if (r) {
                             $.ajax({
                                 url: "/DrpServManage/Customer/RemoveProduct",
@@ -171,10 +175,10 @@
                                 data: { keyValue: fid },
                                 dataType: "json",
                                 async: false,
-                                success: function(data) {
+                                success: function (data) {
                                     if (data.state == "success") {
                                         $.modalMsg(data.message, data.state);
-                                        BindProduct(keyValue);
+                                        BindProductList(keyValue);
                                         //重新加载产品列表
                                     } else {
                                         $.modalAlert(data.message, data.state);
@@ -237,26 +241,6 @@
 
     }
 
-
-    function submitForm() {
-        var str = "";
-        var ids = "";
-        $("input[name='pck']:checkbox").each(function () {
-            if (true == $(this).is(':checked')) {
-                str += $(this).val() + ",";
-            }
-        });
-        if (str.substr(str.length - 1) == ',') {
-            ids = str.substr(0, str.length - 1);
-        }
-        $.submitForm({
-            url: "/DrpServManage/Customer/SubmitProduct",
-            param: { productIds: ids, keyValue: keyValue },
-            success: function () {
-                $.currentWindow().$("#gridList").trigger("reloadGrid");
-            }
-        });
-    }
 </script>
 <style>
     .formUnit {
@@ -281,7 +265,6 @@
         line-height: 40px;
         border: #83b3d9 1px solid;
         background: #f2f7fb;
-        
     }
 
     .productName {
@@ -295,7 +278,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        cursor:pointer;
+        cursor: pointer;
     }
 
 
@@ -329,7 +312,7 @@
         <tr>
             <th class="formTitle"><span class="required-span">*</span>产品名称</th>
             <td class="formValue">
-                <input id="F_ProductName" name="F_ProductName" type="text" class="form-control required" placeholder="请输入名称"/>
+                <input id="F_ProductName" name="F_ProductName" type="text" class="form-control required" placeholder="请输入名称" />
             </td>
             <th class="formTitle"><span class="required-span">*</span>计费模式</th>
             <td class="formValue">
@@ -347,25 +330,25 @@
                     @*<option value="quarter">季度</option>*@
                     <option value="month">月</option>
                     @*<option value="week">周</option>
-                <option value="day">日</option>*@
+                        <option value="day">日</option>*@
                 </select>
             </td>
         </tr>
         <tr>
             <th class="formTitle"><span class="required-span">*</span>成本价</th>
             <td class="formValue">
-                <input id="F_CostPrice" name="F_CostPrice" type="number" class="form-control " style="display: inline-block; width: 40%;" placeholder="请输入成本价"/>
+                <input id="F_CostPrice" name="F_CostPrice" type="number" class="form-control required" style="display: inline-block; width: 40%;" placeholder="请输入成本价" />
                 <span class="formUnit"> 元</span>
             </td>
             <th class="formTitle"><span class="required-span">*</span>销售价</th>
             <td class="formValue">
-                <input id="F_ChargeAmount" name="F_ChargeAmount" type="number" class="form-control " style="display: inline-block; width: 40%;" placeholder="请输入销售价"/>
+                <input id="F_ChargeAmount" name="F_ChargeAmount" type="number" class="form-control required" style="display: inline-block; width: 40%;" placeholder="请输入销售价" />
                 <span class="formUnit"> 元</span>
                 <span id="chargeAmountRange" class="formRange"></span>
             </td>
             <th class="formTitle"><span class="required-span">*</span>代理商提成率</th>
             <td class="formValue">
-                <input id="F_RoyaltyRate" name="F_RoyaltyRate" type="number" class="form-control required" style="display: inline-block; width: 40%;" placeholder="请输入提成率"/>
+                <input id="F_RoyaltyRate" name="F_RoyaltyRate" type="number" class="form-control required" style="display: inline-block; width: 40%;" placeholder="请输入提成率" />
                 <span class="formUnit"> %</span>
             </td>
         </tr>
@@ -387,7 +370,7 @@
             <div style="padding-top: 20px; margin-right: 30px;" id="productList">
 
             </div>
-            
+
         </div>*@
 </div>
 
@@ -403,7 +386,7 @@
 <script type="text/x-jsrender" id="listTemplate">
     <div class="product" id="{{:fid}}">
         <div class="shut"></div>
-        <div class="productName">
+        <div class="productName" id="{{:productId}}">
             {{:productName}}
         </div>
     </div>

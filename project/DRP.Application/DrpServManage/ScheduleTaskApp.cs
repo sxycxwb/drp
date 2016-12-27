@@ -84,7 +84,7 @@ namespace DRP.Application.DrpServManage
             #region 获取客户代缴费总和
 
             var dbRepository = new RepositoryBase();
-            var sqlStr = @"SELECT A.F_ID CUSTOMERID,SUM(C.F_CHARGEAMOUNT) PRODUCTFEE 
+            var sqlStr = @"SELECT A.F_ID CUSTOMERID,SUM(B.F_CHARGEAMOUNT) PRODUCTFEE 
             FROM DRP_CUSTOMER A,DRP_CUSTOMERPRODUCT B, DRP_PRODUCT C
              WHERE A.F_ID = B.F_CUSTOMERID AND B.F_PRODUCTID = C.F_ID
             AND A.F_DELETEMARK = 0 AND C.F_CHARGESTYLE='" + chargeStyle.ToLower() + "' ";

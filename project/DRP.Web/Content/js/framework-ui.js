@@ -344,7 +344,7 @@ $.fn.formValid = function () {
             element.parents('.has-error').append('<i class="form-control-feedback fa fa-exclamation-circle error" data-placement="left" data-toggle="tooltip" title="' + error + '"></i>');
             $("[data-toggle='tooltip']").tooltip();
             if (element.parents('.input-group').hasClass('input-group')) {
-                element.parents('.has-error').find('i.error').css('right', '33px')
+                element.parents('.has-error').find('i.error').css('right', '33px');
             }
         },
         success: function (element) {

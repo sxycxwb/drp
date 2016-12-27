@@ -105,7 +105,16 @@ namespace DRP.Application.DrpServManage
 
         public void SubmitProduct(ProductEntity productEntity, string keyValue, string customerId)
         {
+            //判断是否添加
+            var cusProModel = customerProductService.FindEntity(t => t.F_ProductId == keyValue && t.F_CustomerId == customerId);
+            if(cusProModel != null)
+                throw new Exception("该产品已添加！");
+
+            //判断销售价是否在产品定义的 销售价范围内
             var chargeAmount = productEntity.F_ChargeAmount;
+            var product = productService.FindEntity(t => t.F_Id == keyValue);
+            if(chargeAmount<product.F_ChargeAmountMin || chargeAmount > product.F_ChargeAmountMax)
+                throw new Exception("销售价不在有效范围内，请重新填写！");
 
             var customerProductEntity = new CustomerProductEntity();
             customerProductEntity.Create();
