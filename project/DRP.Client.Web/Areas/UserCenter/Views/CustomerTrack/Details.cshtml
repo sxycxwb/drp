@@ -1,0 +1,84 @@
+﻿@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<script src="~/Content/js/ueditor/ueditor.config.js"></script>
+<script src="~/Content/js/ueditor/ueditor.all.min.js"></script>
+<script src="~/Content/js/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script>
+    var keyValue = $.request("keyValue");
+    $(function () {
+        initControl();
+        $.ajax({
+            url: "/DrpServManage/CustomerTrack/GetFormJson",
+            data: { keyValue: keyValue },
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                $("#form1").formSerialize(data);
+                $("#form1").find('.form-control,select,input').attr('readonly', 'readonly');
+                $('#F_Content').html(data.F_Content);
+
+                //判断ueditor 编辑器是否创建成功
+                UE.getEditor('editor').addListener("ready", function () {
+                    // editor准备好之后才可以使用
+                    UE.getEditor('editor').setContent(data.F_Content, false);
+                    UE.getEditor('editor').setDisabled('fullscreen');
+                });
+                var customerData = [{ id: data.F_CustomerId, text: data.F_CustomerName }];
+                $('#F_CustomerId').empty();
+                $("#F_CustomerId").prop("disabled", true);
+                $('#F_CustomerId').select2({ data: customerData });
+                
+            }
+        });
+    });
+    function initControl() {
+        $("#F_Status").prop("disabled", true);
+        $("#F_Status").bindSelect({
+            url: "/SystemManage/ItemsData/GetSelectJson",
+            param: { enCode: "CustomerTackStatus" }
+        });
+    }
+</script>
+<form id="form1">
+    <div style="margin-top: 10px; margin-left: 10px; margin-right: 10px;">
+        <div style="padding-top: 20px; margin-right: 30px;">
+            <table class="form">
+                <tr>
+                    <th class="formTitle"><span class="required-span">*</span>客户名称</th>
+                    <td class="formValue">
+                        <input id="F_CustomerName" name="F_CustomerName" style="display: none;" />
+                        <select id="F_CustomerId" name="F_CustomerId " class="form-control required">
+                            <option value="" selected="selected">==请选择==</option>
+                        </select>
+                        @*<input id="F_CustomerName" name="F_CustomerName" type="text" class="form-control required" placeholder="请输入客户名称" />*@
+                    </td>
+                    <th class="formTitle"><span class="required-span">*</span>客户维护状态</th>
+                    <td class="formValue">
+                        <select id="F_Status" name="F_Status" class="form-control required">
+                            <option value="">==请选择==</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle"><span class="required-span">*</span>标题</th>
+                    <td class="formValue" colspan="3">
+                        <input id="F_Title" name="F_Title" type="text" class="form-control required" placeholder="请输入标题" />
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle" valign="top" style="padding-top: 5px;">
+                        详细内容
+                    </th>
+                    <td class="formValue" colspan="3">
+                        @*<script id="editor" type="text/plain" style="width: 100%; height: 250px;">
+                        </script>*@
+                        <div id="F_Content" name="F_Content" class="form-control" style="height: 300px;"></div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</form>

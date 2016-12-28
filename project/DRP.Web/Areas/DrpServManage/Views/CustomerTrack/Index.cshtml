@@ -38,7 +38,7 @@
     function btn_add() {
         $.modalOpen({
             id: "Form",
-            title: "新增账户",
+            title: "新增记录",
             url: "/DrpServManage/CustomerTrack/Form",
             width: "90%",
             height: "90%",
@@ -51,7 +51,7 @@
         var keyValue = $("#gridList").jqGridRowValue().F_Id;
         $.modalOpen({
             id: "Form",
-            title: "修改账户",
+            title: "修改记录",
             url: "/DrpServManage/CustomerTrack/Form?keyValue=" + keyValue,
             width: "90%",
             height: "90%",

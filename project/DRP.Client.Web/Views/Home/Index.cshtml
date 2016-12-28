@@ -112,6 +112,11 @@
             changeclass(obj);
             $("#DRP_iframe").attr("src","/UserCenter/CardInfo/Index");
         }
+        function track(obj) {
+            changeclass(obj);
+            $("#DRP_iframe").attr("src", "/UserCenter/CustomerTrack/Index");
+        }
+
         function rechargeinfo(obj) {
             changeclass(obj);
             $("#DRP_iframe").attr("src", "/UserCenter/Recharge/Index");
@@ -189,6 +194,7 @@
                             <a href="#" class="list-group-item ds_do_action feeRecord" ds_action="showPage" ds_data="index/fee/account_fee" action="accFee.showMain">账单查询</a>
                             <a href="#" class="list-group-item ds_do_action invoiceRecord" ds_action="showPage" ds_data="index/invoice/invoice_main" action="invoice.showMain">发票管理</a>
                             <a href="#" class="list-group-item ds_do_action" ds_action="showPage" ds_data="index/cardinfo" onclick="cardinfo(this)">绑卡信息</a>
+                            <a href="#" class="list-group-item ds_do_action track" ds_action="showPage" ds_data="index/invoice/invoice_main" onclick="track(this)">记事簿</a>
                         </div>
                     </div>
                 </div>
