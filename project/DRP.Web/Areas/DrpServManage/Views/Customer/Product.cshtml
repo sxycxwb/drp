@@ -40,8 +40,13 @@
             if ($('[name=__RequestVerificationToken]').length > 0) {
                 postData["__RequestVerificationToken"] = $('[name=__RequestVerificationToken]').val();
             }
-
-            $.modalConfirm("注：您确定要添加产品【" + productName + "】吗？", function (r) {
+            var confirmStr = "修改";
+            var content = $('#btnSureAdd').html();
+            if (content.indexOf("添加") != -1) {
+                postData["flag"] = "add";
+                confirmStr = "添加";
+            }
+            $.modalConfirm("注：您确定要" + confirmStr + "产品【" + productName + "】吗？", function (r) {
                 if (r) {
 
                     var options = {
@@ -143,6 +148,7 @@
                 $('#btnSureAdd').html(btnContent);
                 $("#form1").formSerialize(data);
                 $('#chargeAmountRange').html('(范围:' + data.F_ChargeAmountMin + '~' + data.F_ChargeAmountMax + ')');
+                $('#F_ProductId').val(data.F_Id);
             }
         });
     }
@@ -161,12 +167,14 @@
                 });
                 $('.productName').click(function () {
                     var productId = $(this).attr('id');
+                    var productPrice = $(this).attr('price');
                     BindProduct(productId, 'edit');
+                    $('#F_ChargeAmount').val(productPrice);
                 });
 
                 $('.shut').click(function () {
                     var productName = $(this).parent().find('.productName').html();
-                    var fid = $(this).attr('id');
+                    var fid = $(this).parent().attr('id');
                     $.modalConfirm("注：您确定要移除产品【" + productName + "】吗？", function (r) {
                         if (r) {
                             $.ajax({
@@ -386,8 +394,8 @@
 <script type="text/x-jsrender" id="listTemplate">
     <div class="product" id="{{:fid}}">
         <div class="shut"></div>
-        <div class="productName" id="{{:productId}}">
-            {{:productName}}
+        <div class="productName" id="{{:productId}}" price="{{:productPrice}}">
+        {{:productName}}
         </div>
     </div>
 </script>

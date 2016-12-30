@@ -71,9 +71,9 @@ namespace DRP.Web.Areas.DrpServManage.Controllers
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
-        public ActionResult SubmitProduct(ProductEntity productEntity, string keyValue, string customerId)
+        public ActionResult SubmitProduct(ProductEntity productEntity, string keyValue, string customerId,string flag)
         {
-            customerApp.SubmitProduct(productEntity, keyValue, customerId);
+            customerApp.SubmitProduct(productEntity, keyValue, customerId, flag);
             return Success("操作成功。");
         }
 
