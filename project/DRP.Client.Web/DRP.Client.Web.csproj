@@ -402,6 +402,8 @@
     <Compile Include="App_Start\01 Handler\HandlerErrorAttribute.cs" />
     <Compile Include="App_Start\01 Handler\HandlerLoginAttribute.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\SystemManage\Controllers\ItemsDataController.cs" />
+    <Compile Include="Areas\SystemManage\SystemManageAreaRegistration.cs" />
     <Compile Include="Areas\UserCenter\Controllers\AccountInfoController.cs" />
     <Compile Include="Areas\UserCenter\Controllers\CardInfoController.cs" />
     <Compile Include="Areas\UserCenter\Controllers\CustomerProductController.cs" />
@@ -470,6 +472,7 @@
     <Content Include="Content\js\ueditor\third-party\video-js\font\vjs.eot" />
     <Content Include="Content\js\ueditor\third-party\video-js\font\vjs.ttf" />
     <Content Include="Content\js\ueditor\third-party\video-js\font\vjs.woff" />
+    <Content Include="Areas\SystemManage\Views\Web.config" />
     <None Include="Properties\PublishProfiles\drp_client.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

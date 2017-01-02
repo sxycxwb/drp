@@ -111,6 +111,11 @@ namespace DRP.Application.DrpServManage
             if (cusProModel != null && flag == "add")
                 throw new Exception("该产品已添加！");
 
+            if (cusProModel != null && flag != "add" && cusProModel.F_IsLocked == true)
+            {
+                throw new Exception("当前无法修改产品属性，请联系管理员！");
+            }
+
             //判断销售价是否在产品定义的 销售价范围内
             var chargeAmount = productEntity.F_ChargeAmount;
             var product = productService.FindEntity(t => t.F_Id == keyValue);
@@ -120,6 +125,7 @@ namespace DRP.Application.DrpServManage
             var customerProductEntity = new CustomerProductEntity();
             customerProductEntity.Create();
             customerProductEntity.F_CustomerId = customerId;
+            customerProductEntity.F_IsLocked = false;//锁定标识初始化
             customerProductEntity.F_ChargeAmount = chargeAmount;//销售价
             customerProductEntity.F_ProductId = keyValue;
             customerProductEntity.F_RoyaltyRate = 100;//默认提成比率为100
