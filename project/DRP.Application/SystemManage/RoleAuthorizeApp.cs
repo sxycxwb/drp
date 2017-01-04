@@ -35,7 +35,8 @@ namespace DRP.Application.SystemManage
         public bool SystemUserToUseCenterValidate(string roleId)
         {
             var customerCenterMenuId = Configs.GetValue("CustomerCenterMenuId");
-            if (OperatorProvider.Provider.GetCurrent().IsSystem)
+
+            if ((OperatorProvider.Provider.GetCurrent() != null && OperatorProvider.Provider.GetCurrent().IsSystem) || (ClientOperatorProvider.Provider.GetCurrent() != null && ClientOperatorProvider.Provider.GetCurrent().IsSystem))
                 return true;
             var menuCount = moduleService.IQueryable(t => t.F_Id == customerCenterMenuId || t.F_ParentId == customerCenterMenuId).Count();
             if (menuCount > 1)
@@ -48,7 +49,7 @@ namespace DRP.Application.SystemManage
         {
             var data = new List<ModuleEntity>();
             var customerCenterMenuId = Configs.GetValue("CustomerCenterMenuId");
-            if (OperatorProvider.Provider.GetCurrent().IsSystem)
+            if ((OperatorProvider.Provider.GetCurrent()!=null&&OperatorProvider.Provider.GetCurrent().IsSystem) || (ClientOperatorProvider.Provider.GetCurrent() != null && ClientOperatorProvider.Provider.GetCurrent().IsSystem))
             {
                 data = moduleApp.GetList();
                 if (!string.IsNullOrEmpty(customerCenterMenuId))
@@ -74,7 +75,8 @@ namespace DRP.Application.SystemManage
         public List<ModuleButtonEntity> GetButtonList(string roleId)
         {
             var data = new List<ModuleButtonEntity>();
-            if (OperatorProvider.Provider.GetCurrent().IsSystem)
+
+            if ((OperatorProvider.Provider.GetCurrent() != null && OperatorProvider.Provider.GetCurrent().IsSystem) || (ClientOperatorProvider.Provider.GetCurrent() != null && ClientOperatorProvider.Provider.GetCurrent().IsSystem))
             {
                 data = moduleButtonApp.GetList();
             }

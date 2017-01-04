@@ -16,9 +16,10 @@ namespace DRP.Client.Web.Areas.UserCenter.Controllers
         private ScheduleTaskApp scheduleTaskApp = new ScheduleTaskApp();
 
         // GET: UserCenter/CustomerProduct
-        public ActionResult Index()
+        public ActionResult Index(string keyValue)
         {
-            return View();
+            var productEntity = productApp.GetForm(keyValue);
+            return View(productEntity);
         }
 
         [HttpGet]

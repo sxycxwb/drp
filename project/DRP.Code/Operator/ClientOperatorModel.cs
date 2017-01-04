@@ -6,7 +6,7 @@
 *********************************************************************************/
 using System;
 
-namespace DRP.Client.Web
+namespace DRP.Code
 {
     public class ClientOperatorModel
     {
@@ -30,6 +30,10 @@ namespace DRP.Client.Web
         /// 用户余额
         /// </summary>
         public decimal? AccountBalance { get; set; }
+        /// <summary>
+        /// 用户角色ID
+        /// </summary>
+        public string RoleId { get; set; }
         public string UserPwd { get; set; }
         public string LoginIPAddress { get; set; }
         public string LoginIPAddressName { get; set; }

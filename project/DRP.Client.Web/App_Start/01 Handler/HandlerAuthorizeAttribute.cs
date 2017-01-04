@@ -15,8 +15,7 @@ namespace DRP.Client.Web
         }
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            return;
-            if (OperatorProvider.Provider.GetCurrent().IsSystem)
+            if (ClientOperatorProvider.Provider.GetCurrent().IsSystem)
             {
                 return;
             }
@@ -34,8 +33,8 @@ namespace DRP.Client.Web
         }
         private bool ActionAuthorize(ActionExecutingContext filterContext)
         {
-            var operatorProvider = OperatorProvider.Provider.GetCurrent();
-            var roleId = operatorProvider.RoleId;
+            var clientOperatorProvider = ClientOperatorProvider.Provider.GetCurrent();
+            var roleId = clientOperatorProvider.RoleId;
             var moduleId = WebHelper.GetCookie("DRP_currentmoduleid");
             var action = HttpContext.Current.Request.ServerVariables["SCRIPT_NAME"].ToString();
             return new RoleAuthorizeApp().ActionValidate(roleId, moduleId, action);

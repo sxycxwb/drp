@@ -103,6 +103,8 @@
     <Compile Include="Mail\MailHelper.cs" />
     <Compile Include="Net\HttpMethods.cs" />
     <Compile Include="Net\Net.cs" />
+    <Compile Include="Operator\ClientOperatorModel.cs" />
+    <Compile Include="Operator\ClientOperatorProvider.cs" />
     <Compile Include="Operator\OperatorModel.cs" />
     <Compile Include="Operator\OperatorProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

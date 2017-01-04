@@ -4,9 +4,9 @@
  * Description: 分销系统
  * Website：
 *********************************************************************************/
-using DRP.Code;
+using System;
 
-namespace DRP.Client.Web
+namespace DRP.Code
 {
     public class ClientOperatorProvider
     {

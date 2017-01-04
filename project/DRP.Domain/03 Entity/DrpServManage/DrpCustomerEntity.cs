@@ -32,6 +32,11 @@ namespace DRP.Domain.Entity.DrpServManage
         /// 联系人电话
         /// </summary>
         public string F_MobilePhone { get; set; }
+        
+        /// <summary>
+        /// 角色ID
+        /// </summary>
+        public string F_RoleId { get; set; }
         /// <summary>
         /// 联系人邮箱
         /// </summary>
