@@ -31,8 +31,8 @@
             url: "/DrpServManage/ProductCategory/SubmitForm?keyValue=" + keyValue,
             param: $("#form1").formSerialize(),
             success: function () {
-                top.ProductCategory.$("#gridList").resetSelection();
-                top.ProductCategory.$("#gridList").trigger("reloadGrid");
+                top.ItemsType.$("#gridList").resetSelection();
+                top.ItemsType.$("#gridList").trigger("reloadGrid");
             }
         })
     }

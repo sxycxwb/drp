@@ -4,10 +4,13 @@
  * Description: 计费运营系统
  * Website：
 *********************************************************************************/
+
+using System.Collections.Generic;
 using DRP.Application.DrpServManage;
 using DRP.Code;
 using DRP.Domain.Entity.DrpServManage;
 using System.Web.Mvc;
+using DRP.Domain.Entity.SystemManage;
 
 
 namespace DRP.Client.Web.Areas.UserCenter.Controllers
@@ -37,6 +40,16 @@ namespace DRP.Client.Web.Areas.UserCenter.Controllers
             return Content(data.ToJson());
         }
 
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetCurrentUser(string enCode)
+        {
+            List<object> list = new List<object>();
+
+            list.Add(new { id = ClientOperatorProvider.Provider.GetCurrent().UserCode, text = ClientOperatorProvider.Provider.GetCurrent().UserName });
+            return Content(list.ToJson());
+        }
+
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
@@ -46,7 +59,7 @@ namespace DRP.Client.Web.Areas.UserCenter.Controllers
             customerTrackApp.SubmitForm(customerTrackEntity, keyValue);
             return Success("操作成功。");
         }
-       
+
         [HttpPost]
         [HandlerAuthorize]
         [HandlerAjaxOnly]
@@ -56,6 +69,6 @@ namespace DRP.Client.Web.Areas.UserCenter.Controllers
             customerTrackApp.DeleteForm(keyValue);
             return Success("删除成功。");
         }
-        
+
     }
 }
