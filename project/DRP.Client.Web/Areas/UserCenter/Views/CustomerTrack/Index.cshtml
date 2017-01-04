@@ -19,11 +19,12 @@
                 {
                     label: '客户状态', name: 'F_Status', width: 100, align: 'left',
                     formatter: function (cellvalue) {
-                        return top.clients.dataItems["CustomerTackStatus"][cellvalue] == undefined ? "" : top.clients.dataItems["CustomerTackStatus"][cellvalue]
+                        return "";
+                        //return top.clients.dataItems["CustomerTackStatus"][cellvalue] == undefined ? "" : top.clients.dataItems["CustomerTackStatus"][cellvalue]
                     }
                 },
                 { label: '创建人', name: 'F_CreatorUserName', width: 80, align: 'left' },
-                { label: '创建人', name: 'F_CreatorTime', width: 120, align: 'left' },
+                { label: '创建时间', name: 'F_CreatorTime', width: 120, align: 'left' },
             ],
             pager: "#gridPager",
             sortname: 'F_CreatorTime desc',
