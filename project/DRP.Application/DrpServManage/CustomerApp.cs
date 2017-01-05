@@ -100,6 +100,7 @@ namespace DRP.Application.DrpServManage
             {
                 customerEntity.Create();
                 customerEntity.F_AccountBalance = 0;//账户余额初始化
+                customerEntity.F_RoleId = Configs.GetValue("CustomerRoleId");
             }
             service.SubmitForm(customerEntity, keyValue);
         }
