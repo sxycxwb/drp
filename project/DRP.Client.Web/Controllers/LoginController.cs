@@ -66,7 +66,7 @@ namespace DRP.Client.Web.Controllers
                 SetClientOperatorModel(customerEntity);
                 if (customerEntity != null)
                 {
-                    
+
                     logEntity.F_Account = customerEntity.F_Account;
                     logEntity.F_NickName = customerEntity.F_CompanyName;
                     logEntity.F_Result = true;
@@ -119,7 +119,7 @@ namespace DRP.Client.Web.Controllers
                 logEntity.F_Description = "系统后台管理员登录用户中心成功";
                 new LogApp().WriteDbLog(logEntity);
             }
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
 
         private void SetClientOperatorModel(CustomerEntity customerEntity)
@@ -131,6 +131,7 @@ namespace DRP.Client.Web.Controllers
                 operatorModel.UserCode = customerEntity.F_Account;
                 operatorModel.UserName = customerEntity.F_CompanyName;
                 operatorModel.Email = customerEntity.F_Email;
+                operatorModel.RoleId = customerEntity.F_RoleId;
                 operatorModel.AccountBalance = customerEntity.F_AccountBalance;
                 operatorModel.MobilePhone = customerEntity.F_MobilePhone;
                 operatorModel.LoginIPAddress = Net.Ip;

@@ -16,7 +16,7 @@ namespace DRP.Client.Web
             {
                 return;
             }
-            if (OperatorProvider.Provider.GetCurrent() == null)
+            if (ClientOperatorProvider.Provider.GetCurrent() == null)
             {
                 WebHelper.WriteCookie("DRP_login_error", "overdue");
                 filterContext.HttpContext.Response.Write("<script>top.location.href = '/Login/Index';</script>");

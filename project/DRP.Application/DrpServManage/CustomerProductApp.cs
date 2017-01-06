@@ -27,7 +27,7 @@ namespace DRP.Application.DrpServManage
             var customerProductList =
                 dbRepository.FindList<CustomProductModel>(
                     $@"select a.F_Id,F_CustomerId,F_ProductId,a.F_RoyaltyRate,F_Status,F_ChargingDateFlag,F_ProductName,F_ChargePattern,
-                                F_CostPrice,F_ChargeAmount,F_ChargeStyle,F_Description,F_Remark
+                                F_CostPrice,a.F_ChargeAmount,F_ChargeStyle,F_Description,F_Remark
                                  from drp_customerproduct a left join drp_product b on a.F_ProductId=b.F_Id 
                                 where a.F_CustomerId='{keyValue}';");
 

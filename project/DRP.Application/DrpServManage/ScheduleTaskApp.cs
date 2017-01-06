@@ -257,6 +257,7 @@ namespace DRP.Application.DrpServManage
                             cusProduct.F_ChargingDateFlag = DateTime.Now.ToString("yyyy-MM"); //更新计费日期标识为当前月
                         else
                             cusProduct.F_ChargingDateFlag = DateTime.Now.ToString("yyyy");
+                        cusProduct.F_IsLocked = true;
 
                         #endregion
 

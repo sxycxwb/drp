@@ -55,7 +55,7 @@ namespace DRP.Repository.DrpServManage
         {
             using (var db = new RepositoryBase().BeginTrans())
             {
-                db.Delete<CustomerProductEntity>(t => t.F_CustomerId == keyValue);
+                db.Delete<CustomerProductEntity>(t => t.F_CustomerId == keyValue && t.F_ProductId == customerProduct.F_ProductId);
                 db.Insert(customerProduct);
                 db.Commit();
             }

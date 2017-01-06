@@ -18,12 +18,23 @@ namespace DRP.Application.SystemManage
     public class UserApp
     {
         private IUserRepository service = new UserRepository();
+        private IRoleRepository roleService = new RoleRepository();
         private UserLogOnApp userLogOnApp = new UserLogOnApp();
 
         public List<UserEntity> GetList()
         {
             var expression = ExtLinq.True<UserEntity>();
             expression = expression.And(t => t.F_DeleteMark == false);
+            expression = expression.And(t => t.F_Account != ConstantUtility.ADMIN_CODE);
+            return service.IQueryable(expression).ToList();
+        }
+
+        public List<UserEntity> GetBelongPersonList()
+        {
+            var role = roleService.FindEntity(t => t.F_EnCode == "agent");
+
+            var expression = ExtLinq.True<UserEntity>();
+            expression = expression.And(t => t.F_DeleteMark == false && t.F_RoleId == role.F_Id);
             expression = expression.And(t => t.F_Account != ConstantUtility.ADMIN_CODE);
             return service.IQueryable(expression).ToList();
         }

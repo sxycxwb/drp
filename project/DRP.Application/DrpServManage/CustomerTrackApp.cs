@@ -32,7 +32,7 @@ namespace DRP.Application.DrpServManage
                 //expression = expression.Or(t => t.F_MobilePhone.Contains(keyword));
             }
             expression = expression.And(t => t.F_DeleteMark == false);
-            if (!OperatorProvider.Provider.GetCurrent().IsSystem) //不是超级管理员
+            if (OperatorProvider.Provider.GetCurrent() != null && !OperatorProvider.Provider.GetCurrent().IsSystem) //不是超级管理员
             {
                 var currentUserId = OperatorProvider.Provider.GetCurrent().UserId;
                 expression = expression.And(t => t.F_CreatorUserId == currentUserId);

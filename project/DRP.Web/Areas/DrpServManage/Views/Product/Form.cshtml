@@ -24,6 +24,16 @@
     function initControl() {
         if ($("#F_ChargePattern").val() == "0")
             $('#F_ChargeAmount').attr('disabled', false);
+
+        $('#F_ChargeRule').change(function () {
+            if ($('#F_ChargeRule').val() == "1") {
+                $('#F_CostPrice').val('0');
+                $('#F_CostPrice').attr('disabled', 'disabled');
+            } else {
+                $('#F_CostPrice').val('');
+                $('#F_CostPrice').attr('disabled', false);
+            }
+        });
     }
 
     function initEvent() {
@@ -125,8 +135,9 @@
                     <th class="formTitle"><span class="required-span">*</span>提成规则</th>
                     <td class="formValue">
                         <select id="F_ChargeRule" name="F_ChargeRule" class="form-control required">
-                            <option value="0">去除成本价</option>
-                            <option value="1">保留成本价</option>
+                            <option value="0">保留成本价</option>
+                            <option value="1">去除成本价</option>
+
                         </select>
                     </td>
                 </tr>

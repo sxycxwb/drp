@@ -19,6 +19,7 @@
     <link href="~/Content/js/jqgrid/jqgrid.css" rel="stylesheet" />
     <script src="~/Content/js/jqgrid/grid.locale-cn.js"></script>
     <script type="text/javascript" src="~/Content/js/framework-ui.js"></script>
+    <script type="text/javascript" src="~/Content/js/framework-clientdata.js"></script>
 
     <link rel="stylesheet" type="text/css" href="~/Content/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="~/Content/css/jquery-ui.min.css">
@@ -75,7 +76,7 @@
             } catch (e) {
             }
             document.body.className = 'theme-drp-client-blue';
-            //startInit('DRP_iframe', 360);
+            // startInit('DRP_iframe', 360);
             // $.loading(true, '正在获取数据...');
             // 产品：成本价 销售价 默认代理提成率
             // 客户产品关系 中添加 提成比率系数
@@ -83,6 +84,7 @@
             // 代理商提成费用计算 = （销售价-成本价） * 使用系数 * 代理提成率 * 提成比率系数
             // 系统收益计算 = （销售价-成本价） * 使用系数 - 代理商提成费用
 
+            GetLoadNav();
         });
         function tiedcard() {
             $.modalOpen({
@@ -108,24 +110,37 @@
                 }
             });
         }
-        function cardinfo(obj) {
-            changeclass(obj);
-            $("#DRP_iframe").attr("src","/UserCenter/CardInfo/Index");
-        }
-        function rechargeinfo(obj) {
-            changeclass(obj);
-            $("#DRP_iframe").attr("src", "/UserCenter/Recharge/Index");
-        }
-        function feedeductioninfo(obj) {
-            changeclass(obj);
-            $("#DRP_iframe").attr("src", "/UserCenter/Feededuction/Index");
-        }
+        //function cardinfo(obj) {
+        //    changeclass(obj);
+        //    $("#DRP_iframe").attr("src", "/UserCenter/CardInfo/Index");
+        //}
+        //function track(obj) {
+        //    changeclass(obj);
+        //    $("#DRP_iframe").attr("src", "/UserCenter/CustomerTrack/Index");
+        //}
+
+        //function rechargeinfo(obj) {
+        //    changeclass(obj);
+        //    $("#DRP_iframe").attr("src", "/UserCenter/Recharge/Index");
+        //}
+        //function feedeductioninfo(obj) {
+        //    changeclass(obj);
+        //    $("#DRP_iframe").attr("src", "/UserCenter/Feededuction/Index");
+        //}
         function signout() {
             window.location.href = "/Login/Index";
         }
         function goindex(obj) {
-            changeclass(obj)
+            changeclass(obj);
             window.location.reload();//刷新当前页面.
+        }
+        function navbar_click(obj) {
+            changeclass(obj);
+            if (obj.innerText == '账户信息') {
+                window.location.reload();//刷新当前页面.
+            } else {
+                $("#DRP_iframe").attr("src", $(obj).attr("ds_data"));
+            }
         }
         function changeclass(obj) {
             $(obj).addClass("active");
@@ -134,6 +149,20 @@
                     $(this).removeClass('active');
                 }
             })
+        }
+        function GetLoadNav() {
+            var data = top.clients.authorizeMenu;
+            var _menuhtml = "";
+            $.each(data, function (i) {
+                var row = data[i];
+                if (i == 0) {
+                    _menuhtml += '<a href="#" class="list-group-item ds_do_action active" ds_action="showPage" ds_data="' + row.F_UrlAddress + '"  onclick="navbar_click(this)">' + row.F_FullName + '</a>';
+                }
+                else {
+                    _menuhtml += '<a href="#" class="list-group-item ds_do_action" ds_action="showPage" ds_data="' + row.F_UrlAddress + '"  onclick="navbar_click(this)">' + row.F_FullName + '</a>';
+                }
+            });
+            $("#nav_menu").append(_menuhtml);
         }
     </script>
 </head>
@@ -147,15 +176,15 @@
         <div id="main-panel" class="container" style="display: block;height:100%;">
             <div class="user-header clearfix">
                 <div class="pull-left navbar_path" id="pane_tmpl_main_head">
-                    <a href="#" target="_blank"><img src="./用户中心_files/soxcc.jpg" alt="" style="width: 130px;"></a>
+                    @*<a href="#" target="_blank"><img src="./用户中心_files/soxcc.jpg" alt="" style="width: 130px;"></a>*@
                 </div>
                 <div class="pull-left user-title">
                     <p class="">
-                        欢迎您：<strong class="uc_company">@ClientOperatorProvider.Provider.GetCurrent().UserName</strong>
+                        欢迎您：<strong class="uc_company">@DRP.Code.ClientOperatorProvider.Provider.GetCurrent().UserName</strong>
                         <!--<span class="uc_accountname"></span>-->
                         <!--<span class="uc_email"></span>-->
                         &nbsp;&nbsp;
-                        余额:<span class="uc_balance" style="color: #f0ad4e;">@ClientOperatorProvider.Provider.GetCurrent().AccountBalance</span>元
+                        余额:<span class="uc_balance" style="color: #f0ad4e;">@DRP.Code.ClientOperatorProvider.Provider.GetCurrent().AccountBalance</span>元
                         &nbsp;
                         透支额度:<span class="uc_overdraw" style="color: #f0ad4e;">0.00</span>元
                         &nbsp;
@@ -182,13 +211,14 @@
                 <div class="col-md-2" id="left_pane">
                     <div class="panel panel-default">
                         <div class="panel-heading">主页</div>
-                        <div class="list-group">
-                            <a href="#"  class="list-group-item ds_do_action active" ds_action="showPage" ds_data="index/accinfo" action="account.initAccountInfo" onclick="goindex(this)">账户信息</a>
-                            <a href="#" class="list-group-item ds_do_action payRecord" ds_action="showPage" ds_data="index/pay_list" onclick="rechargeinfo(this)" action="fee.getPayList">充值记录</a>
-                            <a href="#" class="list-group-item ds_do_action costRecord" ds_action="showPage" ds_data="index/cost_list" onclick="feedeductioninfo(this)" action="fee.getCostList">消费记录</a>
-                            <a href="#" class="list-group-item ds_do_action feeRecord" ds_action="showPage" ds_data="index/fee/account_fee" action="accFee.showMain">账单查询</a>
-                            <a href="#" class="list-group-item ds_do_action invoiceRecord" ds_action="showPage" ds_data="index/invoice/invoice_main" action="invoice.showMain">发票管理</a>
-                            <a href="#" class="list-group-item ds_do_action" ds_action="showPage" ds_data="index/cardinfo" onclick="cardinfo(this)">绑卡信息</a>
+                        <div class="list-group" id="nav_menu">
+                            @*<a href="#" class="list-group-item ds_do_action active" ds_action="showPage" ds_data="index/accinfo" action="account.initAccountInfo" onclick="goindex(this)">账户信息</a>
+                                <a href="#" class="list-group-item ds_do_action" ds_action="showPage" ds_data="index/pay_list" onclick="rechargeinfo(this)" action="fee.getPayList">充值记录</a>
+                                <a href="#" class="list-group-item ds_do_action" ds_action="showPage" ds_data="index/cost_list" onclick="feedeductioninfo(this)" action="fee.getCostList">消费记录</a>
+                                <a href="#" class="list-group-item ds_do_action" ds_action="showPage" ds_data="index/fee/account_fee" action="accFee.showMain">账单查询</a>
+                                <a href="#" class="list-group-item ds_do_action" ds_action="showPage" ds_data="index/invoice/invoice_main" action="invoice.showMain">发票管理</a>
+                                <a href="#" class="list-group-item ds_do_action" ds_action="showPage" ds_data="index/cardinfo" onclick="cardinfo(this)">绑卡信息</a>
+                                <a href="#" class="list-group-item ds_do_action" ds_action="showPage" ds_data="index/invoice/invoice_main" onclick="track(this)">记事簿</a>*@
                         </div>
                     </div>
                 </div>

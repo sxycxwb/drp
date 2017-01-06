@@ -82,6 +82,7 @@ namespace DRP.Application.DrpServManage
                 {
                     fid = customerProduct.F_Id,
                     productId = productId,
+                    productPrice = customerProduct.F_ChargeAmount,
                     productName = product.F_ProductName,
                     productDes = product.F_Description
                 });
@@ -99,30 +100,37 @@ namespace DRP.Application.DrpServManage
             {
                 customerEntity.Create();
                 customerEntity.F_AccountBalance = 0;//账户余额初始化
+                customerEntity.F_RoleId = Configs.GetValue("CustomerRoleId");
             }
             service.SubmitForm(customerEntity, keyValue);
         }
 
-        public void SubmitProduct(ProductEntity productEntity, string keyValue, string customerId)
+        public void SubmitProduct(ProductEntity productEntity, string keyValue, string customerId, string flag)
         {
             //判断是否添加
             var cusProModel = customerProductService.FindEntity(t => t.F_ProductId == keyValue && t.F_CustomerId == customerId);
-            if(cusProModel != null)
+            if (cusProModel != null && flag == "add")
                 throw new Exception("该产品已添加！");
+
+            if (cusProModel != null && flag != "add" && cusProModel.F_IsLocked == true)
+            {
+                throw new Exception("当前无法修改产品属性，请联系管理员！");
+            }
 
             //判断销售价是否在产品定义的 销售价范围内
             var chargeAmount = productEntity.F_ChargeAmount;
             var product = productService.FindEntity(t => t.F_Id == keyValue);
-            if(chargeAmount<product.F_ChargeAmountMin || chargeAmount > product.F_ChargeAmountMax)
+            if (chargeAmount < product.F_ChargeAmountMin || chargeAmount > product.F_ChargeAmountMax)
                 throw new Exception("销售价不在有效范围内，请重新填写！");
 
             var customerProductEntity = new CustomerProductEntity();
             customerProductEntity.Create();
             customerProductEntity.F_CustomerId = customerId;
+            customerProductEntity.F_IsLocked = false;//锁定标识初始化
             customerProductEntity.F_ChargeAmount = chargeAmount;//销售价
             customerProductEntity.F_ProductId = keyValue;
             customerProductEntity.F_RoyaltyRate = 100;//默认提成比率为100
-            service.SubmitProduct(customerProductEntity, keyValue);
+            service.SubmitProduct(customerProductEntity, customerId);
         }
 
         public void RemoveProduct(string keyValue)
