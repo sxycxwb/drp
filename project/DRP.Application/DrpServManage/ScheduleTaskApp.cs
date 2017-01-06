@@ -197,7 +197,7 @@ namespace DRP.Application.DrpServManage
 
                         var productRoyalRate = product.F_RoyaltyRate / 100;//产品提成系数
                         var productName = product.F_ProductName;//产品名称
-                        var chargeAmount = product.F_ChargeAmount * Convert.ToDecimal(useCoefficient);//销售价
+                        var chargeAmount = cusProduct.F_ChargeAmount * Convert.ToDecimal(useCoefficient);//客户产品的销售价
                         var costPrice = product.F_CostPrice * Convert.ToDecimal(useCoefficient);//成本价
 
                         //每个产品的代理人提成 TODO 目前只有一级代理人获取收益，后期会加入多级
@@ -237,7 +237,7 @@ namespace DRP.Application.DrpServManage
                         #endregion
 
                         #region 3.更新客户账户余额，减去当前产品的销售价格;增加扣费记录
-                        customer.F_AccountBalance -= Math.Round(product.F_ChargeAmount, 2);
+                        customer.F_AccountBalance -= Math.Round(chargeAmount, 2);
                         var feeDeduction = new FeeDeductionRecordEntity()
                         {
                             F_Id = Common.GuId(),
