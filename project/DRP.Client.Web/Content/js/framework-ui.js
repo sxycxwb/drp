@@ -395,7 +395,7 @@ $.fn.bindSelect = function (options) {
     }
 }
 $.fn.authorizeButton = function () {
-    var moduleId = top.$(".DRP_iframe:visible").attr("id").substr(6);
+    var moduleId = top.$("#nav_menu a.active").attr("id");
     var dataJson = top.clients.authorizeButton[moduleId];
     var $element = $(this);
     $element.find('a[authorize=yes]').attr('authorize', 'no');

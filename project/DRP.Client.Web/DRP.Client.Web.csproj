@@ -471,6 +471,7 @@
     <Content Include="Content\js\ueditor\third-party\video-js\font\vjs.ttf" />
     <Content Include="Content\js\ueditor\third-party\video-js\font\vjs.woff" />
     <Content Include="Areas\UserCenter\Views\CustomerProduct\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\clientweb.pubxml" />
     <None Include="Properties\PublishProfiles\drp_client.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

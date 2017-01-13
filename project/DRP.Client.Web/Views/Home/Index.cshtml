@@ -87,6 +87,7 @@
             GetLoadNav();
         });
         function tiedcard() {
+            $.cookie('DRP_currentmoduleid', '582ca189-da34-4529-9d28-5b2c3e71f611', { path: "/" });
             $.modalOpen({
                 id: "Form",
                 title: "绑卡",
@@ -139,6 +140,8 @@
             if (obj.innerText == '账户信息') {
                 window.location.reload();//刷新当前页面.
             } else {
+                var dataId = $("#nav_menu a.active").attr("id");
+                $.cookie('DRP_currentmoduleid', dataId, { path: "/" });
                 $("#DRP_iframe").attr("src", $(obj).attr("ds_data"));
             }
         }
@@ -148,7 +151,7 @@
                 if ($(this).hasClass('active')) {
                     $(this).removeClass('active');
                 }
-            })
+            });
         }
         function GetLoadNav() {
             var data = top.clients.authorizeMenu;
@@ -156,10 +159,10 @@
             $.each(data, function (i) {
                 var row = data[i];
                 if (i == 0) {
-                    _menuhtml += '<a href="#" class="list-group-item ds_do_action active" ds_action="showPage" ds_data="' + row.F_UrlAddress + '"  onclick="navbar_click(this)">' + row.F_FullName + '</a>';
+                    _menuhtml += '<a href="#" id="' + row.F_Id + '" class="list-group-item ds_do_action active" ds_action="showPage" ds_data="' + row.F_UrlAddress + '"  onclick="navbar_click(this)">' + row.F_FullName + '</a>';
                 }
                 else {
-                    _menuhtml += '<a href="#" class="list-group-item ds_do_action" ds_action="showPage" ds_data="' + row.F_UrlAddress + '"  onclick="navbar_click(this)">' + row.F_FullName + '</a>';
+                    _menuhtml += '<a href="#" id="' + row.F_Id + '" class="list-group-item ds_do_action" ds_action="showPage" ds_data="' + row.F_UrlAddress + '"  onclick="navbar_click(this)">' + row.F_FullName + '</a>';
                 }
             });
             $("#nav_menu").append(_menuhtml);
@@ -181,8 +184,6 @@
                 <div class="pull-left user-title">
                     <p class="">
                         欢迎您：<strong class="uc_company">@DRP.Code.ClientOperatorProvider.Provider.GetCurrent().UserName</strong>
-                        <!--<span class="uc_accountname"></span>-->
-                        <!--<span class="uc_email"></span>-->
                         &nbsp;&nbsp;
                         余额:<span class="uc_balance" style="color: #f0ad4e;">@DRP.Code.ClientOperatorProvider.Provider.GetCurrent().AccountBalance</span>元
                         &nbsp;

@@ -18,7 +18,7 @@ namespace DRP.Client.Web.Areas.UserCenter.Controllers
     public class CustomerTrackController : ControllerBase
     {
         private CustomerTrackApp customerTrackApp = new CustomerTrackApp();
-
+         
         [HttpGet]
         [HandlerAjaxOnly]
         public ActionResult GetGridJson(Pagination pagination, string keyword)
