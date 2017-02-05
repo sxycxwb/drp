@@ -13,7 +13,6 @@ namespace DRP.Client.Web.Areas.UserCenter.Controllers
     public class AccountInfoController : ControllerBase
     {
         [HttpGet]
-        [HandlerAuthorize]
         public virtual ActionResult ChangePwd()
         {
             return View();
