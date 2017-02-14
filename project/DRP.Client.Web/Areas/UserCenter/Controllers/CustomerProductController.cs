@@ -33,8 +33,6 @@ namespace DRP.Client.Web.Areas.UserCenter.Controllers
 
         [HttpPost]
         [HandlerAjaxOnly]
-        [HandlerAuthorize]
-        [ValidateAntiForgeryToken]
         public ActionResult StopPayProduct(string keyValue)
         {
             var customerProductEntity = customerProductApp.GetForm(keyValue);
@@ -42,10 +40,9 @@ namespace DRP.Client.Web.Areas.UserCenter.Controllers
             customerProductApp.UpdateForm(customerProductEntity);
             return Success("产品停用成功。");
         }
+       
         [HttpPost]
         [HandlerAjaxOnly]
-        [HandlerAuthorize]
-        [ValidateAntiForgeryToken]
         public ActionResult StartPayProduct(string keyValue)
         {
             var customerProductEntity = customerProductApp.GetForm(keyValue);
@@ -53,9 +50,12 @@ namespace DRP.Client.Web.Areas.UserCenter.Controllers
             var productId = customerProductEntity.F_ProductId;
 
             var productEntity = productApp.GetForm(productId);
-            if (ClientOperatorProvider.Provider.GetCurrent().AccountBalance>= customerProductEntity.F_ChargeAmount)
+            ClientOperatorModel customer = ClientOperatorProvider.Provider.GetCurrent();
+            if (customer.AccountBalance >= customerProductEntity.F_ChargeAmount)
             {
                 scheduleTaskApp.ProfitCalculateTask(customerId, productId, productEntity.F_ChargeStyle);
+                customer.AccountBalance = customer.AccountBalance - customerProductEntity.F_ChargeAmount;
+                ClientOperatorProvider.Provider.AddCurrent(customer);
                 return Success("产品购买成功。");
             }
             else
