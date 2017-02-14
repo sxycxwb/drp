@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace DRP.Client.Web.Areas.UserCenter.Controllers
 {
-    public class FeedeductionController : Controller
+    public class FeedeductionController : ControllerBase
     {
         private FeedeductionApp feedeductionApp = new FeedeductionApp();
         // GET: UserCenter/Feededuction

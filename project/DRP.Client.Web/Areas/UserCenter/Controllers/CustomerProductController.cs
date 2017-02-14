@@ -53,9 +53,16 @@ namespace DRP.Client.Web.Areas.UserCenter.Controllers
             var productId = customerProductEntity.F_ProductId;
 
             var productEntity = productApp.GetForm(productId);
-            scheduleTaskApp.ProfitCalculateTask(customerId, productId, productEntity.F_ChargeStyle);
+            if (ClientOperatorProvider.Provider.GetCurrent().AccountBalance>= customerProductEntity.F_ChargeAmount)
+            {
+                scheduleTaskApp.ProfitCalculateTask(customerId, productId, productEntity.F_ChargeStyle);
+                return Success("产品购买成功。");
+            }
+            else
+            {
+                return Error("余额不足，请充值。");
+            }
 
-            return Success("产品购买成功。");
         }
     }
 }

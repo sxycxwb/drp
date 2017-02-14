@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace DRP.Client.Web.Areas.UserCenter.Controllers
 {
-    public class RechargeController : Controller
+    public class RechargeController : ControllerBase
     {
 
         private RechargeApp rechargeApp = new RechargeApp();
