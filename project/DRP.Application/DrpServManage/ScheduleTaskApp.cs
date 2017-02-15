@@ -333,7 +333,7 @@ namespace DRP.Application.DrpServManage
                         recharge.F_Status = 1;
                         var customer = customerService.FindEntity(t => t.F_Id == cusBank.F_CustomerId);
                         customer.F_AccountBalance += recharge.F_RechargeAccount;//更新余额
-
+                        recharge.F_CustomerId = customer.F_Id;
                         db.Update(recharge);//更新充值记录
                         db.Update(customer);//更新客户信息
                     }
