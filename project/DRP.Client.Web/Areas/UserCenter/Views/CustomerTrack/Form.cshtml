@@ -12,7 +12,7 @@
         initControl();
         if (!!keyValue) {
             $.ajax({
-                url: "/DrpServManage/CustomerTrack/GetFormJson",
+                url: "/UserCenter/CustomerTrack/GetFormJson",
                 data: { keyValue: keyValue },
                 dataType: "json",
                 async: false,
@@ -66,8 +66,8 @@
         $.submitForm({
             url: "/UserCenter/CustomerTrack/SubmitForm?keyValue=" + keyValue,
             param: $("#form1").formSerialize(),
-            success: function () {
-                $.currentWindow().$("#gridList").trigger("reloadGrid");
+            success: function (msg) {
+                $.modalAlert(msg.message, 'success');
             }
         });
     }

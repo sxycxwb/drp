@@ -12,7 +12,7 @@
         initControl();
         if (!!keyValue) {
             $.ajax({
-                url: "/DrpServManage/CustomerTrack/GetFormJson",
+                url: "/UserCenter/CustomerTrack/GetFormJson",
                 data: { keyValue: keyValue },
                 dataType: "json",
                 async: false,
@@ -39,7 +39,7 @@
     function initCustomerSearch() {
         $("#F_CustomerId").select2({
             ajax: {
-                url: "/DrpServManage/Customer/GetCustoemrJson",
+                url: "/UserCenter/Customer/GetCustoemrJson",
                 dataType: 'json',
                 delay: 250,
                 data: function (params) {
@@ -82,9 +82,9 @@
             return false;
         }
         $('#F_Content').val(UE.getEditor('editor').getContent());
-
+       
         $.submitForm({
-            url: "/DrpServManage/CustomerTrack/SubmitForm?keyValue=" + keyValue,
+            url: "/UserCenter/CustomerTrack/SubmitForm?keyValue=" + keyValue,
             param: $("#form1").formSerialize(),
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");

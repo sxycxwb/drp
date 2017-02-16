@@ -53,8 +53,6 @@ namespace DRP.Client.Web.Areas.SystemManage.Controllers
         }
         [HttpPost]
         [HandlerAjaxOnly]
-        [HandlerAuthorize]
-        [ValidateAntiForgeryToken]
         public ActionResult DeleteForm(string keyValue)
         {
             itemsDetailApp.DeleteForm(keyValue);

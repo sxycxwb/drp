@@ -61,9 +61,7 @@ namespace DRP.Client.Web.Areas.UserCenter.Controllers
         }
 
         [HttpPost]
-        [HandlerAuthorize]
         [HandlerAjaxOnly]
-        [ValidateAntiForgeryToken]
         public ActionResult DeleteForm(string keyValue)
         {
             customerTrackApp.DeleteForm(keyValue);
