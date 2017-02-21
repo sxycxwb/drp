@@ -204,7 +204,7 @@ namespace DRP.Application.DrpServManage
                         var toyal = (chargeAmount - costPrice) * productRoyalRate * cusProRoyalRate;
                         toyal = Math.Round(toyal, 2);//保留两位小数
                         //每个产品的系统收益
-                        var systemToyal = (chargeAmount - costPrice) * Convert.ToDecimal(useCoefficient) - toyal;
+                        var systemToyal = (chargeAmount - costPrice) - toyal;
 
                         #region 业务实体赋值，更新数据库
 
@@ -227,17 +227,20 @@ namespace DRP.Application.DrpServManage
                             F_Type = "agent"
                         };
                         //系统收益记录信息
-                        var sysComisssionRecord = comisssionRecord;
-                        sysComisssionRecord.F_Id = Common.GuId();
-                        sysComisssionRecord.F_CreatorTime = DateTime.Now;
-                        sysComisssionRecord.F_CommissionAmount = systemToyal;
-                        sysComisssionRecord.F_CommissionPersonId = "";
-                        sysComisssionRecord.F_Type = "system";
+                        var sysComisssionRecord = new ComissionRecordEntity()
+                        {
+                            F_Id = Common.GuId(),
+                            F_ProductId = product.F_Id,
+                            F_CommissionAmount = systemToyal,
+                            F_CommissionPersonId = "",
+                            F_CustomerId = customer.F_Id,
+                            F_CreatorTime = DateTime.Now,
+                            F_Type = "system",
+                        };
+                    #endregion
 
-                        #endregion
-
-                        #region 3.更新客户账户余额，减去当前产品的销售价格;增加扣费记录
-                        customer.F_AccountBalance -= Math.Round(chargeAmount, 2);
+                    #region 3.更新客户账户余额，减去当前产品的销售价格;增加扣费记录
+                    customer.F_AccountBalance -= Math.Round(chargeAmount, 2);
                         var feeDeduction = new FeeDeductionRecordEntity()
                         {
                             F_Id = Common.GuId(),
@@ -296,7 +299,7 @@ namespace DRP.Application.DrpServManage
         {
             //查询所有充值记录中 状态 为 0-手工录账 2-核对未通过
             var exp = ExtLinq.True<RechargeRecordEntity>();
-            exp.And(t => t.F_Status == 0 || t.F_Status == 2);
+            exp = exp.And(t => t.F_Status == 0 || t.F_Status == 2);
             if (!string.IsNullOrEmpty(bankAccountName))
             {
                 exp = exp.And(t => t.F_BankAccountName == bankAccountName);//拼接银行账户名的查询条件
