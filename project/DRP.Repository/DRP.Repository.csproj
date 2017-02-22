@@ -47,6 +47,7 @@
     <Compile Include="DrpServManage\ProductCategoryRepository.cs" />
     <Compile Include="DrpServManage\ProductModuleRepository.cs" />
     <Compile Include="DrpServManage\FeedeductionRecordRepository.cs" />
+    <Compile Include="DrpServManage\ProfitRecordRepository.cs" />
     <Compile Include="DrpServManage\RechargeRecordRepository.cs" />
     <Compile Include="DrpServManage\ProductRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

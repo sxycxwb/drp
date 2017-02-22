@@ -46,7 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DrpServManage\CustomerBankMap.cs" />
-    <Compile Include="DrpServManage\ComissionRecordMap.cs" />
+    <Compile Include="DrpServManage\ProfitRecordMap.cs" />
     <Compile Include="DrpServManage\CustomerTrackMap.cs" />
     <Compile Include="DrpServManage\FeeDeductionRecordMap.cs" />
     <Compile Include="DrpServManage\CustomerProductMap.cs" />

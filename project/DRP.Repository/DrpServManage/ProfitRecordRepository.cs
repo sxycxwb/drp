@@ -4,17 +4,13 @@
  * Description: 分销系统
  * Website：
 *********************************************************************************/
+using DRP.Data;
 using DRP.Domain.Entity.DrpServManage;
-using System.Data.Entity.ModelConfiguration;
+using DRP.Domain.IRepository.DrpServManage;
 
-namespace DRP.Mapping.DrpServManage
+namespace DRP.Repository.SystemManage
 {
-    public class ComissionRecordMap : EntityTypeConfiguration<ComissionRecordEntity>
+    public class ProfitRecordRepository : RepositoryBase<ProfitRecordEntity>, IProfitRecordRepository
     {
-        public ComissionRecordMap()
-        {
-            this.ToTable("drp_commissionrecord");
-            this.HasKey(t => t.F_Id);
-        }
     }
 }

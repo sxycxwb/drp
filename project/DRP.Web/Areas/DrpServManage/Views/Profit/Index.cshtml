@@ -1,0 +1,81 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Index.cshtml";
+}
+<script>
+    $(function () {
+        gridList();
+    });
+    function gridList() {
+        var $gridList = $("#gridList");
+        $gridList.dataGrid({
+            url: "/DrpServManage/Profit/GetGridJson",
+            height: $(window).height() - 128,
+            colModel: [
+                { label: '主键', name: 'F_Id', hidden: true },
+                { label: '客户名称', width: 250, name: 'F_CustomerName', align: 'left' },
+                { label: '扣费产品', width: 150, name: 'F_ProductName', align: 'left' },
+                {
+                    label: '提成金额(元)', name: 'F_ProfitAmount', width: 100, align: 'left',
+                    formatter: function (cellvalue) {
+                        return cellvalue.toFixed(2);
+                    }
+                },
+                {
+                    label: '入账时间', name: 'F_CreatorTime', width: 120, align: 'left',
+                    formatter: "date", formatoptions: { srcformat: 'Y-m-d H:d:s', newformat: 'Y-m-d H:d:s' }
+                }
+            ],
+            pager: "#gridPager",
+            sortname: 'F_CreatorTime desc',
+            viewrecords: true
+        });
+        $("#profitType").change(function () {
+            $gridList.jqGrid('setGridParam', {
+                postData: { type: $("#profitType").val() }
+            }).trigger('reloadGrid');
+        });
+    }
+    
+
+</script>
+<div class="topPanel">
+    <div class="toolbar">
+        <div class="btn-group">
+            <a class="btn btn-primary" onclick="$.reload()"><span class="glyphicon glyphicon-refresh"></span></a>
+        </div>
+        <div class="btn-group">
+            <a id="DRP-add" authorize="yes" class="btn btn-primary dropdown-text" onclick="btn_add()"><i class="fa fa-plus"></i>手工录账</a>
+        </div>
+        <div class="operate">
+            <ul class="nav nav-pills">
+                <li class="first">已选中<span>1</span>项</li>
+                <li><a id="DRP-reset" authorize="yes" onclick="btn_reset()"><i class="fa fa-pencil-square-o"></i>撤销</a></li>
+            </ul>
+            <a href="javascript:;" class="close"></a>
+        </div>
+        <script>$('.toolbar').authorizeButton()</script>
+    </div>
+    <div class="search">
+        <table>
+            <tr>
+                <td>
+                    <div class="input-group">
+                        收益类别：
+                        <select id="profitType" class="select" style="height: 29px;">
+                            <option value="system">系统</option>
+                            <option value="agent">代理商</option>
+                        </select>
+                        @*<span class="input-group-btn">
+                            <button id="btn_search" type="button" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                        </span>*@
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="gridPanel">
+    <table id="gridList"></table>
+    <div id="gridPager"></div>
+</div>

@@ -216,40 +216,44 @@ namespace DRP.Application.DrpServManage
 
                         #region 2.新增记录中间环节收益和系统收益 的记录
 
-                        var comisssionRecord = new ComissionRecordEntity()
+                        var comisssionRecord = new ProfitRecordEntity()
                         {
                             F_Id = Common.GuId(),
                             F_ProductId = product.F_Id,
-                            F_CommissionAmount = toyal,
-                            F_CommissionPersonId = customer.F_BelongPersonId,
+                            F_ProductName = product.F_ProductName,
+                            F_ProfitAmount = toyal,
+                            F_ProfitPersonId = customer.F_BelongPersonId,
                             F_CustomerId = customer.F_Id,
+                            F_CustomerName = customer.F_CompanyName,
                             F_CreatorTime = DateTime.Now,
                             F_Type = "agent"
                         };
                         //系统收益记录信息
-                        var sysComisssionRecord = new ComissionRecordEntity()
+                        var sysComisssionRecord = new ProfitRecordEntity()
                         {
                             F_Id = Common.GuId(),
                             F_ProductId = product.F_Id,
-                            F_CommissionAmount = systemToyal,
-                            F_CommissionPersonId = "",
+                            F_ProductName = product.F_ProductName,
+                            F_ProfitAmount = systemToyal,
+                            F_ProfitPersonId = "",
                             F_CustomerId = customer.F_Id,
+                            F_CustomerName = customer.F_CompanyName,
                             F_CreatorTime = DateTime.Now,
                             F_Type = "system",
                         };
                     #endregion
 
-                    #region 3.更新客户账户余额，减去当前产品的销售价格;增加扣费记录
-                    customer.F_AccountBalance -= Math.Round(chargeAmount, 2);
-                        var feeDeduction = new FeeDeductionRecordEntity()
-                        {
-                            F_Id = Common.GuId(),
-                            F_CreatorTime = DateTime.Now,
-                            F_CustomerId = customer.F_Id,
-                            F_ProductId = product.F_Id,
-                            F_ProductName = productName,
-                            F_DeductionFee = product.F_ChargeAmount
-                        };
+                        #region 3.更新客户账户余额，减去当前产品的销售价格;增加扣费记录
+                        customer.F_AccountBalance -= Math.Round(chargeAmount, 2);
+                            var feeDeduction = new FeeDeductionRecordEntity()
+                            {
+                                F_Id = Common.GuId(),
+                                F_CreatorTime = DateTime.Now,
+                                F_CustomerId = customer.F_Id,
+                                F_ProductId = product.F_Id,
+                                F_ProductName = productName,
+                                F_DeductionFee = product.F_ChargeAmount
+                            };
 
                         #endregion
 
@@ -298,7 +302,7 @@ namespace DRP.Application.DrpServManage
         public void RechargeTask(string bankAccountName = "")
         {
             //查询所有充值记录中 状态 为 0-手工录账 2-核对未通过
-            var exp = ExtLinq.True<RechargeRecordEntity>();
+                var exp = ExtLinq.True<RechargeRecordEntity>();
             exp = exp.And(t => t.F_Status == 0 || t.F_Status == 2);
             if (!string.IsNullOrEmpty(bankAccountName))
             {

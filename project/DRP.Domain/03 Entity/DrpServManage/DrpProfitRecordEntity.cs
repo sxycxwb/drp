@@ -12,25 +12,37 @@ namespace DRP.Domain.Entity.DrpServManage
     /// <summary>
     /// 收益记录
     /// </summary>
-    public class ComissionRecordEntity : CreationAuditedEntity<string>
+    public class ProfitRecordEntity : CreationAuditedEntity<string>
     {
         /// <summary>
         /// 客户ID
         /// </summary>
         public string F_CustomerId { get; set; }
+        
+        /// <summary>
+        /// 客户名称
+        /// </summary>
+        public string F_CustomerName { get; set; }
 
         /// <summary>
         /// 受益人ID
         /// </summary>
-        public string F_CommissionPersonId { get; set; }
+        public string F_ProfitPersonId { get; set; }
+        
         /// <summary>
         /// 产品ID
         /// </summary>
         public string F_ProductId { get; set; }
+
+        /// <summary>
+        /// 产品名称
+        /// </summary>
+        public string F_ProductName { get; set; }
+
         /// <summary>
         /// 提成金额
         /// </summary>
-        public decimal F_CommissionAmount { get; set; }
+        public decimal F_ProfitAmount { get; set; }
 
         /// <summary>
         /// 受益人类型
