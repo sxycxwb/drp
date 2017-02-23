@@ -2,10 +2,76 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Index.cshtml";
 }
+<link href="~/Content/js/select2/select2.min.css" rel="stylesheet" />
+<script src="~/Content/js/select2/select2.min.js"></script>
+<script src="~/Content/js/datepicker/WdatePicker.js"></script>
 <script>
+    var type = 'agent', agentId = '';
     $(function () {
-        gridList();
+        Init();
+
+        $('#profitType').change(function() {
+            if ($(this).val() == "agent") {
+                $('#span_agent').show();
+            } else {
+                $('#span_agent').hide();
+            }
+            var $gridList = $("#gridList");
+            $gridList.jqGrid('setGridParam', {
+                postData: { type: $("#profitType").val(), agentId: $('#F_AgentId').val() }
+            }).trigger('reloadGrid');
+        });
+
+        $('#F_AgentId').change(function () {
+            var $gridList = $("#gridList");
+            $gridList.jqGrid('setGridParam', {
+                postData: { type: $("#profitType").val(), agentId: $('#F_AgentId').val() }
+            }).trigger('reloadGrid');
+        });
     });
+
+    function Init() {
+        IsSystem();
+        BindAgent();//绑定代理商
+    }
+
+    function IsSystem() {
+        $.ajax({
+            url: "/DrpServManage/Profit/CurrentIsSystem",    //后台webservice里的方法名称
+            type: "get",
+            dataType: "json",
+            contentType: "application/json",
+            success: function (data) {
+                if (data.flag == true) {
+                    $('#span_type').show();                  
+                    type = $('#profitType').val();
+                    agentId = $('#F_AgentId').val();
+                }
+                gridList();
+            }
+        });
+    }
+
+    function BindAgent() {
+        $.ajax({
+            url: "/SystemManage/User/GetBelongPersonListJson",    //后台webservice里的方法名称
+            type: "get",
+            dataType: "json",
+            contentType: "application/json",
+            success: function (data) {
+                var optionstring = "";
+                for (var i in data) {
+                    var jsonObj = data[i];
+                    optionstring += "<option value=\"" + jsonObj.F_Id + "\" >" + jsonObj.F_RealName + "</option>";
+                }
+                $("#F_AgentId").html(optionstring);
+            },
+            error: function (msg) {
+                alert("出错了！");
+            }
+        });
+    }
+
     function gridList() {
         var $gridList = $("#gridList");
         $gridList.dataGrid({
@@ -30,22 +96,18 @@
             sortname: 'F_CreatorTime desc',
             viewrecords: true
         });
-        $("#profitType").change(function () {
-            $gridList.jqGrid('setGridParam', {
-                postData: { type: $("#profitType").val() }
-            }).trigger('reloadGrid');
-        });
+        
     }
-    
+
 
 </script>
 <div class="topPanel">
     <div class="toolbar">
-        <div class="btn-group">
-            <a class="btn btn-primary" onclick="$.reload()"><span class="glyphicon glyphicon-refresh"></span></a>
+        <div class="btn-group" id="totalProfit" style="color: red; margin-right: 10px; font-weight: bold;">
+            收益总计：1057.78 元
         </div>
         <div class="btn-group">
-            <a id="DRP-add" authorize="yes" class="btn btn-primary dropdown-text" onclick="btn_add()"><i class="fa fa-plus"></i>手工录账</a>
+            <a class="btn btn-primary" onclick="$.reload()"><span class="glyphicon glyphicon-refresh"></span></a>
         </div>
         <div class="operate">
             <ul class="nav nav-pills">
@@ -61,14 +123,22 @@
             <tr>
                 <td>
                     <div class="input-group">
-                        收益类别：
-                        <select id="profitType" class="select" style="height: 29px;">
-                            <option value="system">系统</option>
-                            <option value="agent">代理商</option>
-                        </select>
-                        @*<span class="input-group-btn">
+                        <span id="span_type" style="display: none;">
+                            &nbsp;&nbsp;&nbsp;&nbsp;收益类别：
+                            <select id="profitType" name="profitType" class="select" style="height: 29px;">
+                                <option value="system">系统</option>
+                                <option value="agent">代理商</option>
+                            </select>
+                        </span>
+                        <span id="span_agent" style="display: none;">
+                            &nbsp;&nbsp;&nbsp;&nbsp;代理商：
+                            <select id="F_AgentId" name="F_AgentId" class="select" style="height: 29px;"></select>
+                        </span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;月份：
+                        <input id="selectMonth" name="selectMonth" type="text" style="height: 23px; width: 100px;" class="input-wdatepicker" onfocus="WdatePicker({ dateFmt: 'yyyy-MM' })" />
+                        <span class="input-group-btn">
                             <button id="btn_search" type="button" class="btn btn-primary"><i class="fa fa-search"></i></button>
-                        </span>*@
+                        </span>
                     </div>
                 </td>
             </tr>

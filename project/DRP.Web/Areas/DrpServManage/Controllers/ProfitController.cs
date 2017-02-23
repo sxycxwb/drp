@@ -19,14 +19,25 @@ namespace DRP.Web.Areas.DrpServManage.Controllers
 
         [HttpGet]
         [HandlerAjaxOnly]
-        public ActionResult GetGridJson(Pagination pagination, string type)
+        public ActionResult GetGridJson(Pagination pagination, string type,string agentId)
         {
             var data = new
             {
-                rows = profitApp.GetList(pagination, type),
+                rows = profitApp.GetList(pagination, type, agentId),
                 total = pagination.total,
                 page = pagination.page,
                 records = pagination.records
+            };
+            return Content(data.ToJson());
+        }
+
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult CurrentIsSystem()
+        {
+            var data = new
+            {
+                flag = OperatorProvider.Provider.GetCurrent().IsSystem
             };
             return Content(data.ToJson());
         }

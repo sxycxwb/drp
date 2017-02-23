@@ -21,7 +21,7 @@ namespace DRP.Application.DrpServManage
     public class ProfitApp
     {
         private IProfitRecordRepository service = new ProfitRecordRepository();
-        public List<ProfitRecordEntity> GetList(Pagination pagination, string type)
+        public List<ProfitRecordEntity> GetList(Pagination pagination, string type,string agentId)
         {
             var expression = ExtLinq.True<ProfitRecordEntity>();
             if (!string.IsNullOrEmpty(type))
@@ -32,6 +32,11 @@ namespace DRP.Application.DrpServManage
             {
                 var currentUserId = OperatorProvider.Provider.GetCurrent().UserId;
                 expression = expression.And(t => t.F_ProfitPersonId == currentUserId);
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(agentId))//按代理人筛选数据
+                    expression = expression.And(t => t.F_ProfitPersonId == agentId);
             }
             return service.FindList(expression, pagination).OrderByDescending(t => t.F_CreatorTime).ToList();
         }
