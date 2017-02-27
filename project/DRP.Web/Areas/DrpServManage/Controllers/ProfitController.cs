@@ -19,16 +19,24 @@ namespace DRP.Web.Areas.DrpServManage.Controllers
 
         [HttpGet]
         [HandlerAjaxOnly]
-        public ActionResult GetGridJson(Pagination pagination, string type,string agentId)
+        public ActionResult GetGridJson(Pagination pagination, string type,string agentId,string month)
         {
             var data = new
             {
-                rows = profitApp.GetList(pagination, type, agentId),
+                rows = profitApp.GetList(pagination, type, agentId, month),
                 total = pagination.total,
                 page = pagination.page,
                 records = pagination.records
             };
             return Content(data.ToJson());
+        }
+
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetTotalProfitJson(string type, string agentId, string month)
+        {
+            var obj = profitApp.GetTotalProfit(type, agentId, month);
+            return Content(obj.ToJson());
         }
 
         [HttpGet]
@@ -40,6 +48,13 @@ namespace DRP.Web.Areas.DrpServManage.Controllers
                 flag = OperatorProvider.Provider.GetCurrent().IsSystem
             };
             return Content(data.ToJson());
+        }
+
+        [HttpGet]
+        [HandlerAuthorize]
+        public ActionResult Withdrawals()//提现
+        {
+            return View();
         }
 
     }

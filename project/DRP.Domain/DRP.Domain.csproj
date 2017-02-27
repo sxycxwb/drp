@@ -89,6 +89,7 @@
     <Compile Include="03 Entity\DrpServManage\DrpProductModuleEntity.cs" />
     <Compile Include="03 Entity\DrpServManage\DrpProductEntity.cs" />
     <Compile Include="03 Entity\DrpServManage\DrpFeeDeductionRecordEntity.cs" />
+    <Compile Include="03 Entity\DrpServManage\DrpWithDrawalsRecordEntity.cs" />
     <Compile Include="03 Entity\DrpServManage\DrpRechargeRecordEntity.cs" />
     <Compile Include="03 Entity\DrpServManage\DrpProductCategory.cs" />
     <Compile Include="03 Entity\SystemManage\AreaEntity.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="04 IRepository\DrpServManage\IFeedeductionRecordRepository.cs" />
     <Compile Include="04 IRepository\DrpServManage\IProductCategoryRepository.cs" />
     <Compile Include="04 IRepository\DrpServManage\IProfitRecordRepository.cs" />
+    <Compile Include="04 IRepository\DrpServManage\IDrpWithDrawalsRecordRepository.cs" />
     <Compile Include="04 IRepository\DrpServManage\IRechargeRecordRepository.cs" />
     <Compile Include="04 IRepository\DrpServManage\IProductRepository.cs" />
     <Compile Include="04 IRepository\DrpServManage\IProductModuleRepository.cs" />

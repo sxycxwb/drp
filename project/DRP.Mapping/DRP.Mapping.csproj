@@ -51,6 +51,7 @@
     <Compile Include="DrpServManage\FeeDeductionRecordMap.cs" />
     <Compile Include="DrpServManage\CustomerProductMap.cs" />
     <Compile Include="DrpServManage\ProductCategoryMap.cs" />
+    <Compile Include="DrpServManage\WithDrawalsRecordMap.cs" />
     <Compile Include="DrpServManage\RechargeRecordMap.cs" />
     <Compile Include="DrpServManage\ProductMap.cs" />
     <Compile Include="DrpServManage\ProductModuleMap.cs" />

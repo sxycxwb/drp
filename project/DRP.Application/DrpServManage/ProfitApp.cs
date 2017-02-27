@@ -21,9 +21,13 @@ namespace DRP.Application.DrpServManage
     public class ProfitApp
     {
         private IProfitRecordRepository service = new ProfitRecordRepository();
-        public List<ProfitRecordEntity> GetList(Pagination pagination, string type,string agentId)
+        public List<ProfitRecordEntity> GetList(Pagination pagination, string type, string agentId, string month)
         {
             var expression = ExtLinq.True<ProfitRecordEntity>();
+            DateTime dt = DateTime.ParseExact(month, "yyyy-MM", System.Globalization.CultureInfo.CurrentCulture);
+            DateTime firstDay = dt.AddDays(-dt.Day + 1);
+            DateTime lastDay = dt.AddMonths(1).AddDays(-dt.AddMonths(1).Day);
+            expression = expression.And(t => t.F_CreatorTime >= firstDay && t.F_CreatorTime <= lastDay);
             if (!string.IsNullOrEmpty(type))
             {
                 expression = expression.And(t => t.F_Type == type);
@@ -35,10 +39,29 @@ namespace DRP.Application.DrpServManage
             }
             else
             {
-                if (!string.IsNullOrEmpty(agentId))//按代理人筛选数据
+                if (!string.IsNullOrEmpty(agentId) && type == "agent")//按代理人筛选数据
                     expression = expression.And(t => t.F_ProfitPersonId == agentId);
             }
             return service.FindList(expression, pagination).OrderByDescending(t => t.F_CreatorTime).ToList();
+        }
+
+        class Profit
+        {
+            public string TotalProfit { get; set; }
+        }
+
+        public object GetTotalProfit(string type, string agentId, string month)
+        {
+            DateTime dt = DateTime.ParseExact(month, "yyyy-MM", System.Globalization.CultureInfo.CurrentCulture);
+            DateTime firstDay = dt.AddDays(-dt.Day + 1);
+            DateTime lastDay = dt.AddMonths(1).AddDays(-dt.AddMonths(1).Day);
+            var dbRepository = new RepositoryBase();
+            var sqlStr = $"SELECT sum(F_ProfitAmount) TotalProfit from drp_profitrecord where F_type='{type}' and F_CreatorTime>='{firstDay.ToString("yyyy-MM-dd")}' and F_CreatorTime<='{lastDay.ToString("yyyy-MM-dd")}' ";
+            if (!string.IsNullOrEmpty(agentId) && type == "agent") //按代理人筛选数据
+                sqlStr += $"and F_ProfitPersonId='{agentId}'";
+
+            var obj = dbRepository.FindList<Profit>(sqlStr);
+            return obj;
         }
     }
 }
