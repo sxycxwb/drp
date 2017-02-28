@@ -128,10 +128,10 @@
                 $.submitForm({
                     url: "/SystemManage/User/DisabledAccount",
                     param: { keyValue: keyValue },
-                    success: function () {
-                        window.location.reload();//刷新当前页面.
+                    success: function() {
+                        window.location.reload(); //刷新当前页面.
                     }
-                })
+                });
             }
         });
     }
@@ -181,7 +181,7 @@
                     <div class="input-group">
                         <input id="txt_keyword" type="text" class="form-control" placeholder="账户/姓名/手机" style="width: 200px;">
                         <span class="input-group-btn">
-                            <button id="btn_search" type="button" class="btn  btn-primary"><i class="fa fa-search"></i></button>
+                            <button id="btn_search" type="button" class="btn btn-primary"><i class="fa fa-search"></i></button>
                         </span>
                     </div>
                 </td>

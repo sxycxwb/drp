@@ -21,6 +21,8 @@ namespace DRP.Application.DrpServManage
     public class ProfitApp
     {
         private IProfitRecordRepository service = new ProfitRecordRepository();
+        private IDrpWithDrawalsRecordRepository wdService = new WithDrawalsRecordRepository();
+
         public List<ProfitRecordEntity> GetList(Pagination pagination, string type, string agentId, string month)
         {
             var expression = ExtLinq.True<ProfitRecordEntity>();
@@ -62,6 +64,18 @@ namespace DRP.Application.DrpServManage
 
             var obj = dbRepository.FindList<Profit>(sqlStr);
             return obj;
+        }
+
+
+        public List<WithDrawalsRecordEntity> GetWithdrawalsList(Pagination pagination, string keyword)
+        {
+            var expression = ExtLinq.True<WithDrawalsRecordEntity>();
+            return wdService.FindList(expression, pagination).OrderByDescending(t => t.F_CreatorTime).ToList();
+        }
+
+        public WithDrawalsRecordEntity GetWithdrawalsForm(string keyValue)
+        {
+            return wdService.FindEntity(keyValue);
         }
     }
 }

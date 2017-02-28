@@ -819,6 +819,7 @@
     <Content Include="Areas\DrpServManage\Views\Profit\Index.cshtml" />
     <Content Include="Areas\DrpServManage\Views\Profit\Withdrawals.cshtml" />
     <Content Include="Areas\DrpServManage\Views\Profit\WithdrawalsForm.cshtml" />
+    <Content Include="Areas\DrpServManage\Views\Profit\WithdrawalsDetails.cshtml" />
     <None Include="Properties\PublishProfiles\drp.pubxml" />
     <None Include="Properties\PublishProfiles\drp_web.pubxml" />
     <None Include="Web.Debug.config">
