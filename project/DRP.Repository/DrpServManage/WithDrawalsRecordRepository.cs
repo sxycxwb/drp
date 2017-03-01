@@ -12,5 +12,13 @@ namespace DRP.Repository.SystemManage
 {
     public class WithDrawalsRecordRepository : RepositoryBase<WithDrawalsRecordEntity>, IDrpWithDrawalsRecordRepository
     {
+        public void WithdrawSubmitForm(WithDrawalsRecordEntity withDrawalsRecord)
+        {
+            using (var db = new RepositoryBase().BeginTrans())
+            {
+                db.Insert(withDrawalsRecord);
+                db.Commit();
+            }
+        }
     }
 }

@@ -99,6 +99,15 @@ namespace DRP.Web.Areas.DrpServManage.Controllers
             return View();
         }
 
+        [HttpPost]
+        [HandlerAjaxOnly]
+        [ValidateAntiForgeryToken]
+        public ActionResult WithdrawSubmitForm(WithDrawalsRecordEntity withDrawalsRecord)
+        {
+            profitApp.WithdrawSubmitForm(withDrawalsRecord);
+            return Success("操作成功。");
+        }
+
         [HttpGet]
         [HandlerAuthorize]
         public ActionResult WithdrawalsDetails()//提现详情

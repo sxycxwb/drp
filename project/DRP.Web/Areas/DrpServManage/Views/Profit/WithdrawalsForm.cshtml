@@ -40,13 +40,22 @@
         if (!$('#form1').formValid()) {
             return false;
         }
+
+
         var withdrawAmount = $('#F_WithdrawAmount').val();
+        var accountBalance = $('#accountBalance').text();
+        if (parseFloat(withdrawAmount) > parseFloat(accountBalance)) {
+            $.modalAlert("提现金额不能大于账户余额！", "warning");
+            return;
+        }
+
         $.confirmForm({
-            url: "/DrpServManage/Profit/SubmitForm",
+            url: "/DrpServManage/Profit/WithdrawSubmitForm",
             param: $("#form1").formSerialize(),
-            loading:"正在提交中...",
+            loading: "正在提交中...",
             prompt: "确认要申请提现【" + withdrawAmount + "】元吗？",
             success: function () {
+                $.currentWindow().initBalance();
                 $.currentWindow().$("#gridList").resetSelection();
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
             }
@@ -67,14 +76,15 @@
                     </td>
                     <th class="formTitle">账户余额：</th>
                     <td class="formValue">
-                        <span id="accountBalance" style="color: red; font-weight: bold;">1100.45</span> 元
+                        <span id="accountBalance" style="color: red; font-weight: bold;"></span> 元
                     </td>
                 </tr>
                 <tr>
-                    <th class="formTitle" valign="top" style="padding-top: 5px;">备注：
+                    <th class="formTitle" valign="top" style="padding-top: 5px;">
+                        备注：
                     </th>
                     <td class="formValue" colspan="3">
-                        <textarea id="F_Description" name="F_Descriptions" class="form-control" style="height: 100px;"></textarea>
+                        <textarea id="F_WithdrawRemark" name="F_WithdrawRemark" class="form-control" style="height: 100px;"></textarea>
                     </td>
                 </tr>
             </table>

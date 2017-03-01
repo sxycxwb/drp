@@ -22,6 +22,7 @@ namespace DRP.Application.DrpServManage
     {
         private IProfitRecordRepository service = new ProfitRecordRepository();
         private IDrpWithDrawalsRecordRepository wdService = new WithDrawalsRecordRepository();
+        private IRoleRepository roleServie = new RoleRepository();
 
         public List<ProfitRecordEntity> GetList(Pagination pagination, string type, string agentId, string month)
         {
@@ -76,6 +77,18 @@ namespace DRP.Application.DrpServManage
         public WithDrawalsRecordEntity GetWithdrawalsForm(string keyValue)
         {
             return wdService.FindEntity(keyValue);
+        }
+
+        public void WithdrawSubmitForm(WithDrawalsRecordEntity withDrawalsRecord)
+        {
+            withDrawalsRecord.Create();
+            var currentUser = OperatorProvider.Provider.GetCurrent();
+            withDrawalsRecord.F_WithdrawPersonId = currentUser.UserId;
+            withDrawalsRecord.F_WithdrawPersonName = currentUser.UserName;
+            var currentRole = roleServie.FindEntity(t => t.F_Id == currentUser.RoleId);
+            withDrawalsRecord.F_Type = currentRole.F_EnCode;
+            withDrawalsRecord.F_Status = 1;//为申请状态
+            wdService.WithdrawSubmitForm(withDrawalsRecord);
         }
     }
 }

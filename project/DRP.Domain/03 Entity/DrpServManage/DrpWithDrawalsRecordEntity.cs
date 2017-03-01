@@ -45,7 +45,7 @@ namespace DRP.Domain.Entity.DrpServManage
         /// <summary>
         /// 审核备注
         /// </summary>
-        public decimal F_CheckRemark { get; set; }
+        public string F_CheckRemark { get; set; }
 
         /// <summary>
         /// 驳回说明
