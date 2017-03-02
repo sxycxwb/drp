@@ -102,10 +102,25 @@ namespace DRP.Web.Areas.DrpServManage.Controllers
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
-        public ActionResult WithdrawSubmitForm(WithDrawalsRecordEntity withDrawalsRecord)
+        public ActionResult WithdrawSubmitForm(WithDrawalsRecordEntity withDrawalsRecord,string keyValue)
         {
-            profitApp.WithdrawSubmitForm(withDrawalsRecord);
+            profitApp.WithdrawSubmitForm(withDrawalsRecord, keyValue);
             return Success("操作成功。");
+        }
+
+
+        [HttpGet]
+        [HandlerAuthorize]
+        public ActionResult CheckWithdrawals()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [HandlerAuthorize]
+        public ActionResult CheckWithdrawalsForm()
+        {
+            return View();
         }
 
         [HttpGet]

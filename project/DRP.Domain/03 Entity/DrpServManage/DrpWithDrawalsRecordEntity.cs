@@ -30,7 +30,7 @@ namespace DRP.Domain.Entity.DrpServManage
         /// <summary>
         /// 审核人ID
         /// </summary>
-        public decimal F_CheckPersonId { get; set; }
+        public string F_CheckPersonId { get; set; }
 
         /// <summary>
         /// 审核人

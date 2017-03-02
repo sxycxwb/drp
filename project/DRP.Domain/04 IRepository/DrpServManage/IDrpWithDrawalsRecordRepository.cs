@@ -11,6 +11,5 @@ namespace DRP.Domain.IRepository.DrpServManage
 {
     public interface IDrpWithDrawalsRecordRepository : IRepositoryBase<WithDrawalsRecordEntity>
     {
-        void WithdrawSubmitForm(WithDrawalsRecordEntity withDrawalsRecord);
     }
 }

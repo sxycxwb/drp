@@ -71,6 +71,10 @@ namespace DRP.Application.DrpServManage
         public List<WithDrawalsRecordEntity> GetWithdrawalsList(Pagination pagination, string keyword)
         {
             var expression = ExtLinq.True<WithDrawalsRecordEntity>();
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                expression = expression.And(t => t.F_WithdrawPersonName.Contains(keyword));
+            }
             return wdService.FindList(expression, pagination).OrderByDescending(t => t.F_CreatorTime).ToList();
         }
 
@@ -79,16 +83,32 @@ namespace DRP.Application.DrpServManage
             return wdService.FindEntity(keyValue);
         }
 
-        public void WithdrawSubmitForm(WithDrawalsRecordEntity withDrawalsRecord)
+        public void WithdrawSubmitForm(WithDrawalsRecordEntity withDrawalsRecord, string keyValue)
         {
-            withDrawalsRecord.Create();
-            var currentUser = OperatorProvider.Provider.GetCurrent();
-            withDrawalsRecord.F_WithdrawPersonId = currentUser.UserId;
-            withDrawalsRecord.F_WithdrawPersonName = currentUser.UserName;
-            var currentRole = roleServie.FindEntity(t => t.F_Id == currentUser.RoleId);
-            withDrawalsRecord.F_Type = currentRole.F_EnCode;
-            withDrawalsRecord.F_Status = 1;//为申请状态
-            wdService.WithdrawSubmitForm(withDrawalsRecord);
+            if (string.IsNullOrEmpty(keyValue))
+            {
+                withDrawalsRecord.Create();
+                var currentUser = OperatorProvider.Provider.GetCurrent();
+                withDrawalsRecord.F_WithdrawPersonId = currentUser.UserId;
+                withDrawalsRecord.F_WithdrawPersonName = currentUser.UserName;
+                var currentRole = roleServie.FindEntity(t => t.F_Id == currentUser.RoleId);
+                withDrawalsRecord.F_Type = currentRole.F_EnCode;
+                withDrawalsRecord.F_Status = 1;//为申请状态
+                wdService.Insert(withDrawalsRecord);
+            }
+            else
+            {
+                var selectedRecord = wdService.FindEntity(keyValue);
+                var currentUser = OperatorProvider.Provider.GetCurrent();
+                selectedRecord.F_CheckPersonId = currentUser.UserId;
+                selectedRecord.F_CheckPersonName = currentUser.UserName;
+                selectedRecord.F_Status = withDrawalsRecord.F_Status;
+                selectedRecord.F_CheckRemark = withDrawalsRecord.F_CheckRemark;
+                selectedRecord.F_TurndownRemark = withDrawalsRecord.F_TurndownRemark;
+
+                wdService.Update(selectedRecord);
+
+            }
         }
     }
 }
