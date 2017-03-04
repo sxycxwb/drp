@@ -11,5 +11,6 @@ namespace DRP.Domain.IRepository.DrpServManage
 {
     public interface IDrpWithDrawalsRecordRepository : IRepositoryBase<WithDrawalsRecordEntity>
     {
+        int UpdateWithDrawals(WithDrawalsRecordEntity entity);
     }
 }

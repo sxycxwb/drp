@@ -58,7 +58,7 @@ namespace DRP.Domain.Entity.DrpServManage
         public decimal F_WithdrawAmount { get; set; }
 
         /// <summary>
-        /// 状态 0为新申请，1为审核通过，2为驳回
+        /// 状态 1为新申请，2为审核通过，3为驳回
         /// </summary>
         public int F_Status { get; set; }
 

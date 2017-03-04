@@ -102,11 +102,12 @@ namespace DRP.Application.DrpServManage
                 var currentUser = OperatorProvider.Provider.GetCurrent();
                 selectedRecord.F_CheckPersonId = currentUser.UserId;
                 selectedRecord.F_CheckPersonName = currentUser.UserName;
+                selectedRecord.F_CheckTime = DateTime.Now;
                 selectedRecord.F_Status = withDrawalsRecord.F_Status;
                 selectedRecord.F_CheckRemark = withDrawalsRecord.F_CheckRemark;
                 selectedRecord.F_TurndownRemark = withDrawalsRecord.F_TurndownRemark;
 
-                wdService.Update(selectedRecord);
+                wdService.UpdateWithDrawals(selectedRecord);
 
             }
         }

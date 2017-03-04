@@ -5,7 +5,6 @@
 <script>
     var keyValue = $.request("keyValue");
     $(function () {
-        initControl();
         if (!!keyValue) {
             $.ajax({
                 url: "/DrpServManage/Profit/GetWithdrawalsFormJson",
@@ -14,28 +13,23 @@
                 async: false,
                 success: function (data) {
                     $("#form1").formSerialize(data);
-                    initControl();
                 }
             });
         }
         
     });
-    
-
-    function initControl() {
-    }
 
     function submitForm() {
         if (!$('#form1').formValid()) {
             return false;
         }
         var postData = $("#form1").formSerialize();
-        postData["F_Status"] = 2;
+        postData["F_Status"] = 3;
         $.confirmForm({
             url: "/DrpServManage/Profit/WithdrawSubmitForm?keyValue=" + keyValue,
             param: postData,
             loading: "正在提交中...",
-            prompt: "确认通过此申请提现吗？",
+            prompt: "确认驳回此申请吗？",
             success: function () {
                 $.currentWindow().$("#gridList").resetSelection();
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
@@ -70,12 +64,13 @@
                 </tr>
                 <tr>
                     <th class="formTitle" valign="top" style="padding-top: 5px;">
-                        审核备注：
+                        驳回原因：
                     </th>
                     <td class="formValue" colspan="3">
-                        <textarea id="F_CheckRemark" name="F_CheckRemark" class="form-control" style="height: 60px;"></textarea>
+                        <textarea id="F_TurndownRemark" name="F_TurndownRemark" class="form-control" style="height: 60px;"></textarea>
                     </td>
                 </tr>
+                
             </table>
         </div>
     </div>

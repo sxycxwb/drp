@@ -822,6 +822,7 @@
     <Content Include="Areas\DrpServManage\Views\Profit\WithdrawalsDetails.cshtml" />
     <Content Include="Areas\DrpServManage\Views\Profit\CheckWithdrawals.cshtml" />
     <Content Include="Areas\DrpServManage\Views\Profit\CheckWithdrawalsForm.cshtml" />
+    <Content Include="Areas\DrpServManage\Views\Profit\ReturnBackWithdrawalsForm.cshtml" />
     <None Include="Properties\PublishProfiles\drp.pubxml" />
     <None Include="Properties\PublishProfiles\drp_web.pubxml" />
     <None Include="Web.Debug.config">

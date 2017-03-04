@@ -108,6 +108,12 @@ namespace DRP.Web.Areas.DrpServManage.Controllers
             return Success("操作成功。");
         }
 
+        [HttpGet]
+        [HandlerAuthorize]
+        public ActionResult ReturnBackWithdrawalsForm()
+        {
+            return View();
+        }
 
         [HttpGet]
         [HandlerAuthorize]

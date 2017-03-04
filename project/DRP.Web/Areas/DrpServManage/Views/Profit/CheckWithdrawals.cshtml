@@ -48,11 +48,24 @@
             }).trigger('reloadGrid');
         });
     }
+
     function btn_check() {
         var keyValue = $("#gridList").jqGridRowValue().F_Id;
+        var status = $("#gridList").jqGridRowValue().F_Status;
+
+        if (status.indexOf("已驳回") != -1) {
+            $.modalAlert("该申请已驳回，无法进行此操作！", "warning");
+            return;
+        }
+
+        if (status.indexOf("提现成功") != -1) {
+            $.modalAlert("该申请已审批通过，无法进行此操作！", "warning");
+            return;
+        }
+
         $.modalOpen({
             id: "Form",
-            title: "审核提现",
+            title: "确认通过",
             url: "/DrpServManage/Profit/CheckWithdrawalsForm?keyValue=" + keyValue,
             width: "700px",
             height: "510px",
@@ -60,7 +73,33 @@
                 top.frames[iframeId].submitForm();
             },
             btn: ['审核通过', '关闭']
-            
+        });
+    }
+
+    function btn_return() {
+        var keyValue = $("#gridList").jqGridRowValue().F_Id;
+        var status = $("#gridList").jqGridRowValue().F_Status;
+
+        if (status.indexOf("已驳回") != -1) {
+            $.modalAlert("该申请已驳回，无法进行此操作！", "warning");
+            return;
+        }
+
+        if (status.indexOf("提现成功") != -1) {
+            $.modalAlert("该申请已审批通过，无法进行此操作！", "warning");
+            return;
+        }
+
+        $.modalOpen({
+            id: "Form",
+            title: "驳回",
+            url: "/DrpServManage/Profit/ReturnBackWithdrawalsForm?keyValue=" + keyValue,
+            width: "700px",
+            height: "510px",
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            },
+            btn: ['确认驳回', '关闭']
         });
     }
 
@@ -88,7 +127,8 @@
         <div class="operate">
             <ul class="nav nav-pills">
                 <li class="first">已选中<span>1</span>项</li>
-                <li><a id="DRP-Check" authorize="yes" onclick="btn_check()"><i class="fa fa-pencil-square-o"></i>审批提现</a></li>
+                <li><a id="DRP-Check" authorize="yes" onclick="btn_check()"><i class="fa fa-check"></i>审批通过</a></li>
+                <li><a id="DRP-Return" authorize="yes" onclick="btn_return()"><i class="fa fa-close"></i>驳回</a></li>
                 <li><a id="DRP-Details" authorize="yes" onclick="btn_details()"><i class="fa fa-pencil-square-o"></i>查看详情</a></li>
             </ul>
             <a href="javascript:;" class="close"></a>
