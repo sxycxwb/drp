@@ -34,21 +34,10 @@
     });
 
     function initControl() {
-        initBalance();
+        //initBalance();
     }
 
-    function initBalance() {
-        $.ajax({
-            url: "/DrpServManage/Profit/GetCurrentBalance",    //后台webservice里的方法名称
-            type: "get",
-            data: {},
-            dataType: "json",
-            contentType: "application/json",
-            success: function (data) {
-                $('#accountBalance').val(data.balance.toFixed(2));
-            }
-        });
-    }
+    
 </script>
 
 <form id="form1">
@@ -61,12 +50,10 @@
                 <tr>
                     <th class="formTitle">提现金额：</th>
                     <td class="formValue">
-                        <input id="F_WithdrawAmount" name="F_WithdrawAmount" type="number" class="form-control" style="display: inline-block; width: 200px;" /> <span style="display: inline-block;margin-left: 4px;font-weight: bold;"> 元</span>
+                        <input id="F_WithdrawAmount" name="F_WithdrawAmount" type="number" class="form-control" style="display: inline-block; width: 180px;" /> <span style="display: inline-block;margin-left: 4px;font-weight: bold;"> 元</span>
                     </td>
-                    <th class="formTitle">账户余额：</th>
-                    <td class="formValue">
-                        <input id="accountBalance" name="accountBalance" type="number" class="form-control" style="display: inline-block; width: 200px;" /> <span style="display: inline-block;margin-left: 4px;font-weight: bold;"> 元</span>
-                    </td>
+                    <th></th>
+                    <td></td>
                 </tr>
                 <tr>
                     <th class="formTitle" valign="top" style="padding-top: 5px;">
