@@ -79,7 +79,12 @@ namespace DRP.Web.Controllers
                     operatorModel.UserName = userEntity.F_RealName;
                     operatorModel.CompanyId = userEntity.F_OrganizeId;
                     operatorModel.DepartmentId = userEntity.F_DepartmentId;
+                    operatorModel.Balance = Convert.ToDecimal(userEntity.F_AccountBalance).ToString("#0.00");
                     operatorModel.RoleId = userEntity.F_RoleId;
+                    var role = new RoleApp().GetForm(userEntity.F_RoleId);
+                    if (role != null)
+                        operatorModel.RoleCode = role.F_EnCode;
+
                     operatorModel.LoginIPAddress = Net.Ip;
                     //影响速度 注释了
                     //operatorModel.LoginIPAddressName = Net.GetLocation(operatorModel.LoginIPAddress);
@@ -98,7 +103,7 @@ namespace DRP.Web.Controllers
                     logEntity.F_NickName = userEntity.F_RealName;
                     logEntity.F_Result = true;
                     logEntity.F_Description = "登录成功";
-                    new LogApp().WriteDbLog(logEntity);
+                    new LogApp().WriteDbLog(logEntity, userEntity.F_Account);
                 }
                 return Content(new AjaxResult { state = ResultType.success.ToString(), message = "登录成功。" }.ToJson());
             }

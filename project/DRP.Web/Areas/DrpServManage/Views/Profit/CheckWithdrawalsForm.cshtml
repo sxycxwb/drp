@@ -7,15 +7,9 @@
     $(function () {
         initControl();
         if (!!keyValue) {
-            $.ajax({
-                url: "/DrpServManage/Profit/GetWithdrawalsFormJson",
-                data: { keyValue: keyValue },
-                dataType: "json",
-                async: false,
-                success: function (data) {
-                    $("#form1").formSerialize(data);
-                    initControl();
-                }
+            $.myAjaxGet("/DrpServManage/Profit/GetWithdrawalsFormJson", { keyValue: keyValue }, false, function (data) {
+                $("#form1").formSerialize(data);
+                initControl();
             });
         }
         $('#btnTurndown').click(function () {

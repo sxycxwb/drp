@@ -11,27 +11,21 @@
     $(function () {
         initControl();
         if (!!keyValue) {
-            $.ajax({
-                url: "/UserCenter/CustomerTrack/GetFormJson",
-                data: { keyValue: keyValue },
-                dataType: "json",
-                async: false,
-                success: function (data) {
-                    $("#form1").formSerialize(data);
 
-                    //判断ueditor 编辑器是否创建成功
-                    UE.getEditor('editor').addListener("ready", function () {
-                        // editor准备好之后才可以使用
-                        UE.getEditor('editor').setContent(data.F_Content, false);
+            $.myAjaxGet("/DrpServManage/CustomerTrack/GetFormJson", { keyValue: keyValue }, false, function (data) {
+                $("#form1").formSerialize(data);
+                //判断ueditor 编辑器是否创建成功
+                UE.getEditor('editor').addListener("ready", function () {
+                    // editor准备好之后才可以使用
+                    UE.getEditor('editor').setContent(data.F_Content, false);
 
-                    });
-                    var customerData = [{id:data.F_CustomerId,text:data.F_CustomerName}];
-                    $('#F_CustomerId').empty();
-                    $('#F_CustomerId').select2({ data: customerData });
-                    $("#F_CustomerName").val($("#F_CustomerId option:selected").text());
+                });
+                var customerData = [{ id: data.F_CustomerId, text: data.F_CustomerName }];
+                $('#F_CustomerId').empty();
+                $('#F_CustomerId').select2({ data: customerData });
+                $("#F_CustomerName").val($("#F_CustomerId option:selected").text());
 
-                    initCustomerSearch();
-                }
+                initCustomerSearch();
             });
         }
     });

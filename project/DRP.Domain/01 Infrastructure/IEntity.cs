@@ -11,7 +11,7 @@ namespace DRP.Domain
 {
     public class IEntity<TEntity>
     {
-        public void Create()
+        public void Create(string userId="")
         {
             var entity = this as ICreationAudited;
             entity.F_Id = Common.GuId();
@@ -19,6 +19,10 @@ namespace DRP.Domain
             if (LoginInfo != null)
             {
                 entity.F_CreatorUserId = LoginInfo.UserId;
+            }
+            else
+            {
+                entity.F_CreatorUserId = userId;
             }
             entity.F_CreatorTime = DateTime.Now;
         }

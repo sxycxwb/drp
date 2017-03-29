@@ -83,7 +83,7 @@ $(function ($) {
                 $item.find('ul.submenu').css({
                     overflow: "auto",
                     height: _height3
-                })
+                });
             });
         }
         else {
@@ -154,6 +154,7 @@ $(function ($) {
 function GetLoadNav() {
     var data = top.clients.authorizeMenu;
     var _menuhtml = "";
+    var sid = $.request("sid");
     $.each(data, function (i) {
         var row = data[i];
         if (row.F_ParentId == "0") {
@@ -181,14 +182,14 @@ function GetLoadNav() {
                                     //三级菜单
                                     if (subrowsj.F_ParentId == subrow.F_Id) {
                                         _html += '<li>';
-                                        _html += '<a class="menuItem" data-id="' + subrowsj.F_Id + '" href="' + subrowsj.F_UrlAddress + '" data-index="' + subrowsj.F_SortCode + '">' + subrowsj.F_FullName + '</a>';
+                                        _html += '<a class="menuItem" data-id="' + subrowsj.F_Id + '" href="' + subrowsj.F_UrlAddress + '?sid=' + sid + '" data-index="' + subrowsj.F_SortCode + '">' + subrowsj.F_FullName + '</a>';
                                         _html += '</li>';
                                         // alert(subrowsj.F_FullName);
                                     }
                                 });
                                 _html += '</ul>';
                             } else {
-                                _html += '<a  class="menuItem"  data-id="' + subrow.F_Id + '" href="' + subrow.F_UrlAddress + '" data-index="' + subrow.F_SortCode + '"><i class="' + subrow.F_Icon + '"></i><span>' + subrow.F_FullName + '</span></a>';
+                                _html += '<a  class="menuItem"  data-id="' + subrow.F_Id + '" href="' + subrow.F_UrlAddress + '?sid=' + sid + '" data-index="' + subrow.F_SortCode + '"><i class="' + subrow.F_Icon + '"></i><span>' + subrow.F_FullName + '</span></a>';
                             }
                             _html += '</li>';
                         }
@@ -208,6 +209,8 @@ function navbar_click(a) {
     var b = "" + s.match(/d="\S*(\S*)"/);
     var f_id = b.substr(3, b.length - 5);
     var data = top.clients.authorizeMenu;
+    var sid = $.request("sid");
+
     $.each(data, function (i) {
         var row = data[i];
         if (row.F_ParentId == "0") {
@@ -217,7 +220,6 @@ function navbar_click(a) {
                 var _html = "";
                 $.each(childNodes, function (i) {
                     var subrow = childNodes[i];
-
                     if (subrow.F_ParentId == f_id) {
                         //二级菜单
                         $("#menu_title").text(row.F_FullName);
@@ -232,13 +234,13 @@ function navbar_click(a) {
                                 //三级菜单
                                 if (subrowsj.F_ParentId == subrow.F_Id) {
                                     _html += '<li>';
-                                    _html += '<a class="menuItem" data-id="' + subrowsj.F_Id + '" href="' + subrowsj.F_UrlAddress + '" data-index="' + subrowsj.F_SortCode + '">' + subrowsj.F_FullName + '</a>';
+                                    _html += '<a class="menuItem" data-id="' + subrowsj.F_Id + '" href="' + subrowsj.F_UrlAddress + '?sid='+sid+'" data-index="' + subrowsj.F_SortCode + '">' + subrowsj.F_FullName + '</a>';
                                     _html += '</li>';
                                 }
                             });
                             _html += '</ul>';
                         } else {
-                            _html += '<a  class="menuItem"  data-id="' + subrow.F_Id + '" href="' + subrow.F_UrlAddress + '" data-index="' + subrow.F_SortCode + '"><i class="' + subrow.F_Icon + '"></i><span>' + subrow.F_FullName + '</span></a>';
+                            _html += '<a  class="menuItem"  data-id="' + subrow.F_Id + '" href="' + subrow.F_UrlAddress + '?sid=' + sid + '" data-index="' + subrow.F_SortCode + '"><i class="' + subrow.F_Icon + '"></i><span>' + subrow.F_FullName + '</span></a>';
                         }
                         _html += '</li>';
                     }

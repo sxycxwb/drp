@@ -5,6 +5,7 @@
  * Website：
 *********************************************************************************/
 using System;
+using System.Web;
 
 namespace DRP.Code
 {
@@ -22,6 +23,22 @@ namespace DRP.Code
 
         public ClientOperatorModel GetCurrent()
         {
+            string key = string.Empty;
+            string sid = HttpContext.Current.Request["sid"];
+            string customerId = "", roleCode = "";
+            if (!string.IsNullOrEmpty(sid))
+            {
+                sid = DESEncrypt.Decrypt(sid.ToUpper());
+                if (!string.IsNullOrEmpty(sid))
+                {
+                    key = sid.Split('|')[0] + "|" + sid.Split('|')[1];
+                    customerId = sid.Split('|')[0];
+                    roleCode = sid.Split('|')[1];
+                }
+            }
+            string url = HttpContext.Current.Request.Url.ToString();
+            LoginUserKey = string.IsNullOrEmpty(key) ? LoginUserKey : (key + "_") + LoginUserKey;
+
             ClientOperatorModel operatorModel = new ClientOperatorModel();
             if (LoginProvider == "Cookie")
             {
@@ -50,6 +67,11 @@ namespace DRP.Code
 
         public void AddCurrent(ClientOperatorModel operatorModel)
         {
+            string key = operatorModel.UserId + "|" + operatorModel.RoleCode;
+
+            if (operatorModel.RoleCode != "customer")
+                LoginUserKey = key + "_" + LoginUserKey;
+
             if (LoginProvider == "Cookie")
             {
                 WebHelper.WriteCookie(LoginUserKey, DESEncrypt.Encrypt(operatorModel.ToJson()), 60);
@@ -63,6 +85,13 @@ namespace DRP.Code
         }
         public void RemoveCurrent()
         {
+            string key = string.Empty;
+            string sid = HttpContext.Current.Request["sid"];
+            if (string.IsNullOrEmpty(sid))
+                key = sid.Split('|')[0] + "|" + sid.Split('|')[1];
+
+            LoginUserKey = string.IsNullOrEmpty(key) ? LoginUserKey : (key + "_") + LoginUserKey;
+
             if (LoginProvider == "Cookie")
             {
                 WebHelper.RemoveCookie(LoginUserKey.Trim());

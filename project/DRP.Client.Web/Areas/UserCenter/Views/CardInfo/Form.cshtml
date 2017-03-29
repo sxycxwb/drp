@@ -6,14 +6,8 @@
     var keyValue = $.request("keyValue");
     $(function () {
         if (!!keyValue) {
-            $.ajax({
-                url: "/UserCenter/CardInfo/GetFormJson",
-                data: { keyValue: keyValue },
-                dataType: "json",
-                async: false,
-                success: function (data) {
-                    $("#form1").formSerialize(data);
-                }
+            $.myAjaxGet("/UserCenter/CardInfo/GetFormJson", { keyValue: keyValue }, false, function (data) {
+                $("#form1").formSerialize(data);
             });
         }
     });

@@ -17,10 +17,11 @@
             gridview: true
         };
         var $element = $("#gridList");
+        var sid = $.request("sid");
         gridOptions["onSelectRow"] = function (rowid) {
             var length = $(this).jqGrid("getGridParam", "selrow").length;
             var keyValue = $("#gridList").jqGridRowValue().F_Id;
-            var redictUrl = "/DrpServManage/Customer/RedictUserCenter" + "?keyValue=" + keyValue;
+            var redictUrl = "/DrpServManage/Customer/RedictUserCenter" + "?keyValue=" + keyValue + "&sid=" + sid;
             $("#DRP-redict").attr('href', redictUrl);
 
             var $operate = $(".operate");
@@ -33,7 +34,7 @@
                 $operate.animate({ "left": '-100.1%' }, 200);
             });
         };
-
+        AppendOptions(gridOptions);
         var options = $.extend(defaults, gridOptions);
         $element.jqGrid(options);
     }
@@ -64,7 +65,7 @@
                     }
                 },
                 {
-                    label: '余额', name: 'F_AccountBalance', width: 80, align: 'left', sortable: false ,
+                    label: '余额', name: 'F_AccountBalance', width: 80, align: 'left', sortable: false,
                     formatter: function (cellvalue) {
                         return $.toDecimal2(cellvalue);
                     }
@@ -134,15 +135,15 @@
         var keyValue = $("#gridList").jqGridRowValue().F_Id;
         var companyName = $("#gridList").jqGridRowValue().F_CompanyName;
         var index = $.modalOpen({
-            id: "Details",
+            id: "product",
             title: companyName + " -> 设置产品 ",
             url: "/DrpServManage/Customer/Product?keyValue=" + keyValue,
             width: "90%",
             height: "100%",
-            btn: ['确定','关闭'],
-            btnclass: ['btn btn-success','btn btn-danger'],
+            btn: ['确定', '关闭'],
+            btnclass: ['btn btn-success', 'btn btn-danger'],
             callBack: function (iframeId) {
-                //top.frames[iframeId].submitForm();
+                top.frames[iframeId].closeLayer();
             }
         });
     }
@@ -194,7 +195,7 @@
                 <li><a id="DRP-set" authorize="yes" onclick="btn_setproduct()"><i class="fa fa-pencil-square-o"></i>设置产品</a></li>
                 @*<li><a id="NF-revisepassword" authorize="yes" onclick="btn_revisepassword()"><i class="fa fa-key"></i>密码重置</a></li>*@
                 <li class="split"></li>
-                <li><a id="DRP-redict" authorize="yes" href="" target="_Blank"><i class="fa fa-stop-circle"></i>跳转用户中心</a></li>
+                <li><a id="DRP-redict" authorize="yes" href="" target="_blank"><i class="fa fa-stop-circle"></i>跳转用户中心</a></li>
                 @*<li><a id="NF-disabled" authorize="yes" onclick="btn_disabled()"><i class="fa fa-stop-circle"></i>禁用</a></li>
                     <li><a id="NF-enabled" authorize="yes" onclick="btn_enabled()"><i class="fa fa-play-circle"></i>启用</a></li>*@
             </ul>

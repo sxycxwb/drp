@@ -72,11 +72,36 @@ namespace DRP.Application.SystemManage
             }
             return data.OrderBy(t => t.F_SortCode).ToList();
         }
+
+        public List<ModuleButtonEntity> GetClientButtonList(string roleId)
+        {
+            var data = new List<ModuleButtonEntity>();
+
+            if (ClientOperatorProvider.Provider.GetCurrent() != null && ClientOperatorProvider.Provider.GetCurrent().IsSystem)
+            {
+                data = moduleButtonApp.GetList();
+            }
+            else
+            {
+                var buttondata = moduleButtonApp.GetList();
+                var authorizedata = service.IQueryable(t => t.F_ObjectId == roleId && t.F_ItemType == 2).ToList();
+                foreach (var item in authorizedata)
+                {
+                    ModuleButtonEntity moduleButtonEntity = buttondata.Find(t => t.F_Id == item.F_ItemId);
+                    if (moduleButtonEntity != null)
+                    {
+                        data.Add(moduleButtonEntity);
+                    }
+                }
+            }
+            return data.OrderBy(t => t.F_SortCode).ToList();
+        }
+
         public List<ModuleButtonEntity> GetButtonList(string roleId)
         {
             var data = new List<ModuleButtonEntity>();
 
-            if ((OperatorProvider.Provider.GetCurrent() != null && OperatorProvider.Provider.GetCurrent().IsSystem) || (ClientOperatorProvider.Provider.GetCurrent() != null && ClientOperatorProvider.Provider.GetCurrent().IsSystem))
+            if (OperatorProvider.Provider.GetCurrent() != null && OperatorProvider.Provider.GetCurrent().IsSystem)
             {
                 data = moduleButtonApp.GetList();
             }

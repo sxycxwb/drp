@@ -7,6 +7,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using DRP.Application.DrpServManage;
 using DRP.Code;
 using DRP.Domain.Entity.DrpServManage;
@@ -48,9 +49,14 @@ namespace DRP.Web.Areas.DrpServManage.Controllers
         [HandlerAuthorize]
         public ActionResult RedictUserCenter(string keyValue)
         {
-            string key = DESEncrypt.Encrypt(keyValue);
+            string currentRole = OperatorProvider.Provider.GetCurrent().RoleCode;
+            string systemUserCode = OperatorProvider.Provider.GetCurrent().UserCode;
+            string key = DESEncrypt.Encrypt(keyValue + "|" + currentRole + "|" + systemUserCode);
+            string hostUrl = Request.Url.Scheme + "://" + Request.Url.Host;
+            string sid = Request["sid"];
             string customerCenterUrl = Configs.GetValue("CustomerCenterUrl");
-            return Redirect(customerCenterUrl + "?key=" + key);
+            customerCenterUrl = (customerCenterUrl.Contains("http") || customerCenterUrl.Contains("https")) ? customerCenterUrl : hostUrl + customerCenterUrl;
+            return Redirect(customerCenterUrl + "?key=" + key + "&sid=" + sid);
         }
 
         [HttpGet]
@@ -71,7 +77,7 @@ namespace DRP.Web.Areas.DrpServManage.Controllers
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
-        public ActionResult SubmitProduct(ProductEntity productEntity, string keyValue, string customerId,string flag)
+        public ActionResult SubmitProduct(ProductEntity productEntity, string keyValue, string customerId, string flag)
         {
             customerApp.SubmitProduct(productEntity, keyValue, customerId, flag);
             return Success("操作成功。");

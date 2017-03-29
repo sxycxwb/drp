@@ -17,6 +17,9 @@ namespace DRP.Code
         public string CompanyId { get; set; }
         public string DepartmentId { get; set; }
         public string RoleId { get; set; }
+        public string RoleCode { get; set; }
+
+        public string Balance { get; set; }
         public string LoginIPAddress { get; set; }
         public string LoginIPAddressName { get; set; }
         public string LoginToken { get; set; }

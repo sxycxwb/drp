@@ -5,18 +5,13 @@
 <script>
     var keyValue = $.request("keyValue");
     $(function () {
-        $("#F_Type").bindSelect()
-        $.ajax({
-            url: "/SystemSecurity/FilterIP/GetFormJson",
-            data: { keyValue: keyValue },
-            dataType: "json",
-            async: false,
-            success: function (data) {
-                $("#form1").formSerialize(data);
-                $("#form1").find('.form-control,select,input').attr('readonly', 'readonly');
-                $("#form1").find('div.ckbox label').attr('for', '');
-            }
+        $("#F_Type").bindSelect();
+        $.myAjaxGet("/SystemSecurity/FilterIP/GetFormJson", { keyValue: keyValue }, false, function (data) {
+            $("#form1").formSerialize(data);
+            $("#form1").find('.form-control,select,input').attr('readonly', 'readonly');
+            $("#form1").find('div.ckbox label').attr('for', '');
         });
+
     });
 
 </script>

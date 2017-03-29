@@ -9,16 +9,10 @@
             url: "/DrpServManage/ProductCategory/GetTreeSelectJson"
         });
         if (!!keyValue) {
-            $.ajax({
-                url: "/DrpServManage/ProductCategory/GetFormJson",
-                data: { keyValue: keyValue },
-                dataType: "json",
-                async: false,
-                success: function (data) {
-                    $("#form1").formSerialize(data);
-                    $("#form1").find('.form-control,select,input').attr('readonly', 'readonly');
-                    $("#form1").find('div.ckbox label').attr('for', '');
-                }
+            $.myAjaxGet("/DrpServManage/ProductCategory/GetFormJson", { keyValue: keyValue }, false, function (data) {
+                $("#form1").formSerialize(data);
+                $("#form1").find('.form-control,select,input').attr('readonly', 'readonly');
+                $("#form1").find('div.ckbox label').attr('for', '');
             });
         }
     });

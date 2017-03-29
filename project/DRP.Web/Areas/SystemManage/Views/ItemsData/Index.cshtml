@@ -9,8 +9,14 @@
         gridList();
     });
     function treeView() {
+        var url = "/SystemManage/ItemsType/GetTreeJson";
+
+        var sid = $.request("sid");
+        if (sid != "" && sid != null && typeof (sid) != undefined)
+            url = url + "?sid=" + sid;
+
         $("#itemTree").treeview({
-            url: "/SystemManage/ItemsType/GetTreeJson",
+            url: url,
             onnodeclick: function (item) {
                 $("#txt_keyword").val('');
                 $('#btn_search').trigger("click");

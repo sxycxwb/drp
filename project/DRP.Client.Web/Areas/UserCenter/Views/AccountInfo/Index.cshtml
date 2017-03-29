@@ -10,23 +10,17 @@
         $scope.payarray = [];
         $scope.nopayarray = [];
         $scope.stoppayarray = [];
-        $.ajax({
-            url: "/UserCenter/CustomerProduct/GetGridJson",
-            type: "get",
-            dataType: "json",
-            async: false,
-            success: function(data) {
-                $.each(data, function(i) {
-                    var info = { F_Id: data[i].F_Id, F_ProductName: data[i].F_ProductName };
-                    if (data[i].F_Status == '1') {
-                        $scope.payarray.push(info);
-                    } else if (data[i].F_Status == '0') {
-                        $scope.nopayarray.push(info);
-                    } else {
-                        $scope.stoppayarray.push(info);
-                    }
-                });
-            }
+        $.myAjaxGet("/UserCenter/CustomerProduct/GetGridJson", { }, false, function (data) {
+            $.each(data, function (i) {
+                var info = { F_Id: data[i].F_Id, F_ProductName: data[i].F_ProductName };
+                if (data[i].F_Status == '1') {
+                    $scope.payarray.push(info);
+                } else if (data[i].F_Status == '0') {
+                    $scope.nopayarray.push(info);
+                } else {
+                    $scope.stoppayarray.push(info);
+                }
+            });
         });
     });
     function btn_stoppay(id) {

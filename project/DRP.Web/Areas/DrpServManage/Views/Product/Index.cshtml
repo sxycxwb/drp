@@ -9,8 +9,13 @@
         gridList();
     });
     function treeView() {
+        var sid = $.request("sid");
+        var url = "/DrpServManage/ProductCategory/GetTreeJson";
+        if (sid != "" && sid != null && typeof (sid) != undefined)
+            url = url + "?sid=" + sid;
+
         $("#categroyTree").treeview({
-            url: "/DrpServManage/ProductCategory/GetTreeJson",
+            url: url,
             onnodeclick: function (item) {
                 $("#txt_keyword").val('');
                 $('#btn_search').trigger("click");

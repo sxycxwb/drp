@@ -6,17 +6,12 @@
     var keyValue = $.request("keyValue");
     $(function () {
         initControl();
-        $.ajax({
-            url: "/SystemManage/Role/GetFormJson",
-            data: { keyValue: keyValue },
-            dataType: "json",
-            async: false,
-            success: function (data) {
-                $("#form1").formSerialize(data);
-                $("#form1").find('.form-control,select,input').attr('readonly', 'readonly');
-                $("#form1").find('div.ckbox label').attr('for', '');
-            }
+        $.myAjaxGet("/SystemManage/Role/GetFormJson", { keyValue: keyValue }, false, function (data) {
+            $("#form1").formSerialize(data);
+            $("#form1").find('.form-control,select,input').attr('readonly', 'readonly');
+            $("#form1").find('div.ckbox label').attr('for', '');
         });
+
     })
     function initControl() {
         $("#F_OrganizeId").bindSelect({
@@ -40,10 +35,16 @@
                 $next.removeAttr('disabled');
             }
         });
+        var url = "/SystemManage/RoleAuthorize/GetPermissionTree";
+
+        var sid = $.request("sid");
+        if (sid != "" && sid != null && typeof (sid) != undefined)
+            url = url + "?sid=" + sid;
+
         $("#permissionTree").treeview({
             height: 493,
             showcheck: true,
-            url: "/SystemManage/RoleAuthorize/GetPermissionTree",
+            url: url,
             param: { roleId: keyValue }
         });
     }

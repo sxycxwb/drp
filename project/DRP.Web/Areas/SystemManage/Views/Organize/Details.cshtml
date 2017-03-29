@@ -6,16 +6,10 @@
     var keyValue = $.request("keyValue");
     $(function () {
         initControl();
-        $.ajax({
-            url: "/SystemManage/Organize/GetFormJson",
-            data: { keyValue: keyValue },
-            dataType: "json",
-            async: false,
-            success: function (data) {
-                $("#form1").formSerialize(data);
-                $("#form1").find('.form-control,select,input').attr('readonly', 'readonly');
-                $("#form1").find('div.ckbox label').attr('for', '');
-            }
+        $.myAjaxGet("/SystemManage/Organize/GetFormJson", { keyValue: keyValue }, false, function (data) {
+            $("#form1").formSerialize(data);
+            $("#form1").find('.form-control,select,input').attr('readonly', 'readonly');
+            $("#form1").find('div.ckbox label').attr('for', '');
         });
     });
     function initControl() {

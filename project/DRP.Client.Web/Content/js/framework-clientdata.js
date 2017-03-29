@@ -13,8 +13,12 @@ $.clientsInit = function () {
         authorizeButton: []
     };
     var init = function () {
+        var sid = $.request("sid");
+        var url = "/Home/GetClientsDataJson";
+        if (sid != "" && sid != null && sid != undefined)
+            url = url + "?sid=" + sid;
         $.ajax({
-            url: "/Home/GetClientsDataJson",
+            url: url,
             type: "get",
             dataType: "json",
             async: false,

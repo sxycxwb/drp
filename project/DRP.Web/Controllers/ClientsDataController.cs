@@ -27,12 +27,19 @@ namespace DRP.Web.Controllers
                 organize = this.GetOrganizeList(),
                 role = this.GetRoleList(),
                 duty = this.GetDutyList(),
-                user = "",
+                user = this.GetUserObject(),
                 authorizeMenu = this.GetMenuList(),
                 authorizeButton = this.GetMenuButtonList(),
             };
             return Content(data.ToJson());
         }
+
+        private object GetUserObject()
+        {
+            var currentUser = OperatorProvider.Provider.GetCurrent();
+            return new { userId = currentUser.UserId, userCode = currentUser.UserCode, roleCode = currentUser.RoleCode, roleId = currentUser.RoleId };
+        }
+
         private object GetDataItemList()
         {
             var itemdata = new ItemsDetailApp().GetList();
@@ -123,7 +130,7 @@ namespace DRP.Web.Controllers
         private object GetMenuButtonList()
         {
             var roleId = OperatorProvider.Provider.GetCurrent().RoleId;
-            var data = new RoleAuthorizeApp().GetButtonList(roleId);
+            var data = new RoleAuthorizeApp().GetClientButtonList(roleId);
             var dataModuleId = data.Distinct(new ExtList<ModuleButtonEntity>("F_ModuleId"));
             Dictionary<string, object> dictionary = new Dictionary<string, object>();
             foreach (ModuleButtonEntity item in dataModuleId)

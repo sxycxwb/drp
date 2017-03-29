@@ -57,15 +57,8 @@
     }
 
     function BindTotalProfit() {
-        $.ajax({
-            url: "/DrpServManage/Profit/GetTotalProfitJson",    //后台webservice里的方法名称
-            type: "get",
-            data: { type: type, agentId: $('#F_AgentId').val(), month: $('#selectMonth').val() },
-            dataType: "json",
-            contentType: "application/json",
-            success: function (data) {
-                $('#totalProfit').text("收益总计：" + (data[0].TotalProfit == null ? "0" : data[0].TotalProfit) + " 元");
-            }
+        $.myAjaxGet("/DrpServManage/Profit/GetTotalProfitJson", { type: type, agentId: $('#F_AgentId').val(), month: $('#selectMonth').val() }, false, function (data) {
+            $('#totalProfit').text("收益总计：" + (data[0].TotalProfit == null ? "0" : data[0].TotalProfit) + " 元");
         });
     }
 
@@ -76,42 +69,27 @@
     }
 
     function IsSystem() {
-        $.ajax({
-            url: "/DrpServManage/Profit/CurrentIsSystem",    //后台webservice里的方法名称
-            type: "get",
-            dataType: "json",
-            contentType: "application/json",
-            success: function (data) {
-                if (data.flag == true) {
-                    $('#span_type').show();
-                    type = $('#profitType').val();
-                    agentId = $('#F_AgentId').val();
-                } else {
-                    type = 'agent';
-                }
-                gridList();
-                BindTotalProfit();
+        $.myAjaxGet("/DrpServManage/Profit/CurrentIsSystem", null, false, function (data) {
+            if (data.flag == true) {
+                $('#span_type').show();
+                type = $('#profitType').val();
+                agentId = $('#F_AgentId').val();
+            } else {
+                type = 'agent';
             }
+            gridList();
+            BindTotalProfit();
         });
     }
 
     function BindAgent() {
-        $.ajax({
-            url: "/SystemManage/User/GetBelongPersonListJson",    //后台webservice里的方法名称
-            type: "get",
-            dataType: "json",
-            contentType: "application/json",
-            success: function (data) {
-                var optionstring = "";
-                for (var i in data) {
-                    var jsonObj = data[i];
-                    optionstring += "<option value=\"" + jsonObj.F_Id + "\" >" + jsonObj.F_RealName + "</option>";
-                }
-                $("#F_AgentId").html(optionstring);
-            },
-            error: function (msg) {
-                alert("出错了！");
+        $.myAjaxGet("/SystemManage/User/GetBelongPersonListJson", null, false, function (data) {
+            var optionstring = "";
+            for (var i in data) {
+                var jsonObj = data[i];
+                optionstring += "<option value=\"" + jsonObj.F_Id + "\" >" + jsonObj.F_RealName + "</option>";
             }
+            $("#F_AgentId").html(optionstring);
         });
     }
 

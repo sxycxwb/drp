@@ -34,6 +34,10 @@ namespace DRP.Code
         /// 用户角色ID
         /// </summary>
         public string RoleId { get; set; }
+        /// <summary>
+        /// 角色编码
+        /// </summary>
+        public string RoleCode { get; set; }
         public string UserPwd { get; set; }
         public string LoginIPAddress { get; set; }
         public string LoginIPAddressName { get; set; }

@@ -8,15 +8,10 @@
     $(function () {
         initControl();
         if (!!keyValue) {
-            $.ajax({
-                url: "/DrpServManage/Product/GetFormJson",
-                data: { keyValue: keyValue },
-                dataType: "json",
-                async: false,
-                success: function (data) {
-                    $("#form1").formSerialize(data);
-                    initControl();
-                }
+        
+            $.myAjaxGet("/DrpServManage/Product/GetFormJson", { keyValue: keyValue }, false, function (data) {
+                $("#form1").formSerialize(data);
+                initControl();
             });
         }
         initEvent();

@@ -7,14 +7,9 @@
     $(function () {
         initControl();
         if (!!keyValue) {
-            $.ajax({
-                url: "/SystemManage/Area/GetFormJson",
-                data: { keyValue: keyValue },
-                dataType: "json",
-                async: false,
-                success: function (data) {
-                    $("#form1").formSerialize(data);
-                }
+            $.myAjaxGet("/SystemManage/Area/GetFormJson", { keyValue: keyValue }, false, function (data) {
+                $("#form1").formSerialize(data);
+                initControl();
             });
         }
     });

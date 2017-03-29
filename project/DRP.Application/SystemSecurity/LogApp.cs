@@ -84,13 +84,13 @@ namespace DRP.Application.SystemSecurity
             logEntity.Create();
             service.Insert(logEntity);
         }
-        public void WriteDbLog(LogEntity logEntity)
+        public void WriteDbLog(LogEntity logEntity,string userId = "")
         {
             logEntity.F_Id = Common.GuId();
             logEntity.F_Date = DateTime.Now;
             logEntity.F_IPAddress = "117.81.192.182";
             logEntity.F_IPAddressName = Net.GetLocation(logEntity.F_IPAddress);
-            logEntity.Create();
+            logEntity.Create(userId);
             service.Insert(logEntity);
         }
     }

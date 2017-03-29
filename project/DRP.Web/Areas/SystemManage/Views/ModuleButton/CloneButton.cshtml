@@ -5,9 +5,15 @@
 <script>
     var moduleId = $.request("moduleId");
     $(function () {
+        var url = "/SystemManage/ModuleButton/GetCloneButtonTreeJson";
+
+        var sid = $.request("sid");
+        if (sid != "" && sid != null && typeof (sid) != undefined)
+            url = url + "?sid=" + sid;
+
         $("#itemTree").treeview({
             showcheck: true,
-            url: "/SystemManage/ModuleButton/GetCloneButtonTreeJson"
+            url: url
         });
     });
     function submitForm() {

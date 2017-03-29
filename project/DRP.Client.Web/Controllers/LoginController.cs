@@ -63,10 +63,9 @@ namespace DRP.Client.Web.Controllers
                 }
 
                 CustomerEntity customerEntity = new CustomerApp().CheckLogin(username, password);
-                SetClientOperatorModel(customerEntity);
+                SetClientOperatorModel(customerEntity, "customer");
                 if (customerEntity != null)
                 {
-
                     logEntity.F_Account = customerEntity.F_Account;
                     logEntity.F_NickName = customerEntity.F_CompanyName;
                     logEntity.F_Result = true;
@@ -98,31 +97,44 @@ namespace DRP.Client.Web.Controllers
             logEntity.F_ModuleName = "系统后台管理员用户登录用户中心";
             logEntity.F_Type = DbLogType.Login.ToString();
             #region 判断后台操作用户权限
-            var systemUser = ClientOperatorProvider.Provider.GetSystemCurrent();
+            //var systemUser = ClientOperatorProvider.Provider.GetSystemCurrent();
             //判断是否是后台用户跳转过来的
-            if (systemUser == null)
-                throw new Exception("非法请求！");
+            //if (systemUser == null)
+                //throw new Exception("非法请求！");
             //判断后台用户有没有权限查看用户中心页面，有则跳转，没有则提示错误信息 
-            if (!roleAuthorizeApp.SystemUserToUseCenterValidate(systemUser.RoleId))
-                throw new Exception("没有请求权限！");
+            //if (!roleAuthorizeApp.SystemUserToUseCenterValidate(systemUser.RoleId))
+              //  throw new Exception("没有请求权限！");
             #endregion
 
-            var customerId = DESEncrypt.Decrypt(key);
-            var customerEntity = customerApp.GetForm(customerId);
-            SetClientOperatorModel(customerEntity);
-            //记录日志
-            if (customerEntity != null)
+            var requestInfo = DESEncrypt.Decrypt(key);
+            string roleCode = "", customerId = "",systemUserCode="";
+            if (!string.IsNullOrEmpty(requestInfo))
             {
-                logEntity.F_Account = systemUser.UserCode;
-                logEntity.F_NickName = systemUser.UserName;
-                logEntity.F_Result = true;
-                logEntity.F_Description = "系统后台管理员登录用户中心成功";
-                new LogApp().WriteDbLog(logEntity);
+                customerId = requestInfo.Split('|')[0];
+                roleCode = requestInfo.Split('|')[1];
+                systemUserCode = requestInfo.Split('|')[2];
             }
-            return RedirectToAction("Index", "Home");
+            else
+            {
+                throw new Exception("非法请求！");
+            }
+
+            var customerEntity = customerApp.GetForm(customerId);
+            SetClientOperatorModel(customerEntity, roleCode);
+            ////记录日志
+            //if (customerEntity != null)
+            //{
+            //    logEntity.F_Account = systemUser.UserCode;
+            //    logEntity.F_NickName = systemUser.UserName;
+            //    logEntity.F_Result = true;
+            //    logEntity.F_Description = "系统后台管理员登录用户中心成功";
+            //    new LogApp().WriteDbLog(logEntity);
+            //}
+
+            return RedirectToAction("Index", "Home",new {sid= key.ToLower() });
         }
 
-        private void SetClientOperatorModel(CustomerEntity customerEntity)
+        private void SetClientOperatorModel(CustomerEntity customerEntity,string roleCode = "")
         {
             if (customerEntity != null)
             {
@@ -139,6 +151,7 @@ namespace DRP.Client.Web.Controllers
                 operatorModel.LoginTime = DateTime.Now;
                 operatorModel.LoginToken = DESEncrypt.Encrypt(Guid.NewGuid().ToString());
                 operatorModel.IsSystem = false;
+                operatorModel.RoleCode = roleCode;
                 ClientOperatorProvider.Provider.AddCurrent(operatorModel);
 
             }

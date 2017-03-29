@@ -152,6 +152,7 @@ $(function ($) {
 });
 function GetLoadNav() {
     var data = top.clients.authorizeMenu;
+    var sid = $.request("sid");
     var _html = "";
     $.each(data, function (i) {
         var row = data[i];
@@ -163,8 +164,11 @@ function GetLoadNav() {
                 _html += '<ul class="submenu">';
                 $.each(childNodes, function (i) {
                     var subrow = childNodes[i];
+                    var urlAddress = subrow.F_UrlAddress;
+                    if (sid != "" && sid != null && sid != undefined)
+                        urlAddress = urlAddress + "?sid=" + sid;
                     _html += '<li>';
-                    _html += '<a class="menuItem" data-id="' + subrow.F_Id + '" href="' + subrow.F_UrlAddress + '" data-index="' + subrow.F_SortCode + '">' + subrow.F_FullName + '</a>';
+                    _html += '<a class="menuItem" data-id="' + subrow.F_Id + '" href="' + urlAddress + '" data-index="' + subrow.F_SortCode + '">' + subrow.F_FullName + '</a>';
                     _html += '</li>';
                 });
                 _html += '</ul>';

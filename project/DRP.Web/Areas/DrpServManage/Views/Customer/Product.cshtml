@@ -18,6 +18,10 @@
 
     });
 
+    function closeLayer() {
+        $.modalClose();
+    }
+
     function initControl() {
         BindProductList(keyValue);//绑定客户已设置产品列表
 
@@ -70,8 +74,13 @@
                         if ($('[name=__RequestVerificationToken]').length > 0) {
                             options.param["__RequestVerificationToken"] = $('[name=__RequestVerificationToken]').val();
                         }
+                        var sid = $.request("sid");
+                        var url = "/DrpServManage/Customer/SubmitProduct";
+                        if (sid != "" && sid != null && typeof (sid) != undefined)
+                            url = url + "?sid=" + sid;
+
                         $.ajax({
-                            url: "/DrpServManage/Customer/SubmitProduct",
+                            url:url,
                             data: options.param,
                             type: "post",
                             dataType: "json",
@@ -104,12 +113,21 @@
     }
 
     function treeView() {
+        var sid = $.request("sid");
+        var url = "/DrpServManage/ProductCategory/GetTreeJson";
+        var clickUrl = "/DrpServManage/Product/GetGridJson";
+
+        if (sid != "" && sid != null && typeof (sid) != undefined){
+            url = url + "?sid=" + sid;
+            clickUrl = clickUrl + "?sid=" + sid;
+        }
+
         $("#categroyTree").treeview({
-            url: "/DrpServManage/ProductCategory/GetTreeJson",
+            url: url,
             onnodeclick: function (item) {
                 $("#txt_keyword").val('');
                 $("#gridList").jqGrid('setGridParam', {
-                    url: "/DrpServManage/Product/GetGridJson",
+                    url: clickUrl,
                     postData: { categoryId: $("#categroyTree").getCurrentNode().id, keyword: $("#txt_keyword").val() },
                 }).trigger('reloadGrid');
             }
@@ -136,69 +154,50 @@
     }
 
     function BindProduct(productId, flag) {
-        $.ajax({
-            url: "/DrpServManage/Product/GetFormJson",
-            data: { keyValue: productId },
-            dataType: "json",
-            async: false,
-            success: function (data) {
-                var btnContent = "确认并添加";
-                if (flag == "edit")
-                    btnContent = "确认并修改";
-                $('#btnSureAdd').html(btnContent);
-                $("#form1").formSerialize(data);
-                $('#chargeAmountRange').html('(范围:' + data.F_ChargeAmountMin + '~' + data.F_ChargeAmountMax + ')');
-                $('#F_ProductId').val(data.F_Id);
-            }
+        $.myAjaxGet("/DrpServManage/Product/GetFormJson", { keyValue: productId }, false, function (data) {
+            var btnContent = "确认并添加";
+            if (flag == "edit")
+                btnContent = "确认并修改";
+            $('#btnSureAdd').html(btnContent);
+            $("#form1").formSerialize(data);
+            $('#chargeAmountRange').html('(范围:' + data.F_ChargeAmountMin + '~' + data.F_ChargeAmountMax + ')');
+            $('#F_ProductId').val(data.F_Id);
         });
     }
 
     function BindProductList(customerId) {
-        $.ajax({
-            url: "/DrpServManage/Customer/GetProductJson",
-            data: { keyValue: customerId },
-            dataType: "json",
-            async: false,
-            success: function (data) {
-                var productListHtml = $("#listTemplate").render(data);
-                $("#productList").html(productListHtml);
-                $('.productName').mouseover(function () {
-                    $(this).css('cursor', 'pointer');
-                });
-                $('.productName').click(function () {
-                    var productId = $(this).attr('id');
-                    var productPrice = $(this).attr('price');
-                    BindProduct(productId, 'edit');
-                    $('#F_ChargeAmount').val(productPrice);
-                });
+        $.myAjaxGet("/DrpServManage/Customer/GetProductJson", { keyValue: customerId }, false, function (data) {
+            var productListHtml = $("#listTemplate").render(data);
+            $("#productList").html(productListHtml);
+            $('.productName').mouseover(function () {
+                $(this).css('cursor', 'pointer');
+            });
+            $('.productName').click(function () {
+                var productId = $(this).attr('id');
+                var productPrice = $(this).attr('price');
+                BindProduct(productId, 'edit');
+                $('#F_ChargeAmount').val(productPrice);
+            });
 
-                $('.shut').click(function () {
-                    var productName = $(this).parent().find('.productName').html();
-                    var fid = $(this).parent().attr('id');
-                    $.modalConfirm("注：您确定要移除产品【" + productName + "】吗？", function (r) {
-                        if (r) {
-                            $.ajax({
-                                url: "/DrpServManage/Customer/RemoveProduct",
-                                type: "post",
-                                data: { keyValue: fid },
-                                dataType: "json",
-                                async: false,
-                                success: function (data) {
-                                    if (data.state == "success") {
-                                        $.modalMsg(data.message, data.state);
-                                        BindProductList(keyValue);
-                                        //重新加载产品列表
-                                    } else {
-                                        $.modalAlert(data.message, data.state);
-                                    }
-                                }
-                            });
-                        }
-                    });
+            $('.shut').click(function () {
+                var productName = $(this).parent().find('.productName').html();
+                var fid = $(this).parent().attr('id');
+                $.modalConfirm("注：您确定要移除产品【" + productName + "】吗？", function (r) {
+                    if (r) {
+                        $.myAjaxPost("/DrpServManage/Product/GetFormJson", { keyValue: fid }, false, function (data) {
+                            if (data.state == "success") {
+                                $.modalMsg(data.message, data.state);
+                                BindProductList(keyValue);
+                                //重新加载产品列表
+                            } else {
+                                $.modalAlert(data.message, data.state);
+                            }
+                        });
+                    }
                 });
-
-            }
+            });
         });
+
     }
 
     function gridList() {

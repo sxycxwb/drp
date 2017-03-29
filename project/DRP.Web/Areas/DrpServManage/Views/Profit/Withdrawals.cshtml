@@ -9,15 +9,8 @@
     });
 
     function initBalance() {
-        $.ajax({
-            url: "/DrpServManage/Profit/GetCurrentBalance",    //后台webservice里的方法名称
-            type: "get",
-            data: {},
-            dataType: "json",
-            contentType: "application/json",
-            success: function (data) {
-                $('#accountBalance').text(data.balance.toFixed(2));
-            }
+        $.myAjaxGet("/DrpServManage/Profit/GetCurrentBalance", { }, false, function (data) {
+            $('#accountBalance').text(data.balance.toFixed(2));
         });
     }
 

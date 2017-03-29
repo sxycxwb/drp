@@ -5,17 +5,12 @@
 <script>
     var keyValue = $.request("keyValue");
     $(function () {
-        $("#F_Type").bindSelect()
+        $("#F_Type").bindSelect();
         if (!!keyValue) {
-            $.ajax({
-                url: "/SystemSecurity/FilterIP/GetFormJson",
-                data: { keyValue: keyValue },
-                dataType: "json",
-                async: false,
-                success: function (data) {
-                    $("#form1").formSerialize(data);
-                }
+            $.myAjaxGet("/SystemSecurity/FilterIP/GetFormJson", { keyValue: keyValue }, false, function (data) {
+                $("#form1").formSerialize(data);
             });
+
         }
     });
     function submitForm() {

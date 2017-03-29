@@ -4,6 +4,9 @@
  * Description: 分销系统
  * Website：
 *********************************************************************************/
+
+using System.Web;
+
 namespace DRP.Code
 {
     public class OperatorProvider
@@ -18,6 +21,9 @@ namespace DRP.Code
         public OperatorModel GetCurrent()
         {
             OperatorModel operatorModel = new OperatorModel();
+            string md5UserCode = HttpContext.Current.Request["sid"];
+            LoginUserKey = md5UserCode + "_" + LoginUserKey;//md5(登录名)+LoginUserKey
+            string url = HttpContext.Current.Request.Url.ToString();
             if (LoginProvider == "Cookie")
             {
                 operatorModel = DESEncrypt.Decrypt(WebHelper.GetCookie(LoginUserKey).ToString()).ToObject<OperatorModel>();
@@ -30,6 +36,7 @@ namespace DRP.Code
         }
         public void AddCurrent(OperatorModel operatorModel)
         {
+            LoginUserKey = Md5.md5(operatorModel.UserCode,32).ToLower() + "_"+ LoginUserKey;
             if (LoginProvider == "Cookie")
             {
                 WebHelper.WriteCookie(LoginUserKey, DESEncrypt.Encrypt(operatorModel.ToJson()), 60);
@@ -43,6 +50,8 @@ namespace DRP.Code
         }
         public void RemoveCurrent()
         {
+            string md5UserCode = HttpContext.Current.Request["sid"];
+            LoginUserKey = md5UserCode + "_" + LoginUserKey;//md5(登录名)+LoginUserKey
             if (LoginProvider == "Cookie")
             {
                 WebHelper.RemoveCookie(LoginUserKey.Trim());

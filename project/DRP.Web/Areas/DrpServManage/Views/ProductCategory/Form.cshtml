@@ -7,14 +7,8 @@
     $(function () {
         initControl();
         if (!!keyValue) {
-            $.ajax({
-                url: "/DrpServManage/ProductCategory/GetFormJson",
-                data: { keyValue: keyValue },
-                dataType: "json",
-                async: false,
-                success: function (data) {
-                    $("#form1").formSerialize(data);
-                }
+            $.myAjaxGet("/DrpServManage/ProductCategory/GetFormJson", { keyValue: keyValue }, false, function (data) {
+                $("#form1").formSerialize(data);
             });
         }
     });

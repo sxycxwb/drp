@@ -7,14 +7,8 @@
     $(function () {
         initControl();
         if (!!keyValue) {
-            $.ajax({
-                url: "/SystemManage/Role/GetFormJson",
-                data: { keyValue: keyValue },
-                dataType: "json",
-                async: false,
-                success: function (data) {
-                    $("#form1").formSerialize(data);
-                }
+            $.myAjaxGet("/SystemManage/Role/GetFormJson", { keyValue: keyValue }, false, function (data) {
+                $("#form1").formSerialize(data);
             });
         }
     })
@@ -46,10 +40,17 @@
                 $next.show();
             }
         });
+
+        var url = "/SystemManage/RoleAuthorize/GetPermissionTree";
+
+        var sid = $.request("sid");
+        if (sid != "" && sid != null && typeof (sid) != undefined)
+            url = url + "?sid=" + sid;
+
         $("#permissionTree").treeview({
             height: 444,
             showcheck: true,
-            url: "/SystemManage/RoleAuthorize/GetPermissionTree",
+            url: url,
             param: { roleId: keyValue }
         });
     }

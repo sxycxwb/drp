@@ -13,8 +13,12 @@ $.clientsInit = function () {
         authorizeButton: []
     };
     var init = function () {
+        var sid = $.request("sid");
+        var url = "/ClientsData/GetClientsDataJson";
+        if (sid != "" && sid != null && sid != undefined)
+            url = url + "?sid=" + sid;
         $.ajax({
-            url: "/ClientsData/GetClientsDataJson",
+            url: url,
             type: "get",
             dataType: "json",
             async: false,
@@ -25,6 +29,7 @@ $.clientsInit = function () {
                 dataJson.duty = data.duty;
                 dataJson.authorizeMenu = eval(data.authorizeMenu);
                 dataJson.authorizeButton = data.authorizeButton;
+                dataJson.user = data.user;
             }
         });
     }

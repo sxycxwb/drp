@@ -11,7 +11,7 @@ namespace DRP.Web
             Ignore = ignore;
         }
         public override void OnAuthorization(AuthorizationContext filterContext)
-        {
+        {          
             if (Ignore == false)
             {
                 return;

@@ -77,6 +77,61 @@ $.download = function (url, data, method) {
         $('<form action="' + url + '" method="' + (method || 'post') + '">' + inputs + '</form>').appendTo('body').submit().remove();
     };
 };
+
+function AppendOptions(options) {
+    if (options == undefined) return options;
+    var sid = $.request("sid");
+    try {
+        if (options.url) {
+            var url = options.url;
+            if (sid != "" && sid != null && sid != undefined)//保证sid值有效
+                options.url = url + (url.indexOf("?") > 0 ? "&" : "?") + "sid=" + sid;
+        }
+    }
+    catch (err) {
+        return options;
+    }
+    return options;
+}
+
+$.myAjaxGet = function (url, data, async, successfn) {
+    data = (data == null || data == "" || typeof (data) == "undefined") ? { "date": new Date().getTime() } : data;
+
+    var sid = $.request("sid");
+    if (sid != "" && sid != null && typeof (sid) != undefined)
+        url = url + "?sid=" + sid;
+
+    $.ajax({
+        type: "get",
+        async:async,
+        data: data,
+        url: url,
+        dataType: "json",
+        success: function (d) {
+            successfn(d);
+        }
+    });
+};
+
+$.myAjaxPost = function (url, data, async, successfn) {
+    data = (data == null || data == "" || typeof (data) == "undefined") ? { "date": new Date().getTime() } : data;
+
+    var sid = $.request("sid");
+    if (sid != "" && sid != null && typeof (sid) != undefined)
+        url = url + "?sid=" + sid;
+
+    $.ajax({
+        type: "post",
+        async: async,
+        data: data,
+        url: url,
+        dataType: "json",
+        success: function (d) {
+            successfn(d);
+        }
+    });
+};
+
 $.modalOpen = function (options) {
     var defaults = {
         id: null,
@@ -88,10 +143,11 @@ $.modalOpen = function (options) {
         btn: ['确认', '关闭'],
         btnclass: ['btn btn-primary', 'btn btn-danger'],
         callBack: null,
-        cancel: function() {
+        cancel: function () {
             return true;
         }
     };
+    options = AppendOptions(options);
     var options = $.extend(defaults, options);
     var _width = top.$(window).width() > parseInt(options.width.replace('px', '')) ? options.width : top.$(window).width() + 'px';
     var _height = top.$(window).height() > parseInt(options.height.replace('px', '')) ? options.height : top.$(window).height() + 'px';
@@ -173,6 +229,7 @@ $.modalClose = function () {
         location.reload();
     }
 }
+
 $.submitForm = function (options) {
     var defaults = {
         url: "",
@@ -181,6 +238,7 @@ $.submitForm = function (options) {
         success: null,
         close: true
     };
+    options = AppendOptions(options);
     var options = $.extend(defaults, options);
     $.loading(true, options.loading);
     window.setTimeout(function () {
@@ -225,6 +283,7 @@ $.deleteForm = function (options) {
         success: null,
         close: true
     };
+    options = AppendOptions(options);
     var options = $.extend(defaults, options);
     if ($('[name=__RequestVerificationToken]').length > 0) {
         options.param["__RequestVerificationToken"] = $('[name=__RequestVerificationToken]').val();
@@ -271,6 +330,7 @@ $.confirmForm = function (options) {
         success: null,
         close: true
     };
+    options = AppendOptions(options);
     var options = $.extend(defaults, options);
     if ($('[name=__RequestVerificationToken]').length > 0) {
         options.param["__RequestVerificationToken"] = $('[name=__RequestVerificationToken]').val();
@@ -413,6 +473,7 @@ $.fn.bindSelect = function (options) {
         param: [],
         change: null
     };
+    options = AppendOptions(options);
     var options = $.extend(defaults, options);
     var $element = $(this);
     if (options.url != "") {
@@ -465,6 +526,7 @@ $.fn.dataGrid = function (options) {
         gridview: true
     };
     var $element = $(this);
+    options = AppendOptions(options);
     options["onSelectRow"] = function (rowid) {
         var length = $(this).jqGrid("getGridParam", "selrow").length;
         var $operate = $(".operate");
@@ -473,7 +535,7 @@ $.fn.dataGrid = function (options) {
         } else {
             $operate.animate({ "left": '-100.1%' }, 200);
         }
-        $operate.find('.close').click(function() {
+        $operate.find('.close').click(function () {
             $operate.animate({ "left": '-100.1%' }, 200);
         });
     };

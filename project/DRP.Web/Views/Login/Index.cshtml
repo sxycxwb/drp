@@ -102,8 +102,8 @@
                                 if (data.state == "success") {
                                     $("#login_button").find('span').html("登录成功，正在跳转...");
                                     window.setTimeout(function () {
-                                        window.location.href = "/Home/Index";
-                                    }, 500);
+                                        window.location.href = "/Home/Index?sid=" + $.md5($.trim($username.val()));
+                                    }, 300);
                                 } else {
                                     $("#login_button").removeAttr('disabled').find('span').html("登录");
                                     $("#switchCode").trigger("click");
