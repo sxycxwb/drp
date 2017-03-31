@@ -16,7 +16,7 @@ namespace DRP.Client.Web
         private CustomerApp customerApp = new CustomerApp();
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
-            string sid = filterContext.Controller.ValueProvider.GetValue("sid").AttemptedValue;
+            string sid = filterContext.Controller.ValueProvider.GetValue("sid")==null?"": filterContext.Controller.ValueProvider.GetValue("sid").AttemptedValue;
             if (Ignore == false)
             {
                 return;

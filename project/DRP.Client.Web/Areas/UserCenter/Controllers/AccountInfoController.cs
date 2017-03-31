@@ -12,11 +12,31 @@ namespace DRP.Client.Web.Areas.UserCenter.Controllers
 {
     public class AccountInfoController : ControllerBase
     {
+
+        private CustomerApp customerApp = new CustomerApp();
+
         [HttpGet]
         public virtual ActionResult ChangePwd()
         {
             return View();
         }
+
+        [HttpGet]
+        public virtual ActionResult GetUserBalance()
+        {
+            string sid = Request["sid"];
+            string customerId = ClientOperatorProvider.Provider.GetCurrent().UserId;
+            if (!string.IsNullOrEmpty(customerId))
+            {
+                var customer = customerApp.GetForm(customerId);
+                if (customer != null)
+                {
+                    return Content((new {Balance = customer.F_AccountBalance}).ToJson());
+                }
+            }
+            return Content((new { Balance ="0.00" }).ToJson());
+        }
+
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]

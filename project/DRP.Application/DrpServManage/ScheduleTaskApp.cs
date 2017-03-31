@@ -252,7 +252,7 @@ namespace DRP.Application.DrpServManage
                                 F_CustomerId = customer.F_Id,
                                 F_ProductId = product.F_Id,
                                 F_ProductName = productName,
-                                F_DeductionFee = product.F_ChargeAmount
+                                F_DeductionFee = chargeAmount
                             };
 
                         #endregion

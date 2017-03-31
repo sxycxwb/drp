@@ -51,9 +51,14 @@
                 { label: "备注", name: "F_Description", index: "F_Description", width: 200, align: "left", sortable: false }
             ]
         });
+
+        var sid = $.request("sid");
+        var url = "/SystemManage/ItemsData/GetGridJson";
+        if (sid != "" && sid != null && typeof (sid) != undefined)
+            url = url + "?sid=" + sid;
         $("#btn_search").click(function () {
             $gridList.jqGrid('setGridParam', {
-                url: "/SystemManage/ItemsData/GetGridJson",
+                url: url,
                 postData: { itemId: $("#itemTree").getCurrentNode().id, keyword: $("#txt_keyword").val() },
             }).trigger('reloadGrid');
         });

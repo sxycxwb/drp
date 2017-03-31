@@ -22,10 +22,10 @@
             }
         });
     }
+
     function gridList() {
         var $gridList = $("#gridList");
         $gridList.dataGrid({
-            //url: "/DrpServManage/Product/GetGridJson",
             height: $(window).height() - 96,
             colModel: [
                 { label: '主键', name: 'F_Id', hidden: true },
@@ -76,10 +76,15 @@
             sortname: 'F_CreatorTime desc',
             viewrecords: true
         });
+
+        var sid = $.request("sid");
+        var url = "/DrpServManage/Product/GetGridJson";
+        if (sid != "" && sid != null && typeof (sid) != undefined)
+            url = url + "?sid=" + sid;
         $("#btn_search").click(function () {
             $gridList.jqGrid('setGridParam', {
-                url: "/DrpServManage/Product/GetGridJson",
-                postData: { categoryId: $("#categroyTree").getCurrentNode().id, keyword: $("#txt_keyword").val() },
+                url: url,
+                postData: { categoryId: $("#categroyTree").getCurrentNode().id, keyword: $("#txt_keyword").val() }
             }).trigger('reloadGrid');
         });
     }

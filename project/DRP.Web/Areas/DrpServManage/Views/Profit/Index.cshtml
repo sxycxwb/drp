@@ -57,9 +57,9 @@
     }
 
     function BindTotalProfit() {
-        $.myAjaxGet("/DrpServManage/Profit/GetTotalProfitJson", { type: type, agentId: $('#F_AgentId').val(), month: $('#selectMonth').val() }, false, function (data) {
-            $('#totalProfit').text("收益总计：" + (data[0].TotalProfit == null ? "0" : data[0].TotalProfit) + " 元");
-        });
+        //$.myAjaxGet("/DrpServManage/Profit/GetTotalProfitJson", { type: type, agentId: $('#F_AgentId').val(), month: $('#selectMonth').val() }, false, function (data) {
+        //    $('#totalProfit').text("收益总计：" + (data[0].TotalProfit == null ? "0" : data[0].TotalProfit) + " 元");
+        //});
     }
 
     function Init() {
@@ -125,8 +125,8 @@
 </script>
 <div class="topPanel">
     <div class="toolbar">
-        <div class="btn-group" id="totalProfit" style="color: red; margin-right: 10px; font-weight: bold;">
-        </div>
+        @*<div class="btn-group" id="totalProfit" style="color: red; margin-right: 10px; font-weight: bold;">
+        </div>*@
         <div class="btn-group">
             <a class="btn btn-primary" onclick="$.reload()"><span class="glyphicon glyphicon-refresh"></span></a>
         </div>
