@@ -88,8 +88,6 @@
         function getBlance() {
             var sid = $.request("sid");
             var url = "/UserCenter/AccountInfo/GetUserBalance";
-            if (sid != "" && sid != null && sid != undefined)//保证sid值有效
-                options.url = url + (url.indexOf("?") > 0 ? "&" : "?") + "sid=" + sid;
             $.myAjaxGet(url, {}, false, function (data) {
                 $('.uc_balance').text(data.Balance);
             });
