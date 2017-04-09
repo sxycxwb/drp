@@ -19,17 +19,8 @@
         $.submitForm({
             url: "/UserCenter/CardInfo/SubmitForm?keyValue=" + keyValue,
             param: $("#form1").formSerialize(),
-            success: function (msg) {
-                switch (msg.state) {
-                    case "success":
-                        $.modalAlert(msg.message, 'success');
-                    case "warning":
-                        $.modalAlert(msg.message, 'warning');
-                    case "error":
-                        $.modalAlert(msg.message, 'error');
-                    default:
-                        $.modalAlert(msg.message, 'warning');
-                }
+            success: function () {
+                $($.currentWindow()).contents().find('#gridList').trigger("reloadGrid");
             }
         });
     }

@@ -47,7 +47,7 @@ $.browser = function () {
     var userAgent = navigator.userAgent;
     var isOpera = userAgent.indexOf("Opera") > -1;
     if (isOpera) {
-        return "Opera"
+        return "Opera";
     };
     if (userAgent.indexOf("Firefox") > -1) {
         return "FF";

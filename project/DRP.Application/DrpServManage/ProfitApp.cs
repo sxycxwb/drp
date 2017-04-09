@@ -75,6 +75,12 @@ namespace DRP.Application.DrpServManage
             {
                 expression = expression.And(t => t.F_WithdrawPersonName.Contains(keyword));
             }
+
+            if (!OperatorProvider.Provider.GetCurrent().IsSystem) //不是超级管理员
+            {
+                var currentUserId = OperatorProvider.Provider.GetCurrent().UserId;
+                expression = expression.And(t => t.F_CreatorUserId == currentUserId);
+            }
             return wdService.FindList(expression, pagination).OrderByDescending(t => t.F_CreatorTime).ToList();
         }
 
