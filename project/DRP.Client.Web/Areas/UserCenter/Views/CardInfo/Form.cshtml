@@ -20,7 +20,14 @@
             url: "/UserCenter/CardInfo/SubmitForm?keyValue=" + keyValue,
             param: $("#form1").formSerialize(),
             success: function () {
-                $($.currentWindow()).contents().find('#gridList').trigger("reloadGrid");
+                //alert('哈哈哈');
+                //$.currentWindow().$("#gridList").trigger("reloadGrid");
+                //$($.currentWindow()).contents().find('#NF-add').click();
+                //$($.currentWindow()).contents().find('#gridList').trigger("reloadGrid", { fromServer: true, page: 1 });
+                //$($.currentWindow()).contents().Alert();
+                //window.parent.Alert();
+
+                window.setTimeout(function () { $($.currentWindow()).contents().find('#gridList').trigger("reloadGrid") }, 1000);
             }
         });
     }

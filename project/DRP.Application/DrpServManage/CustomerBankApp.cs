@@ -22,7 +22,7 @@ namespace DRP.Application.DrpServManage
 
         public CustomerBankEntity SeleceForm(string keyValue)
         {
-            return service.FindEntity(t => t.F_BankAccountName == keyValue);
+            return service.FindEntity(t => t.F_BankAccountName == keyValue && t.F_DeleteMark==false);
         }
 
         public CustomerBankEntity GetForm(string keyValue)
