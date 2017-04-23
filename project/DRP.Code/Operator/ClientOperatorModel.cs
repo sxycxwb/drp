@@ -34,15 +34,36 @@ namespace DRP.Code
         /// 用户角色ID
         /// </summary>
         public string RoleId { get; set; }
+
         /// <summary>
         /// 角色编码
         /// </summary>
         public string RoleCode { get; set; }
+
         public string UserPwd { get; set; }
         public string LoginIPAddress { get; set; }
         public string LoginIPAddressName { get; set; }
         public string LoginToken { get; set; }
         public DateTime LoginTime { get; set; }
         public bool IsSystem { get; set; }
+
+        /// <summary>
+        /// 系统操作用户编码
+        /// </summary>
+        public string SystemUserCode { get; set; }
+
+        /// <summary>
+        /// 系统操作用户ID
+        /// </summary>
+        public string SystemUserId { get; set; }
+
+        /// <summary>
+        /// 系统操作用户名
+        /// </summary>
+        public string SystemUserName { get; set; }
+        /// <summary>
+        /// 系统操作角色CODE
+        /// </summary>
+        public string SystemRoleCode { get; set; }
     }
 }

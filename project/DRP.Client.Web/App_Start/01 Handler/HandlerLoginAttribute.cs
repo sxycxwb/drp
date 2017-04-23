@@ -2,7 +2,9 @@
 using DRP.Code;
 using System.Web.Mvc;
 using DRP.Application.DrpServManage;
+using DRP.Application.SystemManage;
 using DRP.Domain.Entity.DrpServManage;
+using DRP.Domain.Entity.SystemManage;
 
 namespace DRP.Client.Web
 {
@@ -14,6 +16,7 @@ namespace DRP.Client.Web
             Ignore = ignore;
         }
         private CustomerApp customerApp = new CustomerApp();
+        private UserApp userApp = new UserApp();
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
             string sid = filterContext.Controller.ValueProvider.GetValue("sid")==null?"": filterContext.Controller.ValueProvider.GetValue("sid").AttemptedValue;
@@ -29,13 +32,15 @@ namespace DRP.Client.Web
                 sid = DESEncrypt.Decrypt(sid.ToUpper());
                 if (!string.IsNullOrEmpty(sid))
                 {
-                    string customerId = sid.Split('|')[0];
+                    string customerCode = sid.Split('|')[0];
                     string roleCode = sid.Split('|')[1];
+                    string systemUserCode = sid.Split('|')[2];
                     if (ClientOperatorProvider.Provider.GetCurrent() == null)//缓存为空则重置缓存
                     {
-                        var customerEntity = customerApp.GetForm(customerId);
+                        var customerEntity = customerApp.GetFormByCode(customerCode);
+                        var userEntity = userApp.GetFormByUserCode(systemUserCode);
                         if (customerEntity != null)
-                            SetClientOperatorModel(customerEntity, roleCode);
+                            SetClientOperatorModel(customerEntity, userEntity, roleCode);
                     }
                 }
             }
@@ -51,7 +56,7 @@ namespace DRP.Client.Web
             }
         }
 
-        private void SetClientOperatorModel(CustomerEntity customerEntity, string roleCode = "")
+        private void SetClientOperatorModel(CustomerEntity customerEntity, UserEntity systemUserEntity, string roleCode = "")
         {
             if (customerEntity != null)
             {
@@ -68,7 +73,15 @@ namespace DRP.Client.Web
                 operatorModel.LoginTime = DateTime.Now;
                 operatorModel.LoginToken = DESEncrypt.Encrypt(Guid.NewGuid().ToString());
                 operatorModel.IsSystem = false;
-                operatorModel.RoleCode = roleCode;
+                operatorModel.SystemRoleCode = roleCode;
+
+                if (systemUserEntity != null)
+                {
+                    operatorModel.SystemUserId = systemUserEntity.F_Id;
+                    operatorModel.SystemUserCode = systemUserEntity.F_Account;
+                    operatorModel.SystemUserName = systemUserEntity.F_RealName;
+                }
+
                 ClientOperatorProvider.Provider.AddCurrent(operatorModel);
 
             }

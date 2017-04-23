@@ -55,6 +55,12 @@ namespace DRP.Application.SystemManage
         {
             return service.FindEntity(keyValue);
         }
+
+        public UserEntity GetFormByUserCode(string keyValue)
+        {
+            return service.FindEntity(t=>t.F_Account==keyValue);
+        }
+
         public void DeleteForm(string keyValue)
         {
             service.DeleteForm(keyValue);

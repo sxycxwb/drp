@@ -106,8 +106,17 @@ namespace DRP.Web.Controllers
         }
         private object GetMenuList()
         {
-            var roleId = ClientOperatorProvider.Provider.GetCurrent().RoleId;
-            return ToMenuJson(new RoleAuthorizeApp().GetMenuList(roleId), "867ef817-fe47-42ad-b842-afdc533a2be8");
+            var roleCode = ClientOperatorProvider.Provider.GetCurrent().RoleCode;
+
+
+            var userRole = new RoleEntity();;
+            if (!string.IsNullOrEmpty(ClientOperatorProvider.Provider.GetCurrent().SystemRoleCode))
+            {
+                roleCode = ClientOperatorProvider.Provider.GetCurrent().SystemRoleCode;
+            }
+            var role = new RoleApp().GetFormByCode(roleCode);
+            //var roleId = ClientOperatorProvider.Provider.GetCurrent().RoleId;
+            return ToMenuJson(new RoleAuthorizeApp().GetMenuList(role.F_Id), "867ef817-fe47-42ad-b842-afdc533a2be8");
         }
         private string ToMenuJson(List<ModuleEntity> data, string parentId)
         {
@@ -142,5 +151,5 @@ namespace DRP.Web.Controllers
         }
     }
 
-  
+
 }

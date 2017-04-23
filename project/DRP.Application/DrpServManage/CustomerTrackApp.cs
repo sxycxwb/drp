@@ -32,9 +32,10 @@ namespace DRP.Application.DrpServManage
                 //expression = expression.Or(t => t.F_MobilePhone.Contains(keyword));
             }
             expression = expression.And(t => t.F_DeleteMark == false);
-            if (OperatorProvider.Provider.GetCurrent() != null && !OperatorProvider.Provider.GetCurrent().IsSystem) //不是超级管理员
+            
+            if (!string.IsNullOrEmpty(ClientOperatorProvider.Provider.GetCurrent().SystemUserId)&& ClientOperatorProvider.Provider.GetCurrent().SystemUserCode!="admin")
             {
-                var currentUserId = OperatorProvider.Provider.GetCurrent().UserId;
+                var currentUserId = ClientOperatorProvider.Provider.GetCurrent().SystemUserId;
                 expression = expression.And(t => t.F_CreatorUserId == currentUserId);
             }
 
@@ -50,10 +51,30 @@ namespace DRP.Application.DrpServManage
             if (!string.IsNullOrEmpty(keyValue))
             {
                 customerTrackEntity.Modify(keyValue);
+                if (ClientOperatorProvider.Provider.GetCurrent() != null)
+                {
+                    if (!string.IsNullOrEmpty(ClientOperatorProvider.Provider.GetCurrent().SystemUserId))
+                    {
+                        customerTrackEntity.F_LastModifyUserId =
+                            ClientOperatorProvider.Provider.GetCurrent().SystemUserId;
+                        customerTrackEntity.F_LastModifyUserName =
+                            ClientOperatorProvider.Provider.GetCurrent().SystemUserName;
+                    }
+                }
             }
             else
             {
                 customerTrackEntity.Create();
+                if (ClientOperatorProvider.Provider.GetCurrent() != null)
+                {
+                    if (!string.IsNullOrEmpty(ClientOperatorProvider.Provider.GetCurrent().SystemUserId))
+                    {
+                        customerTrackEntity.F_CreatorUserId =
+                           ClientOperatorProvider.Provider.GetCurrent().SystemUserId;
+                        customerTrackEntity.F_CreatorUserName =
+                            ClientOperatorProvider.Provider.GetCurrent().SystemUserName;
+                    }
+                }
             }
             service.SubmitForm(customerTrackEntity, keyValue);
         }

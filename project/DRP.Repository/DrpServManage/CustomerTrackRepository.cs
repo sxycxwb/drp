@@ -35,7 +35,7 @@ namespace DRP.Repository.DrpServManage
                 {
                     db.Update(customerTrackEntity);
                     var LoginInfo = OperatorProvider.Provider.GetCurrent();
-                    if (LoginInfo != null)
+                    if (LoginInfo != null && string.IsNullOrEmpty(customerTrackEntity.F_LastModifyUserName))
                         customerTrackEntity.F_LastModifyUserName = LoginInfo.UserName;
                 }
                 else
@@ -43,7 +43,7 @@ namespace DRP.Repository.DrpServManage
                     #region 处理顾客 记事簿 新增时的属性
                     customerTrackEntity.F_DeleteMark = false;
                     var LoginInfo = OperatorProvider.Provider.GetCurrent();
-                    if (LoginInfo != null)
+                    if (LoginInfo != null && string.IsNullOrEmpty(customerTrackEntity.F_CreatorUserName))
                         customerTrackEntity.F_CreatorUserName = LoginInfo.UserName;
                     #endregion
                     db.Insert(customerTrackEntity);
@@ -52,6 +52,6 @@ namespace DRP.Repository.DrpServManage
             }
         }
 
-       
+
     }
 }

@@ -36,6 +36,11 @@ namespace DRP.Application.SystemManage
         {
             return service.FindEntity(keyValue);
         }
+
+        public RoleEntity GetFormByCode(string keyValue)
+        {
+            return service.FindEntity(t => t.F_EnCode == keyValue);
+        }
         public void DeleteForm(string keyValue)
         {
             #region 判断是否是客户相关角色信息，如果是则提示不能删除
@@ -44,7 +49,7 @@ namespace DRP.Application.SystemManage
             string customerRoleCodeList = Configs.GetValue("CustomerRoleCode");
             string[] roleCodeArr = customerRoleCodeList.Split(';');
             if (roleCodeArr.Contains(code))
-                throw new Exception("您无权删除客户相关角色信息！"); 
+                throw new Exception("您无权删除客户相关角色信息！");
             #endregion
 
             service.DeleteForm(keyValue);

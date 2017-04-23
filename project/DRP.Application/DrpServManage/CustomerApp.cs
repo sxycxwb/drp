@@ -58,6 +58,11 @@ namespace DRP.Application.DrpServManage
             return service.FindEntity(keyValue);
         }
 
+        public CustomerEntity GetFormByCode(string keyValue)
+        {
+            return service.FindEntity(t=>t.F_Account==keyValue);
+        }
+
         public object GetProductJson(string keyValue)
         {
             //查询所有有效产品
@@ -92,6 +97,11 @@ namespace DRP.Application.DrpServManage
 
         public void SubmitForm(CustomerEntity customerEntity, string keyValue)
         {
+            var cusProModel = service.FindEntity(t => t.F_Account == customerEntity.F_Account);
+            if (cusProModel != null)
+                throw new Exception("该账户名称已添加！");
+
+
             if (!string.IsNullOrEmpty(keyValue))
             {
                 customerEntity.Modify(keyValue);

@@ -67,7 +67,7 @@ namespace DRP.Code
 
         public void AddCurrent(ClientOperatorModel operatorModel)
         {
-            string key = operatorModel.UserId + "|" + operatorModel.RoleCode;
+            string key = operatorModel.UserCode + "|" + (string.IsNullOrEmpty(operatorModel.SystemRoleCode)?operatorModel.RoleCode:operatorModel.SystemRoleCode);
 
             if (operatorModel.RoleCode != "customer")
                 LoginUserKey = key + "_" + LoginUserKey;

@@ -20,7 +20,7 @@
         var sid = $.request("sid");
         gridOptions["onSelectRow"] = function (rowid) {
             var length = $(this).jqGrid("getGridParam", "selrow").length;
-            var keyValue = $("#gridList").jqGridRowValue().F_Id;
+            var keyValue = $("#gridList").jqGridRowValue().F_Account;
             var redictUrl = "/DrpServManage/Customer/RedictUserCenter" + "?keyValue=" + keyValue + "&sid=" + sid;
             $("#DRP-redict").attr('href', redictUrl);
 

@@ -31,9 +31,16 @@
     });
 
     function initCustomerSearch() {
+
+        var url = "/DrpServManage/Customer/GetCustoemrJson";
+        var sid = $.request("sid");
+        if (sid != "" && sid != null && typeof (sid) != undefined)
+            url = url + "?sid=" + sid;
+
+
         $("#F_CustomerId").select2({
             ajax: {
-                url: "/UserCenter/Customer/GetCustoemrJson",
+                url: url,
                 dataType: 'json',
                 delay: 250,
                 data: function (params) {

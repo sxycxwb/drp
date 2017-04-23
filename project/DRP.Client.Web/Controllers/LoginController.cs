@@ -13,6 +13,7 @@ using DRP.Application;
 using DRP.Application.DrpServManage;
 using DRP.Application.SystemManage;
 using DRP.Domain.Entity.DrpServManage;
+using DRP.Domain.Entity.SystemManage;
 using DRP.Domain.IRepository.DrpServManage;
 using DRP.Repository.DrpServManage;
 
@@ -63,7 +64,7 @@ namespace DRP.Client.Web.Controllers
                 }
 
                 CustomerEntity customerEntity = new CustomerApp().CheckLogin(username, password);
-                SetClientOperatorModel(customerEntity, "customer");
+                SetClientOperatorModel(customerEntity, null, "customer");
                 if (customerEntity != null)
                 {
                     logEntity.F_Account = customerEntity.F_Account;
@@ -87,6 +88,7 @@ namespace DRP.Client.Web.Controllers
 
         private RoleAuthorizeApp roleAuthorizeApp = new RoleAuthorizeApp();
         private CustomerApp customerApp = new CustomerApp();
+        private UserApp systemUserApp = new UserApp();
         /// <summary>
         /// 系统后台跳转登录
         /// </summary>
@@ -100,17 +102,17 @@ namespace DRP.Client.Web.Controllers
             //var systemUser = ClientOperatorProvider.Provider.GetSystemCurrent();
             //判断是否是后台用户跳转过来的
             //if (systemUser == null)
-                //throw new Exception("非法请求！");
+            //throw new Exception("非法请求！");
             //判断后台用户有没有权限查看用户中心页面，有则跳转，没有则提示错误信息 
             //if (!roleAuthorizeApp.SystemUserToUseCenterValidate(systemUser.RoleId))
-              //  throw new Exception("没有请求权限！");
+            //  throw new Exception("没有请求权限！");
             #endregion
 
             var requestInfo = DESEncrypt.Decrypt(key);
-            string roleCode = "", customerId = "",systemUserCode="";
+            string roleCode = "", accountCode = "", systemUserCode = "";
             if (!string.IsNullOrEmpty(requestInfo))
             {
-                customerId = requestInfo.Split('|')[0];
+                accountCode = requestInfo.Split('|')[0];
                 roleCode = requestInfo.Split('|')[1];
                 systemUserCode = requestInfo.Split('|')[2];
             }
@@ -119,8 +121,11 @@ namespace DRP.Client.Web.Controllers
                 throw new Exception("非法请求！");
             }
 
-            var customerEntity = customerApp.GetForm(customerId);
-            SetClientOperatorModel(customerEntity, roleCode);
+            var customerEntity = customerApp.GetFormByCode(accountCode);
+            var systemUserEntity = systemUserApp.GetFormByUserCode(systemUserCode);
+
+            SetClientOperatorModel(customerEntity, systemUserEntity, roleCode);
+
             ////记录日志
             //if (customerEntity != null)
             //{
@@ -131,10 +136,10 @@ namespace DRP.Client.Web.Controllers
             //    new LogApp().WriteDbLog(logEntity);
             //}
 
-            return RedirectToAction("Index", "Home",new {sid= key.ToLower() });
+            return RedirectToAction("Index", "Home", new { sid = key.ToLower() });
         }
 
-        private void SetClientOperatorModel(CustomerEntity customerEntity,string roleCode = "")
+        private void SetClientOperatorModel(CustomerEntity customerEntity, UserEntity systemUserEntity, string roleCode = "")
         {
             if (customerEntity != null)
             {
@@ -152,6 +157,13 @@ namespace DRP.Client.Web.Controllers
                 operatorModel.LoginToken = DESEncrypt.Encrypt(Guid.NewGuid().ToString());
                 operatorModel.IsSystem = false;
                 operatorModel.RoleCode = roleCode;
+
+                if (systemUserEntity != null)
+                {
+                    operatorModel.SystemUserId = systemUserEntity.F_Id;
+                    operatorModel.SystemUserCode = systemUserEntity.F_Account;
+                    operatorModel.SystemUserName = systemUserEntity.F_RealName;
+                }
                 ClientOperatorProvider.Provider.AddCurrent(operatorModel);
 
             }
