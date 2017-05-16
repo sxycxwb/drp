@@ -13,7 +13,7 @@
         $.myAjaxGet("/UserCenter/CustomerProduct/GetGridJson", {}, false, function (data) {
             $.each(data, function (i) {
                 var info = { F_Id: data[i].F_Id, F_ProductName: data[i].F_ProductName, F_ProductId: data[i].F_ProductId, F_CustomerId: data[i].F_CustomerId };
-                if (data[i].F_Status == '0') {
+                if (data[i].F_Status == '1') {
                     $scope.payarray.push(info);
                 } else if (data[i].F_Status == '0') {
                     $scope.nopayarray.push(info);
@@ -40,7 +40,7 @@
         //});
     }
     function btn_pay(id) {
-        var keyValue = $(id).attr("ds_productid");
+        var keyValue = $(id).attr("ds_id");
         $.modalConfirm("注：您确定要【购买】该产品吗？", function (r) {
             if (r) {
                 $.submitForm({
@@ -54,7 +54,7 @@
         });
     }
     function btn_start(id) {
-        var keyValue = $(id).attr("ds_data");
+        var keyValue = $(id).attr("ds_id");
         $.modalConfirm("注：您确定要【启用】该产品吗？", function (r) {
             if (r) {
                 $.submitForm({

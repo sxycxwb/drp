@@ -13,6 +13,7 @@ namespace DRP.Client.Web.Areas.UserCenter.Controllers
     {
         private CustomerProductApp customerProductApp = new CustomerProductApp();
         private ProductApp productApp = new ProductApp();
+        private CustomerApp customerApp = new CustomerApp();
         private ScheduleTaskApp scheduleTaskApp = new ScheduleTaskApp();
 
        
@@ -62,7 +63,7 @@ namespace DRP.Client.Web.Areas.UserCenter.Controllers
             if (customer.AccountBalance >= customerProductEntity.F_ChargeAmount)
             {
                 scheduleTaskApp.ProfitCalculateTask(customerId, productId, productEntity.F_ChargeStyle);
-                customer.AccountBalance = customer.AccountBalance - customerProductEntity.F_ChargeAmount;
+                customer.AccountBalance = customerApp.GetForm(customerId).F_AccountBalance;
                 ClientOperatorProvider.Provider.AddCurrent(customer);
                 return Success("产品购买成功。");
             }
