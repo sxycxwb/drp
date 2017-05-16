@@ -10,10 +10,10 @@
         $scope.payarray = [];
         $scope.nopayarray = [];
         $scope.stoppayarray = [];
-        $.myAjaxGet("/UserCenter/CustomerProduct/GetGridJson", { }, false, function (data) {
+        $.myAjaxGet("/UserCenter/CustomerProduct/GetGridJson", {}, false, function (data) {
             $.each(data, function (i) {
-                var info = { F_Id: data[i].F_Id, F_ProductName: data[i].F_ProductName };
-                if (data[i].F_Status == '1') {
+                var info = { F_Id: data[i].F_Id, F_ProductName: data[i].F_ProductName, F_ProductId: data[i].F_ProductId, F_CustomerId: data[i].F_CustomerId };
+                if (data[i].F_Status == '0') {
                     $scope.payarray.push(info);
                 } else if (data[i].F_Status == '0') {
                     $scope.nopayarray.push(info);
@@ -24,21 +24,23 @@
         });
     });
     function btn_stoppay(id) {
-        var keyValue = $(id).attr("ds_data");
-        $.modalConfirm("注：您确定要【停用】该产品吗？", function (r) {
-            if (r) {
-                $.submitForm({
-                    url: "/UserCenter/CustomerProduct/StopPayProduct",
-                    param: { keyValue: keyValue },
-                    success: function() {
-                        window.location.reload(); //刷新当前页面.
-                    }
-                });
-            }
-        });
+        var keyValue = $(id).attr("ds_productid");
+        var url = "/UserCenter/CustomerProduct/Default?keyValue=" + keyValue;
+        window.open(url);
+        //$.modalConfirm("注：您确定要【停用】该产品吗？", function (r) {
+        //    if (r) {
+        //        $.submitForm({
+        //            url: "/UserCenter/CustomerProduct/StopPayProduct",
+        //            param: { keyValue: keyValue },
+        //            success: function() {
+        //                window.location.reload(); //刷新当前页面.
+        //            }
+        //        });
+        //    }
+        //});
     }
     function btn_pay(id) {
-        var keyValue = $(id).attr("ds_data");
+        var keyValue = $(id).attr("ds_productid");
         $.modalConfirm("注：您确定要【购买】该产品吗？", function (r) {
             if (r) {
                 $.submitForm({
@@ -58,7 +60,7 @@
                 $.submitForm({
                     url: "/UserCenter/CustomerProduct/StartPayProduct",
                     param: { keyValue: keyValue },
-                    success: function() {
+                    success: function () {
                         window.location.reload(); //刷新当前页面.
                     }
                 });
@@ -72,21 +74,23 @@
             <div>
                 <h4>已购买产品<small></small></h4>
                 <p class="buy_product" ng-repeat="a in payarray">
-                    <button type="button" class="btn btn-lg btn-success ds_do_action" ds_action="loadMainView" ds_product="zj" onclick="btn_stoppay(this)" ds_data="{{a.F_Id}}">{{a.F_ProductName}}</button>
+                    <button type="button" class="btn btn-lg btn-success ds_do_action" ds_action="loadMainView" ds_product="zj" onclick="btn_stoppay(this)" ds_productid="{{a.F_ProductId}}" ds_customerid="{{a.F_CustomerId}}" ds_id="{{a.F_Id}}">{{a.F_ProductName}}</button>
                     &nbsp;&nbsp;&nbsp;
                 </p>
             </div>
-            <div style="margin-top: 30px;" >
+            <div style="margin-top: 30px;">
                 <h4>未支付产品</h4>
                 <p class="nobuy_product" ng-repeat="a in nopayarray">
-                <button type="button" class="btn btn-lg ds_do_action" ds_action="loadMainView" ds_product="custFee" onclick="btn_pay(this)" ds_data="{{a.F_Id}}">{{a.F_ProductName}}</button>
-                &nbsp;&nbsp;&nbsp;</p>
+                    <button type="button" class="btn btn-lg ds_do_action" ds_action="loadMainView" ds_product="custFee" onclick="btn_pay(this)" ds_productid="{{a.F_ProductId}}" ds_customerid="{{a.F_CustomerId}}" ds_id="{{a.F_Id}}">{{a.F_ProductName}}</button>
+                    &nbsp;&nbsp;&nbsp;
+                </p>
             </div>
-            <div style="margin-top: 30px;" >
+            <div style="margin-top: 30px;">
                 <h4>已停用产品</h4>
                 <p class="nobuy_product" ng-repeat="a in stoppayarray">
-                <button type="button" class="btn btn-lg ds_do_action" ds_action="loadMainView" ds_product="custFee" onclick="btn_start(this)" ds_data="{{a.F_Id}}">{{a.F_ProductName}}</button>
-                &nbsp;&nbsp;&nbsp;</p>
+                    <button type="button" class="btn btn-lg ds_do_action" ds_action="loadMainView" ds_product="custFee" onclick="btn_start(this)" ds_productid="{{a.F_ProductId}}" ds_customerid="{{a.F_CustomerId}}" ds_id="{{a.F_Id}}">{{a.F_ProductName}}</button>
+                    &nbsp;&nbsp;&nbsp;
+                </p>
             </div>
         </div>
         <div class="col-md-4" style="float: left; ">

@@ -55,6 +55,7 @@
         if (!$('#form1').formValid()) {
             return false;
         }
+        $("#F_CustomerName").val($("#F_CustomerId option:selected").text());
         $('#F_Content').val(UE.getEditor('editor').getContent());
 
         $.submitForm({

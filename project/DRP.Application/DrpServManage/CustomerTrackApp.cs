@@ -33,9 +33,9 @@ namespace DRP.Application.DrpServManage
             }
             expression = expression.And(t => t.F_DeleteMark == false);
             
-            if (!string.IsNullOrEmpty(ClientOperatorProvider.Provider.GetCurrent().SystemUserId)&& ClientOperatorProvider.Provider.GetCurrent().SystemUserCode!="admin")
+            if (string.IsNullOrEmpty(ClientOperatorProvider.Provider.GetCurrent().SystemUserId)|| ClientOperatorProvider.Provider.GetCurrent().SystemUserCode!="admin")
             {
-                var currentUserId = ClientOperatorProvider.Provider.GetCurrent().SystemUserId;
+                var currentUserId = ClientOperatorProvider.Provider.GetCurrent().UserId;
                 expression = expression.And(t => t.F_CreatorUserId == currentUserId);
             }
 
@@ -60,6 +60,13 @@ namespace DRP.Application.DrpServManage
                         customerTrackEntity.F_LastModifyUserName =
                             ClientOperatorProvider.Provider.GetCurrent().SystemUserName;
                     }
+                    else
+                    {
+                        customerTrackEntity.F_LastModifyUserId =
+                            ClientOperatorProvider.Provider.GetCurrent().UserId;
+                        customerTrackEntity.F_LastModifyUserName =
+                            ClientOperatorProvider.Provider.GetCurrent().UserName;
+                    }
                 }
             }
             else
@@ -73,6 +80,13 @@ namespace DRP.Application.DrpServManage
                            ClientOperatorProvider.Provider.GetCurrent().SystemUserId;
                         customerTrackEntity.F_CreatorUserName =
                             ClientOperatorProvider.Provider.GetCurrent().SystemUserName;
+                    }
+                    else
+                    {
+                        customerTrackEntity.F_CreatorUserId =
+                            ClientOperatorProvider.Provider.GetCurrent().UserId;
+                        customerTrackEntity.F_CreatorUserName =
+                            ClientOperatorProvider.Provider.GetCurrent().UserName;
                     }
                 }
             }

@@ -1,0 +1,22 @@
+﻿@model DRP.Domain.Entity.DrpServManage.ProductEntity
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@Model.F_ProductName</title>
+</head>
+<body>
+    <div>
+        产品名称：<span>@Model.F_ProductName</span><br />
+        销售价：<span>@Model.F_ChargeAmount</span><br />
+        产品描述：<span>@Model.F_Description</span><br />
+        代理商提成率：<span>@Model.F_RoyaltyRate</span>
+
+    </div>
+</body>
+</html>
